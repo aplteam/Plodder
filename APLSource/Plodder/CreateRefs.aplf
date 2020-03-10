@@ -1,0 +1,5 @@
+ {r}←CreateRefs dummy
+⍝ Create refs where appropriate
+ r←⍬
+ A←##.APLTreeUtils ⋄ F←##.FilesAndDirs ⋄ M←##.MarkAPL
+⍝Done

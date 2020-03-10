@@ -1,0 +1,6 @@
+ CreateSymbolicLink←{
+⍝ create link ⍵ to source ⍺
+     os←⊃⊃'.'⎕WG'APLVersion'
+     os≡'W':⎕SH'MKLINK /J "',⍵,'" "',⍺,'"'
+     ⎕SH'ln -s "',⍺,'" "',⍵,'"'
+ }

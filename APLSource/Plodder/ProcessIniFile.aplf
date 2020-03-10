@@ -1,0 +1,12 @@
+ G←G ProcessIniFile iniFilename
+⍝ Note that some entries from the INI file are copied over to G for convinience.
+⍝ The INI instance is available from G as well: G.INI
+ G.INI←⎕NEW ##.IniFiles(,⊂iniFilename)
+ :If ¯1=G.INI.Get'Trap:General' ⍝ Not defined in INI file?
+     (~A.IsDevelopment)G.INI.Put'TRAP:General'
+ :EndIf
+ G.AppName←⊃G.INI.Get'Config:AppName'
+ :If ¯1=G.Trap←G.INI.Get'TRAP:General'
+     G.Trap←~A.IsDevelopment
+ :EndIf
+ ⍝Done

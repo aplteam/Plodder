@@ -1,0 +1,7 @@
+ r←OnHeader msg
+ ⎕←'OnHeader...'
+ r←0
+ :If 0<#.⎕NC'TEMP'
+     #.TEMP.Log,←⊂'Header'
+ :EndIf
+⍝Done

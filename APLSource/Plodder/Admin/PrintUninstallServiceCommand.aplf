@@ -1,0 +1,6 @@
+ cmd←PrintUninstallServiceCommand wsid
+⍝ Print the command to the session that can be used to un-install the Windows Service.
+⍝ The name of the Windows service is derived from ⎕WSID in case ⍵ is empty.
+ wsid←{2⊃⎕NPARTS ⎕WSID}⍣(0=≢wsid)⊣wsid
+ cmd←'sc delete ',wsid
+⍝Done

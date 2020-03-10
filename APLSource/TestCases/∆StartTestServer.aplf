@@ -1,0 +1,27 @@
+ r←{rf}∆StartTestServer dummy;LXwas;WSIDwas;tempWSID;cl;q;exe;cmd;_
+⍝ Starts a separate instance of Dyalog (RunTime) and starts the server within that instance.
+⍝ The optional left argument defaults to 0. 1 allows one to RIDE into the running server.
+⍝ *** For a RIDE the Conga DLLs must be available as siblings of the workspace
+⍝ *** This function changes ⎕LX and ⎕WSID but only temporarily.
+ rf←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'rf'                    ⍝ RIDE flag
+ r←1
+
+ LXwas←⎕LX
+ ⎕LX←'#.Plodder.TestRun'
+ WSIDwas←⎕WSID
+ tempWSID←⎕WSID←'Plodder_Testserver'
+ 0 ⎕SAVE ⎕WSID
+ ⎕WSID←WSIDwas
+ ⎕LX←LXwas
+ cl←#.GetCommandLineArgs                    ⍝ Current command line
+ q←{'"',⍵,'"'}                              ⍝ Quote stuff
+ exe←⊃cl                                    ⍝ The interpreter
+ exe←(exe↑⍨'Dyalog.exe'{¯1+1⍳⍨⍺⍷⍵}exe),'Dyalogrt.exe'
+ cmd←⊂q exe                                 ⍝
+ cmd,←⊂q tempWSID                           ⍝ The workspace
+ cmd,←⊂'maxws=32MB'
+ cmd,←⊂'DYALOG_NOPOPUPS=1'                  ⍝ We don't want the dialog box "You have successfully..." nor any other
+ cmd,←rf/⊂'RIDE_INIT=SERVE:127.0.0.1:4502'  ⍝ User wants to have a RIDE
+ _←⎕CMD(1↓∊' ',¨cmd)''                      ⍝
+ r←0
+⍝Done

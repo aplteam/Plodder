@@ -1,0 +1,7 @@
+ TestRun
+ #.⎕SHADOW'TEMP'
+ 'TEMP'#.⎕NS''
+ #.TEMP.Log←''
+ 1 ⎕NDELETE'./Tests/Rumba/Log/Log.txt'
+ 'Tests/test.ini'Plodder.Run 0
+⍝Done

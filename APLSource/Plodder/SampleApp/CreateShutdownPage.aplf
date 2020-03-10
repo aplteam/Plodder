@@ -1,0 +1,9 @@
+ response←response CreateShutdownPage G;msg;md;html;⎕TRAP
+ md←''
+ md,←⊂'Plodder is shutting down'
+ md,←⊂''
+ md,←⊂'Go to [Plodder''s homepage](http://localhost:',(⍕G.INI.Get'Config:Port'),'/)'
+ md←(⊂'[parm]:title = Plodder'),md
+ html←Markdown2HTML md
+ response.Content←⊃,/html,¨⊂⎕UCS 13 10
+⍝Done

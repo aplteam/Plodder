@@ -1,0 +1,9 @@
+ {success}←CopyRumba path;fullpath
+ fullpath←path,'\Runtime\Rumba\Rumba.dws'
+ 'CarlisleGroup'#.⎕CY fullpath
+ :If ~A.IsDevelopment
+     ⍝ Delete documentation in RunTime:
+     #.CarlisleGroup.Rumba.⎕EX'Doc'
+     #.CarlisleGroup.Rumba.Admin.⎕EX'StartHelp'
+ :EndIf
+⍝Done

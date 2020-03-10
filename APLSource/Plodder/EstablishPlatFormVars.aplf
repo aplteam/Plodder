@@ -1,0 +1,6 @@
+ G←EstablishPlatFormVars G;platform
+ platform←⊃#.⎕WG'APLVersion'
+ G.IsWin←'Win'≡3↑platform
+ G.IsMacOS←'Mac'≡3↑platform
+ G.IsUnix←0=G.(IsWin+IsMacOS)
+⍝Done

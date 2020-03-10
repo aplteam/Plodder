@@ -1,0 +1,9 @@
+ response←response Create404Page msg;md;html
+⍝ Tell the user that this page does not exist
+ md←''
+ md,←⊂'[parm]:title = Plodder'
+ md,←⊂'# 404: Page not found'
+ html←Markdown2HTML md
+ response.Content←⊃,/html,¨⊂⎕UCS 13 10
+ response.StatusCode←404
+⍝Done

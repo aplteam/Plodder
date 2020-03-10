@@ -1,0 +1,7 @@
+ G←OpenWindowsEventLog G
+⍝ In case the INI file says so an instance of the `WindowsEventLog` class is instanciated.
+⍝ The instance is assigned to `G.MyWindowsEventLog`. Otherwise `G.MyWindowsEventLog` gets ⍬.
+ G.MyWindowsEventLog←⍬
+ :If G.WriteToWindowsEventLog
+     G.MyWindowsEventLog←⎕NEW ##.WindowsEventLog(,⊂G.AppName)
+ :EndIf

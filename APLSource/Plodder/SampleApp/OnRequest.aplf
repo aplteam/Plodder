@@ -1,0 +1,15 @@
+ response←OnRequest request
+⍝ Split by REST method
+ {}{Init ⍵}⍣(⊃0=⎕NC'R')⊣⍬
+ response←R.NewResponse request
+ :Select request.Method
+ :Case 'GET'
+     response(ProcessBrowserRequest)←request
+ :CaseList 'POST' 'PUT' 'PATCH' 'DELETE'
+     response.Content←H.ErrorPage'Error 501: ',request.Method,' is not implemented yet'    ⍝TODO⍝ : Implement those REST commands as well
+     response.StatusCode←501
+ :Else
+     response.StatusCode←400
+     response.Content←H.ErrorPage'Error 400: unknown type; must be undefined or "json" or "html" (default)'  ⍝TODO⍝
+ :EndSelect
+⍝Done

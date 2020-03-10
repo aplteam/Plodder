@@ -1,0 +1,31 @@
+ R←Test_500(stopFlag batchFlag);⎕TRAP;filename;log;counter;flag
+⍝ Check the log file
+ ⎕TRAP←(999 'C' '∘∘∘ ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ filename←'./Tests/Rumba/Log/log.txt'
+
+ flag←counter←0
+ :Repeat
+     :Trap 0
+ ⍝ Trap is needed because the server might still run, holding the log file.
+         log←'flat'##.APLTreeUtils.ReadUtf8File filename
+         flag←1
+     :Else
+         :If 20>counter←counter+1
+             ⎕DL 1
+         :Else
+             'Something went wrong'∆Assert 0
+         :EndIf
+     :EndTrap
+ :Until flag
+
+ →T.PassesIf 0<≢log
+ →T.PassesIf 1=+/'Server started'⍷log
+ →T.PassesIf 1=+/'"GET /This_Does_Not_Exist_For_Sure HTTP/1.1" 404'⍷log
+ →T.PassesIf 1=+/'"GET /packages HTTP/1.1" 200'⍷log
+ →T.PassesIf 1=+/'Application Error:  SYNTAX ERROR'⍷log
+ →T.PassesIf 1=+/'GET /Shutdown'⍷log
+
+ R←T._OK
+⍝Done

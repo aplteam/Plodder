@@ -1,0 +1,4 @@
+ OnContinueEvent←{
+     _←WindowsEventLog'Continuing'
+     1:shy←0
+ }

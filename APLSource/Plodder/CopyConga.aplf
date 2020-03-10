@@ -1,0 +1,5 @@
+ {success}←CopyConga path;fullpath
+ fullpath←path,'\Runtime\Conga\Conga.dws'
+ 'DRC'##.⎕CY fullpath
+ ##.DRC.X509Cert.LDRC←##.DRC
+⍝Done

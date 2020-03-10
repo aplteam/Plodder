@@ -1,0 +1,8 @@
+ r←OnHouseKeeping msg
+ ⎕←'Housekeeping...'
+ {}{Init ⍵}⍣(⊃0=⎕NC'R')⊣⍬
+ r←0
+ :If 0<#.⎕NC'TEMP'
+     #.TEMP.Log,←⊂'Housekeeping'
+ :EndIf
+⍝Done

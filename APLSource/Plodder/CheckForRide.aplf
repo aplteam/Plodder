@@ -1,0 +1,13 @@
+ {r}←CheckForRide dummy;b;port;args;bool
+⍝ Checks the command line for `-ride=port`. If so that function allows a RIDE.
+ r←⍬
+ args←2 ⎕NQ #'GetCommandLineArgs'
+ bool←'-ride='{⍺∘≡¨(≢⍺)↑¨0(819⌶)⍵}⊣args
+ :If 0<+/bool
+     (b port)←⎕VFI(≢'-ride=')↓(bool⍳1)⊃args
+     :If 1=≢b
+     :AndIf b
+         AllowRide port
+     :EndIf
+ :EndIf
+⍝Done

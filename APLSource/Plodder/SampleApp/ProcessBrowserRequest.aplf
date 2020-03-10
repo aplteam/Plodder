@@ -1,0 +1,22 @@
+ response←response ProcessBrowserRequest request;html;md
+⍝ This function processes all requests that come from a Browser (always GET)
+ response.StatusCode←200
+ :Select A.Lowercase request.URI
+ :Case ,'/'
+     response.Content←⊃,/(CompileHomepPage ⍬),¨⊂⎕UCS 13 10
+ :Case '/packages'
+     response(ProcessServiceRequest)←'Packages'
+ :Case '/groups'
+     response(ProcessServiceRequest)←'Groups'
+ :Case '/stop'
+     response(ProcessStopPage)←⍬
+ :Case '/crash'
+     ⎕←'Browser asked for a crash'
+     ∘∘∘
+ :Case '/shutdown'
+     response(CreateShutdownPage)←G
+     SendQuitEvent ⍬
+ :Else
+     response(Create404Page)←⍬
+ :EndSelect
+⍝Done

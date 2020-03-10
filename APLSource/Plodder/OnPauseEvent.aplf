@@ -1,0 +1,4 @@
+ OnPauseEvent←{
+     _←WindowsEventLog'Pausing'
+     1:shy←0
+ }

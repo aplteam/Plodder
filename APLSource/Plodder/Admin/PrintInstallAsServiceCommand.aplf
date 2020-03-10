@@ -1,0 +1,16 @@
+ cmd←{wsid}PrintInstallAsServiceCommand ridePort;aplexe
+⍝ Print the command to the session that can be used to install Plodder as a Windows Service.
+⍝ `wsid` must point to the workspace to be installed. Has a default.
+⍝ In case the right argument is a positiv integer it is treated as a RIDE port number, and this is added to the command line:
+⍝ -ride={ridePort}
+⍝ That will allow the user a very early Ride on that port.
+⍝ Note that the name of the service is defined by the workspace name; defaults to "Plodder".
+ 'Right argument must be 0 or a positive integer (RIDE port)'⎕SIGNAL 11/⍨0=≢ridePort
+ 'Right argument must be 0 or a positive integer (RIDE port)'⎕SIGNAL 11/⍨~(ridePort>0)∨(⊂ridePort)∊0 1
+ aplexe←'"',(2 ⎕NQ #'GetEnvironment' 'dyalog'),'\dyalogrt.exe"'
+ :If 0=⎕NC'wsid'
+     wsid←'"',(⎕WSID),'"'
+ :EndIf
+ cmd←aplexe,' ',wsid,' APL_ServiceInstall=',(2⊃⎕NPARTS ⎕WSID),' DYALOG_NOPOPUPS=1'
+ cmd,←(0<ridePort)/' -ride=',⍕ridePort
+⍝Done

@@ -1,0 +1,7 @@
+ OnStart←{
+     server←⍵
+     ⎕←'OnStart...'
+     0=#.⎕NC'TEMP':0
+     #.TEMP.Log,←⊂'OnStart'
+     0
+ }

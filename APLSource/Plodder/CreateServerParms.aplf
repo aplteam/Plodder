@@ -1,0 +1,41 @@
+ parms←CreateServerParms G;x509
+ parms←R.NewServer 0
+ parms.Context←⊃G.INI.Get'APP:Context'
+ parms.DisplayRequests←G.INI.Get'CONFIG:DisplayRequests'
+ parms.Folder←⊃G.INI.Get'CONFIG:Folder'
+ parms.LogHTTPToSession←G.INI.Get'CONFIG:LogHTTPToSession'
+ parms.MaxNoOfThreads←G.INI.Get'CONFIG:MaxNoOfThreads'
+ parms.Name←G.AppName
+ parms.OnStart←⊃''G.INI.Get'APP:OnStart'
+ parms.OnHeader←⊃''G.INI.Get'APP:OnHeader'
+ parms.OnRequest←⊃G.INI.Get'APP:OnRequest'
+ parms.OnCongaTimeout←⊃''G.INI.Get'APP:OnCongaTimeOut'
+ parms.Port←G.INI.Get'CONFIG:Port'
+ parms.Secure←G.INI.Get'CONFIG:Secure'
+ :If parms.Secure
+     ⍝TODO⍝ We need a proper certificate here!
+     parms.PublicCertFile←'expand'F.NormalizePath⊃G.INI.Get'CERTIFICATES:PublicCertFile'
+     parms.PrivateKeyFile←'expand'F.NormalizePath⊃G.INI.Get'CERTIFICATES:PrivateKeyFile'
+     parms.CertType←⊃G.INI.Get'CERTIFICATES:CertType'
+ :EndIf
+ :If A.IsDevelopment
+     parms.Trap←G.INI.Get'TRAP:Rumba'
+ :Else
+     parms.Trap←1
+ :EndIf
+ G.QuitEvent←G.INI.Get'EVENTS:QuitEvent'
+ G.PauseEvent←G.INI.Get'EVENTS:PauseEvent'
+ G.ContinueEvent←G.INI.Get'EVENTS:ContinueEvent'
+ :If ¯1≡G.INI.Get'WINDOWSEVENTLOG:Write'
+     :If G.IsWin
+         G.WriteToWindowsEventLog←IsRunningAsService
+     :Else
+         G.WriteToWindowsEventLog←0
+     :EndIf
+ :Else
+     G.WriteToWindowsEventLog←G.INI.Get'WINDOWSEVENTLOG:Write'
+ :EndIf
+ parms.LogHTTP←G.INI.Get'LOGFILE:LogHTTP'
+ parms.LogConga←G.INI.Get'LOGFILE:LogConga'
+ parms.LogRumba←G.INI.Get'LOGFILE:LogRumba'
+⍝Done

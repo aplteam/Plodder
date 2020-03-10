@@ -1,0 +1,25 @@
+ r←GetAppFolder filename
+⍝ Depending on the operating system, the folder where your application may write to is or is not different from
+⍝ the folder it is installed in. The installation folder is where the workspace/EXE resides.
+⍝ For log files and error snapshots (and possibly the INI file) we need a folder we are allowed to write to.
+⍝ Under Windows this means it has to be somewhere else. That somewhere else is returned by this function.
+⍝ * Under Windows it depends on the account:
+⍝   * For any ordinary user account it is `%LOCALAPPDATA%\Plodder\`
+⍝   * For the system account it is where the workspace was loaded from\\
+⍝     Note that Windows Services usually run under the system account
+⍝ * Under Linux it is `/etc/Plodder/`
+⍝ * Under MacOS it is /usr/local/Plodder/
+ :Select ##.APLTreeUtils.Uppercase ##.APLTreeUtils.GetOperatingSystem ⍬
+ :Case 'WIN'
+     :If IsRunningAsService
+         r←1⊃⎕NPARTS 2⊃#.GetCommandLineArgs
+     :Else
+         r←((2 ⎕NQ #'GetEnvironment' 'LOCALAPPDATA'),'\Plodder\'),filename
+     :EndIf
+ :Case 'LIN'
+     r←('/etc/Plodder/'),filename
+ :Case 'MAC'
+     r←('/usr/local/Plodder/'),filename
+ :Else
+     11 ⎕SIGNAL⍨'Operating system not supported'
+ :EndSelect

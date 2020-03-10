@@ -1,0 +1,13 @@
+ {r}←{type}WindowsEventLog msg
+⍝ Writes `msg` to the Windows Event Log as "type" (default = "info")
+⍝ "type" might insetad become "error"
+ r←⍬
+ type←{0<⎕NC ⍵:⍎⍵ ⋄ 'info'}'type'
+ :If G.WriteToWindowsEventLog
+     msg←,⊆msg
+     :If 'error'≡type
+         G.MyWindowsEventLog.WriteError¨msg
+     :Else
+         G.MyWindowsEventLog.WriteInfo¨msg
+     :EndIf
+ :EndIf

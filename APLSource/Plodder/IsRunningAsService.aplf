@@ -1,0 +1,2 @@
+ r←IsRunningAsService
+ r←(⊂'RunAsService=1')∊#.GetCommandLineArgs

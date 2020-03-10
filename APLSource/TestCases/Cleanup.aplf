@@ -1,0 +1,19 @@
+ Cleanup;flag;counter
+ ⎕EX¨'A' 'Rumba'
+ flag←counter←0
+ :Repeat
+     :Trap 0
+     ⍝ Trap is needed because the test server might still run and have the log file tied.
+         1 ⎕NDELETE'Tests/Rumba/Log/log.txt'
+         flag←1
+     :Else
+         :If 20>counter←counter+1
+             ⎕DL 1
+         :Else
+             'Something went wrong'∆Assert 0
+         :EndIf
+     :EndTrap
+ :Until flag
+ 1 ⎕NDELETE'Plodder_Testserver.dws'
+ ⎕←'It is recommended to )OFF now'
+⍝Done

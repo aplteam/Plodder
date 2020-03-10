@@ -1,0 +1,3 @@
+ {r}←DQ obj
+ r←⎕DQ obj
+⍝Done

@@ -1,0 +1,6 @@
+ {r}←LoadDependencies dummy;assetsPath
+ r←⍬
+ assetsPath←(1⊃⎕NPARTS ⎕WSID),'Assets'
+ CopyConga assetsPath
+ CopyRumba assetsPath
+⍝Done

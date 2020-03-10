@@ -1,0 +1,15 @@
+ response←response ProcessStopPage dummy;md;html
+ md←''
+ md,←⊂'[parm]:title = Plodder'
+ :If A.IsDevelopment
+     md,←⊂'Browser asked Plodder to stop'
+     (1+⊃⎕LC)⎕STOP⊃⎕SI
+     ⍝
+ :Else
+     md,←⊂'Browser asked Plodder to stop, but this feature is not available in Runtime'
+ :EndIf
+ md,←⊂''
+ md,←⊂'[Go back](/)'
+ html←Markdown2HTML md
+ response.Content←⊃,/html,¨⊂⎕UCS 13 10
+⍝Done

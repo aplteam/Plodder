@@ -1,0 +1,19 @@
+ TRAP←{force}SetTrap G;folder;appName
+⍝ General error trapping in case something goes horribly wrong.
+⍝ Normally in development it does not establish error trapping by default, but this can be enfored by apssing a 1 as left argument.
+⍝ In Runtime it always establishes error trapping
+ force←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'force'
+ :If ¯1=force
+     force←~A.IsDevelopment
+ :EndIf
+ #.ErrParms←##.HandleError.CreateParms
+ appName←G.AppName
+ folder←GetAppFolder appName
+ #.ErrParms.errorFolder←folder,'\Errors'
+ 'create!'F.CheckPath #.ErrParms.errorFolder
+ :If 'WIN'≡##.APLTreeUtils.Uppercase ##.APLTreeUtils.GetOperatingSystem ⍬
+     #.ErrParms.windowsEventSource←appName
+ :EndIf
+ #.ErrParms.AppName←appName
+ TRAP←force ##.HandleError.SetTrap'#.ErrParms'
+⍝Done

@@ -1,0 +1,6 @@
+ {r}←InitConga dummy;rc;msg;more
+ r←⍬
+ ⍝DRC.Init returns either a two- or a three-element vector:
+ (rc msg more)←3↑¯1 ##.DRC.Init'./Assets/RunTime/Conga'
+ 'Could not initialize Conga'Assert 0=rc
+⍝Done

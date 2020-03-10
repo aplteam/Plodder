@@ -1,0 +1,14 @@
+ html←{parms}Markdown2HTML md;ns;meta
+ :If 0=⎕NC'parms'
+     parms←M.CreateParms
+     parms.cssURL←'./Assets/CSS'
+     parms.smoothScrolling←0
+     meta←''
+     meta,←⊂'<title="Plodder''s Sample Application">'
+     meta,←⊂'<meta name="language" content="English">'
+     meta,←⊂'<meta name="copyright" content="APL Team Ltd">'
+ :EndIf
+ ns←M.Init parms md
+ ns←M.Process ns
+ html←parms M.MakeHTML_Doc ns.html
+⍝Done

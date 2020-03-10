@@ -1,0 +1,8 @@
+ FetchFrom←{
+⍝ ⍵ is a two-column matrix like the QueryParameters property of a response.
+⍝ ⍺ is a simple string possibly identifying a row in ⍵
+⍝ ← is ⍬ in case ⍺ was not found in ⍵ or the value (the second column of the row)
+     row←⍵[;1]⍳⊂⍺
+     (≢⍵)<row:⍬
+     2⊃⍵[row;]
+ }

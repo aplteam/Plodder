@@ -1,0 +1,30 @@
+ {r}←{iniFile}Run testFlag;⎕TRAP;parms;more;A;F;G;R;S
+ r←⍬
+ ⎕IO←1 ⋄ ⎕ML←1
+ EnableCONTINUE_workspaces ⍬
+ G←⎕NS''
+ G.AppName←'Plodder'  ⍝ Might get overwritten by INI file later on
+ G←EstablishPlatFormVars G
+ CreateRefs ⍬
+ F.PolishCurrentDir
+ CheckForRide ⍬
+ #.⎕SHADOW'ErrParms'
+ ⎕TRAP←SetTrap G
+ LoadDependencies ⍬
+ R←#.CarlisleGroup.Rumba.Core
+ iniFile←{0<⎕NC ⍵:⍎⍵ ⋄ 'server.ini'}'iniFile'
+ iniFile←PolishInifilePath iniFile
+ G(ProcessIniFile)←iniFile
+ :If 0=testFlag
+     ⎕TRAP←G.Trap SetTrap G
+ :EndIf
+ parms←CreateServerParms G
+ parms←CheckServerParms parms
+ G←OpenWindowsEventLog G
+ WindowsEventLog'Starting'
+ EstablishHandlersForRumbaEvents G
+ r←parms R.Start F.PWD,'/Assets/Runtime/Conga'
+ DQ'.'
+ ⎕DL 2      ⍝ Give it a moment...
+ Shutdown ⍬
+⍝Done

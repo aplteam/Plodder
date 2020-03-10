@@ -1,0 +1,9 @@
+ response←response ProcessServiceRequest name;md;html
+ md←''
+ md,←⊂'[parm]:title = Plodder'
+ md,←⊂'User asked for ',name
+ md,←⊂''
+ md,←⊂'[Go back](/)'
+ html←Markdown2HTML md
+ response.Content←⊃,/html,¨⊂⎕UCS 13 10
+⍝Done
