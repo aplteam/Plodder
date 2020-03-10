@@ -1,4 +1,5 @@
  r←∆NewClient
  r←Rumba.NewClient 0
  r.Port←8090
+ r.Secure←0
 ⍝Done
