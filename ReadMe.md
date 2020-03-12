@@ -75,12 +75,16 @@ Plodder comes with a test suite. You can run the test suite by calling `#.Plodde
 
 ## Installation
 
-1. Download a release
+1. Download a release.
 
-2. Load the `Plodder` workspace
+2. )xload the `Plodder` workspace
 
-3. Bring in the namespace (or class) that holds the handlers for the four Plodder events as well as everything they need
+   At this point you could already start the server and put `http://localhost` into the address bar of the browser and it would work thanks to the demo application build into Plodder.
 
-4. Check the INI files in order to make sure that the settings suit your needs
+3. Bring in the namespace (or class) that holds the handlers for the four Plodder events as well as everything they need.
 
-5. Execute `⎕LX`
+4. Check the INI files in order to make sure that the settings suit your needs.
+
+   At the very least you need to amend the settings in the `[APP]` section.
+
+5. Execute `⎕LX`.

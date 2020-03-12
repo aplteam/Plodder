@@ -11,7 +11,7 @@
  #.⎕SHADOW'ErrParms'
  ⎕TRAP←SetTrap G
  LoadDependencies ⍬
- R←#.CarlisleGroup.Rumba.Core
+ R←#.RumbaLean.Core
  iniFile←{0<⎕NC ⍵:⍎⍵ ⋄ 'server.ini'}'iniFile'
  iniFile←PolishInifilePath iniFile
  G(ProcessIniFile)←iniFile
@@ -23,7 +23,7 @@
  G←OpenWindowsEventLog G
  WindowsEventLog'Starting'
  EstablishHandlersForRumbaEvents G
- r←parms R.Start F.PWD,'/Assets/Runtime/Conga'
+ r←parms R.Start''
  DQ'.'
  ⎕DL 2      ⍝ Give it a moment...
  Shutdown ⍬
