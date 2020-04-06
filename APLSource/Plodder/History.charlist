@@ -1,4 +1,5 @@
-* 0.2.0 from 2020-03-12
+* 0.2.0 from 2020-04-06
   * Uses fork "RumbaLean" rather than "Rumba"
+  * Couple of minor bug fixes
 * 0.1.0 from 2020-03-10
   * Very first version of HTTP server "Plodder"
