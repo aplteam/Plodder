@@ -1,5 +1,9 @@
  RunTests
- ##.##.FilesAndDirs.PolishCurrentDir
- ##.##.TestCases.Prepare
- ##.##.TestCases.T.Run 0
+ :If 9=##.##.⎕NC'TestCases'
+     ##.##.FilesAndDirs.PolishCurrentDir
+     ##.##.TestCases.Prepare
+     ##.##.TestCases.T.Run 0
+ :Else
+     ⎕←'No test cases found - this seems to be a release, not a development workspace?!'
+ :EndIf
 ⍝Done
