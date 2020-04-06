@@ -72,6 +72,8 @@ The INI file is called `server.ini`. It is sorrowly documented.
 
 Plodder comes with a test suite. You can run the test suite by calling `#.Plodder.Admin.RunTests`.
 
+However, in order to run the test cases you must have a copy of the project: a release won't do.
+
 
 ## Installation
 
