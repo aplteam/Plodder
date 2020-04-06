@@ -1,0 +1,6 @@
+ r←GetAssetPath
+ :If 'CLEAR WS'≡⎕WSID
+     r←(1⊃⎕NPARTS ⎕WSID),'Assets'
+ :Else
+     r←'./Assets'
+ :EndIf

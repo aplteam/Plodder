@@ -10,6 +10,7 @@
  ⎕LX←'#.Plodder.TestRun'
  WSIDwas←⎕WSID
  tempWSID←⎕WSID←'Plodder_Testserver'
+ tempWSID←'expand'##.FilesAndDirs.NormalizePath tempWSID
  0 ⎕SAVE ⎕WSID
  ⎕WSID←WSIDwas
  ⎕LX←LXwas

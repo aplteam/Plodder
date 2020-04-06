@@ -23,7 +23,7 @@
  G←OpenWindowsEventLog G
  WindowsEventLog'Starting'
  EstablishHandlersForRumbaEvents G
- r←parms R.Start''
+ r←parms R.Start GetAssetPath,'/Runtime/Conga'
  DQ'.'
  ⎕DL 2      ⍝ Give it a moment...
  Shutdown ⍬

@@ -4,7 +4,7 @@
  :EndIf
  ##.Plodder.A←##.APLTreeUtils
  ##.Plodder.LoadDependencies ⍬
- Rumba←#.CarlisleGroup.Rumba.Core
+ Rumba←#.RumbaLean.Core
  ##.Plodder.InitConga ⍬
  Rumba.##.Conga.X509Cert.LDRC←##.DRC
 ⍝Done

@@ -5,9 +5,11 @@
  type←{0<⎕NC ⍵:⍎⍵ ⋄ 'info'}'type'
  :If G.WriteToWindowsEventLog
      msg←,⊆msg
-     :If 'error'≡type
-         G.MyWindowsEventLog.WriteError¨msg
-     :Else
-         G.MyWindowsEventLog.WriteInfo¨msg
-     :EndIf
+     :Trap 6  ⍝ VALUE ERROR on WriteError can happen in case an error was handled by HandleError
+         :If 'error'≡type
+             G.MyWindowsEventLog.WriteError¨msg
+         :Else
+             G.MyWindowsEventLog.WriteInfo¨msg
+         :EndIf
+     :EndTrap
  :EndIf
