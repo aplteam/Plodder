@@ -15,5 +15,4 @@
      :EndTrap
  :Until flag
  1 ⎕NDELETE'Plodder_Testserver.dws'
- ⎕←'It is recommended to )OFF now'
 ⍝Done

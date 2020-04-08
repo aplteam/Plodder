@@ -1,13 +1,12 @@
- r←{rf}∆StartTestServer dummy;LXwas;WSIDwas;tempWSID;cl;q;exe;cmd;_
+ r←∆StartTestServer dummy;LXwas;WSIDwas;tempWSID;cl;q;exe;cmd;_
 ⍝ Starts a separate instance of Dyalog (RunTime) and starts the server within that instance.
 ⍝ The optional left argument defaults to 0. 1 allows one to RIDE into the running server.
 ⍝ *** For a RIDE the Conga DLLs must be available as siblings of the workspace
 ⍝ *** This function changes ⎕LX and ⎕WSID but only temporarily.
- rf←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'rf'                    ⍝ RIDE flag
  r←1
-
+ #.RumbaLean.⎕EX'DRC'                       ⍝ Delete any leftovers : we need to save this WS
  LXwas←⎕LX
- ⎕LX←'#.Plodder.TestRun'
+ ⎕LX←'#.Plodder.TestRun 1'
  WSIDwas←⎕WSID
  tempWSID←⎕WSID←'Plodder_Testserver'
  tempWSID←'expand'##.FilesAndDirs.NormalizePath tempWSID
@@ -17,12 +16,19 @@
  cl←#.GetCommandLineArgs                    ⍝ Current command line
  q←{'"',⍵,'"'}                              ⍝ Quote stuff
  exe←⊃cl                                    ⍝ The interpreter
- exe←(exe↑⍨'Dyalog.exe'{¯1+1⍳⍨⍺⍷⍵}exe),'Dyalogrt.exe'
+ :If 1
+     exe←(exe↑⍨'Dyalog.exe'{¯1+1⍳⍨⍺⍷⍵}exe),'Dyalogrt.exe'  ⍝ Make it runtime exe
+ :EndIf
  cmd←⊂q exe                                 ⍝
  cmd,←⊂q tempWSID                           ⍝ The workspace
- cmd,←⊂'maxws=32MB'
+ cmd,←⊂'maxws=64MB'
  cmd,←⊂'DYALOG_NOPOPUPS=1'                  ⍝ We don't want the dialog box "You have successfully..." nor any other
- cmd,←rf/⊂'RIDE_INIT=SERVE:127.0.0.1:4502'  ⍝ User wants to have a RIDE
- _←⎕CMD(1↓∊' ',¨cmd)''                      ⍝
+ :If 0
+     cmd,←⊂'-ride=4502'                     ⍝ User wants to have a RIDE
+ :EndIf
+ :If 0
+     cmd,←⊂'-x'                             ⍝ Do not execute ⎕LX
+ :EndIf
+ _←⎕CMD(1↓∊' ',¨cmd)''                      ⍝ Run cmd
  r←0
 ⍝Done

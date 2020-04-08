@@ -12,7 +12,7 @@
      response(ProcessStopPage)←⍬
  :Case '/crash'
      ⎕←'Browser asked for a crash'
-     ∘∘∘
+     ∘∘∘ ⍝ In runtime this will be caught by Rumba's "TrapRequest" operator which then attempts to send back a 500
  :Case '/shutdown'
      response(CreateShutdownPage)←G
      SendQuitEvent ⍬

@@ -1,3 +1,5 @@
+* 0.2.1 from 2020-04-08
+  * Problem with test cases fixed (required a new version of RumaLean)
 * 0.2.0 from 2020-04-06
   * Uses fork "RumbaLean" rather than "Rumba"
   * Couple of minor bug fixes
