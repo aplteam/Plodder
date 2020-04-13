@@ -68,6 +68,15 @@ In which namespace these function can be found is defined by the `Context` entry
 The INI file is called `server.ini`. It is sorrowly documented.
 
 
+## Access to the server configuration etc.
+
+All data that is relevant in running the server is collected in a namespace `G` for "Globals", though it is not really a global but rather a local variable holding a reference to an unnamed namespace.
+
+This namespace also holds a reference to in instance of the INI file of the server.
+
+`G` is accessible from the handlers because a reference is injected into the namespace defined by the INI definition `[APP]Context`. However, the application is not supposed to change any of the values in `G` or in the INI file instance.
+
+
 ## Test cases
 
 Plodder comes with a test suite. You can run the test suite by calling `#.Plodder.Admin.RunTests`.

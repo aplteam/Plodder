@@ -1,10 +1,10 @@
  Initial
- :If 0=∆StartTestServer ⍬
-     ⎕←'*** Plodder successfully started with an independent Dyalog RunTime EXE'
- :EndIf
  ##.Plodder.A←##.APLTreeUtils
  ##.Plodder.LoadDependencies ⍬
  Rumba←#.RumbaLean.Core
  ##.Plodder.InitConga ⍬
  Rumba.##.Conga.X509Cert.LDRC←##.DRC
+ :If 0=∆StartTestServer ⍬
+     ⎕←'*** Plodder successfully started with an independent Dyalog RunTime EXE'
+ :EndIf
 ⍝Done

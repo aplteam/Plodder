@@ -1,4 +1,5 @@
  r←OnHouseKeeping msg
+⍝ Note that you can access the server data (configuration, INI instance etc.) via the reference `G` (for "Globals").
  ⎕←'Housekeeping...'
  {}{Init ⍵}⍣(⊃0=⎕NC'R')⊣⍬
  r←0

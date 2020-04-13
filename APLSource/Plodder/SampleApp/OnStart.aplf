@@ -1,4 +1,5 @@
  OnStart←{
+⍝ Note that you can access the server data (configuration, INI instance etc.) via the reference `G` (for "Globals").
      server←⍵
      ⎕←'OnStart...'
      0=#.⎕NC'TEMP':0

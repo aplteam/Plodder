@@ -18,6 +18,7 @@
  :If 0=testFlag
      ⎕TRAP←G.Trap SetTrap G
  :EndIf
+ ⍎(⊃G.INI.Get_'App:Context'),'.G←G'
  parms←CreateServerParms G
  parms←CheckServerParms parms
  G←OpenWindowsEventLog G

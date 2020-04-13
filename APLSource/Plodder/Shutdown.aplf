@@ -2,6 +2,7 @@
  r←⍬
  WindowsEventLog'Shutting down'
  {6::shy←⍬ ⋄ 1:shy←##.DRC.Close'.'}⍬
+ ##.⎕EX'DRC'
  {}⎕TKILL ⎕TNUMS   ⍝ Will only quit after the next Conga HouseKeeping event
  :If A.IsDevelopment
      ⎕←'***'
