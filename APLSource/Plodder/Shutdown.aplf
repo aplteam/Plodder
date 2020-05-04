@@ -4,7 +4,7 @@
  WindowsEventLog'Shutting down'
  {6::shy←⍬ ⋄ 1:shy←##.DRC.Close'.'}⍬
  ##.⎕EX'DRC'
- :If ~INI∊''⍬
+ :If ~(⊂INI)∊''⍬
  :AndIf 9=⎕NC'INI'
      :Trap 0
          event←INI.Get'EVENTS:QuitEvent'
