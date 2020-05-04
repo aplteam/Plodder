@@ -17,7 +17,15 @@
  q←{'"',⍵,'"'}                              ⍝ Quote stuff
  exe←⊃cl                                    ⍝ The interpreter
  :If 1
-     exe←(exe↑⍨'Dyalog.exe'{¯1+1⍳⍨⍺⍷⍵}exe),'Dyalogrt.exe'  ⍝ Make it runtime exe
+     :If 'W'=⊃⊃#.APLVersion
+         :If 0=+/'Dyalogrt.exe'⍷exe         ⍝ Might be already a runtime exe (Ride!)
+             exe←(exe↑⍨'Dyalog.exe'{¯1+1⍳⍨⍺⍷⍵}exe),'Dyalogrt.exe'   ⍝ Make it runtime exe
+         :EndIf
+     :Else
+         :If 0=+/'/dyalog.rt'⍷exe           ⍝ Might be already a runtime exe (Ride!)
+             exe←(exe↑⍨'/dyalog'{¯1+1⍳⍨⍺⍷⍵}exe),'/dyalog.rt'        ⍝ Make it runtime exe
+         :EndIf
+     :EndIf
  :EndIf
  cmd←⊂q exe                                 ⍝
  cmd,←⊂q tempWSID                           ⍝ The workspace
@@ -29,6 +37,10 @@
  :If 0
      cmd,←⊂'-x'                             ⍝ Do not execute ⎕LX
  :EndIf
- _←⎕CMD(1↓∊' ',¨cmd)''                      ⍝ Run cmd
+ :If 'W'=⊃⊃#.APLVersion
+     _←⎕CMD(1↓∊' ',¨cmd)''                  ⍝ Run cmd
+ :Else
+     _←⎕CMD(1↓∊' ',¨cmd),'&'                ⍝ Run cmd
+ :EndIf
  r←0
 ⍝Done

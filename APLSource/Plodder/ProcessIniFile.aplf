@@ -1,4 +1,4 @@
- G←G ProcessIniFile iniFilename
+ G←G ProcessIniFile iniFilename;folder;data;key;value;home;category
 ⍝ Note that some entries from the INI file are copied over to G for convinience.
 ⍝ The INI instance is available from G as well: G.INI
  G.INI←⎕NEW ##.IniFiles(,⊂iniFilename)
@@ -8,5 +8,16 @@
  G.AppName←⊃G.INI.Get'Config:AppName'
  :If ¯1=G.Trap←G.INI.Get'TRAP:General'
      G.Trap←~A.IsDevelopment
+ :EndIf
+ ⍝ Replace [logfile] by folder the INI file lives in
+ data←G.INI.Get ⍬ ⍬
+ data[;1]←⊃,/(1++/¨0(≠⊆⊢)0=≢¨data[;1])⍴¨⊂¨(0<≢¨data[;1])⌿data[;1]
+ data←({' '=⊃0⍴⍵}¨data[;3])⌿data
+ :If 0<≢data←(∨/¨'[logfile]'∘⍷¨A.Lowercase data[;3])⌿data
+     home←{⊃,/(⊂'\\')@(⍸'\'=⍵)⊣⍵}1⊃⎕NPARTS F.ExpandPath iniFilename
+     :For category key value :InEach ↓⍉data
+         value←'\[logfile]'⎕R home⍠('IC' 1)⊣value
+         value G.INI.Put category key
+     :EndFor
  :EndIf
  ⍝Done

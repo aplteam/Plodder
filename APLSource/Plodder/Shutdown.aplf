@@ -1,9 +1,17 @@
- {r}←Shutdown dummy;parms
+ {r}←Shutdown INI;parms;event
+⍝ INI can be either ⍬ or the instance of the Plodder INI file, If it is the QuitEvent is send to the root
  r←⍬
  WindowsEventLog'Shutting down'
  {6::shy←⍬ ⋄ 1:shy←##.DRC.Close'.'}⍬
  ##.⎕EX'DRC'
- {}⎕TKILL ⎕TNUMS   ⍝ Will only quit after the next Conga HouseKeeping event
+ :If ~INI∊''⍬
+ :AndIf 9=⎕NC'INI'
+     :Trap 0
+         event←INI.Get'EVENTS:QuitEvent'
+         r←⎕NQ'.'event
+     :EndTrap
+ :EndIf
+ {}⎕TKILL ⎕TNUMS~⎕TID    ⍝ Kill everything but zero and itself
  :If A.IsDevelopment
      ⎕←'***'
      →

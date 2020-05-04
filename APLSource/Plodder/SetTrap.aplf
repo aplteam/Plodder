@@ -9,7 +9,7 @@
  #.ErrParms←##.HandleError.CreateParms
  appName←G.AppName
  folder←GetAppFolder appName
- #.ErrParms.errorFolder←folder,'\Errors'
+ #.ErrParms.errorFolder←folder,'/Errors'
  'create!'F.CheckPath #.ErrParms.errorFolder
  :If 'WIN'≡##.APLTreeUtils.Uppercase ##.APLTreeUtils.GetOperatingSystem ⍬
      #.ErrParms.windowsEventSource←appName

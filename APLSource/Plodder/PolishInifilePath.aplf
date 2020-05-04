@@ -17,7 +17,7 @@
      :EndIf
  :Else
      :If ~(⊃filename)∊'~/'
-         filename←GetAppFolder filename
+         filename←⊃,/1 ⎕NPARTS filename
      :EndIf
  :EndIf
  ⍝Done

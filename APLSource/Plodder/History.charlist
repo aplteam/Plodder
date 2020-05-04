@@ -1,3 +1,8 @@
+* 0.3.0 from 2020-05-04
+  * Any paths in the INI file may now start with [LOGFILE]. Later replaced by the path to the INI.
+  * The `Shutdown` function now accepts the instance of a Plodder INI file as right argument. If such an 
+    instance is passed rather than ⍬ then the value of EVENTS:QuitEvent is send to tthe root object.
+  * Now the INI file is located under Linux in case it's a sibling of the workspace
 * 0.2.2 from 2020-04-13
   * There was no clean way to access the server data (including the INI file instance) from the handler.
 * 0.2.1 from 2020-04-08

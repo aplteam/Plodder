@@ -15,6 +15,7 @@
  iniFile←{0<⎕NC ⍵:⍎⍵ ⋄ 'server.ini'}'iniFile'
  iniFile←PolishInifilePath iniFile
  G(ProcessIniFile)←iniFile
+ G.TestFlag←testFlag
  :If 0=testFlag
      ⎕TRAP←G.Trap SetTrap G
  :EndIf
