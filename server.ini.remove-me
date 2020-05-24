@@ -1,7 +1,9 @@
+; Note: you can use "<LOGFILE>" in any path in order to refer to the folder this log files lives in
+
 [CONFIG]
 AppName             = 'Plodder'
 DisplayRequests     = 0             ; 1 makes Rumba display every request in a ⎕ED windows. For debugging only of course.
-Folder              = './data'      ; [LOGFILE] will by replaced by path to log file
+Folder              = './data'      
 LogHTTPToSession    = 0             ; Naturally only useful in development
 MaxNoOfThreads      = 1000
 Port                = 80

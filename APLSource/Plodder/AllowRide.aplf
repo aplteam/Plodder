@@ -6,7 +6,7 @@
 ⍝ In case the port was defined via the command line this function will set `waitFlag` to 1 no matter what.
  r←⍬
  :If 0=≢port
-     args←819⌶⊣2 ⎕NQ #'GetCommandLineArgs'
+     args←819⌶⊣GetCommandLineArgs_
  :AndIf 0<+/bool←∨/¨'-ride='∘⍷¨args
      port←↑↑(//)⎕VFI(≢'-ride=')↓(bool⍳1)⊃args
      waitFlag←1

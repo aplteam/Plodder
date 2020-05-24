@@ -1,0 +1,2 @@
+ r←GetCommandLineArgs_
+ r←2 ⎕NQ #'GetCommandLineArgs'

@@ -13,7 +13,7 @@
  0 ⎕SAVE ⎕WSID
  ⎕WSID←WSIDwas
  ⎕LX←LXwas
- cl←#.GetCommandLineArgs                    ⍝ Current command line
+ cl←##.Plodder.GetCommandLineArgs_          ⍝ Current command line
  q←{'"',⍵,'"'}                              ⍝ Quote stuff
  exe←⊃cl                                    ⍝ The interpreter
  :If 1

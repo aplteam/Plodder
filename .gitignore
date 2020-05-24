@@ -1,3 +1,5 @@
 .acre/
 Tests/Rumba/Log
 aplcore
+Dist/
+.gitignore

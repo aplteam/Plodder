@@ -2,10 +2,11 @@
  r←⍬
  ⎕IO←1 ⋄ ⎕ML←1
  EnableCONTINUE_workspaces ⍬
+ ExposeRootNameProperties ⍬
  G←⎕NS''
  G.AppName←'Plodder'  ⍝ Might get overwritten by INI file later on
  G←EstablishPlatFormVars G
- CreateRefs ⍬
+ CreateRefs ##
  F.PolishCurrentDir
  CheckForRide ⍬
  #.⎕SHADOW'ErrParms'

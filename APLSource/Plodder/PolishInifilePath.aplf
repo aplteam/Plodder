@@ -2,22 +2,19 @@
 ⍝ In case `filename` is fully qualified (Windows: carries a ":"; others: start with either / or ~) we do not touch it at all.\\
 ⍝ If that is not the case then the result of the `GetAppFolder` function rules.
  :If 'WIN'≡##.APLTreeUtils.Uppercase ##.APLTreeUtils.GetOperatingSystem ⍬
-     :If ~':'∊filename
-         :If A.IsDevelopment
-             :If F.IsFile F.PWD,'/',filename
-                 filename←F.PWD,'/',filename
-             :Else
-                 'No INI file found'⎕SIGNAL 6
-             :EndIf
-         :Else
-             :If ~F.IsFile filename←(1⊃⎕NPARTS 2⊃#.GetCommandLineArgs),filename
-                 'No INI file found'⎕SIGNAL 6
-             :EndIf
+     :If ~F.IsFile filename
+     :AndIf ~':'∊filename
+         :If F.IsFile F.PWD,'/',filename
+             filename←F.PWD,'/',filename
+             filename←(1⊃⎕NPARTS 2⊃GetCommandLineArgs_),filename
          :EndIf
      :EndIf
  :Else
      :If ~(⊃filename)∊'~/'
          filename←⊃,/1 ⎕NPARTS filename
      :EndIf
+ :EndIf
+ :If ~F.IsFile filename
+     'No INI file found'⎕SIGNAL 6
  :EndIf
  ⍝Done

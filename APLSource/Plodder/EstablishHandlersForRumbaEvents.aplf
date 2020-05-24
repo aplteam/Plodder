@@ -1,6 +1,6 @@
  {r}←EstablishHandlersForRumbaEvents G
  r←⍬
- '.'⎕WS'Event'G.QuitEvent 1  ⍝ Quit ⎕DQ
+ '.'⎕WS'Event'G.QuitEvent 1                         ⍝ Quit ⎕DQ
  '.'⎕WS'Event'G.PauseEvent'OnPauseEvent'            ⍝ Only used when running....
  '.'⎕WS'Event'G.ContinueEvent'OnContinueEvent'      ⍝ ... as a Windows Service
  ⍝Done

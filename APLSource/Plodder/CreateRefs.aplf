@@ -1,5 +1,6 @@
- {r}←CreateRefs dummy
-⍝ Create refs where appropriate
+ {r}←CreateRefs ref
+⍝ Create appropriate refs for some stuff. `ref` must point to where the stuff lives.
  r←⍬
- A←##.APLTreeUtils ⋄ F←##.FilesAndDirs ⋄ M←##.MarkAPL
+ ref←{0=≢⍕⍵:# ⋄ ⍵}ref
+ A←ref.APLTreeUtils ⋄ F←ref.FilesAndDirs ⋄ M←ref.MarkAPL
 ⍝Done

@@ -1,3 +1,7 @@
+* 0.3.2 from 2020-05-23
+  * `CreateRefs` referred to # as the source of expected classes, now it is ##.
+  * In the INI file the reference `[LOGFILE]` was replaced by `<LOGFILE>`.
+  * When running as a Windows Service under the Development Plodder did not find its INI file.
 * 0.3.1 from 2020-05-04
   * Bug fix in `Shutdown`
 * 0.3.0 from 2020-05-04

@@ -12,7 +12,7 @@
  :Select ##.APLTreeUtils.Uppercase ##.APLTreeUtils.GetOperatingSystem ⍬
  :Case 'WIN'
      :If IsRunningAsService
-         r←1⊃⎕NPARTS 2⊃#.GetCommandLineArgs
+         r←1⊃⎕NPARTS 2⊃GetCommandLineArgs_
      :Else
          r←((2 ⎕NQ #'GetEnvironment' 'LOCALAPPDATA'),'\Plodder\'),filename
      :EndIf
