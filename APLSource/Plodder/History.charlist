@@ -1,3 +1,5 @@
+* 0.3.3 from 2020-06-03
+  * `<LOGFILE>` was a misnomer: was supposed to be `<INIFILE>`
 * 0.3.2 from 2020-05-23
   * `CreateRefs` referred to # as the source of expected classes, now it is ##.
   * In the INI file the reference `[LOGFILE]` was replaced by `<LOGFILE>`.
