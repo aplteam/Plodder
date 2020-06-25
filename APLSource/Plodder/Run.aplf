@@ -12,7 +12,7 @@
  #.⎕SHADOW'ErrParms'
  ⎕TRAP←SetTrap G
  LoadDependencies ⍬
- R←#.RumbaLean.Core
+ R←##.RumbaLean.Core
  iniFile←{0<⎕NC ⍵:⍎⍵ ⋄ 'server.ini'}'iniFile'
  iniFile←PolishInifilePath iniFile
  G(ProcessIniFile)←iniFile

@@ -1,5 +1,11 @@
-* 0.3.3 from 2020-06-03
+* 0.3.5 from 2020-06-18
+  * References to RumbaLean are now relative. As a result `Plodder` is now relocatable.
+  * Bug fix in Conga (`FindDRC`) integrated.
+  * `CopyConga` deleted
+* 0.3.4 from 2020-06-03   
   * `<LOGFILE>` was a misnomer: was supposed to be `<INIFILE>`
+* 0.3.3 from 2020-05-24
+  * Several minor improvements
 * 0.3.2 from 2020-05-23
   * `CreateRefs` referred to # as the source of expected classes, now it is ##.
   * In the INI file the reference `[LOGFILE]` was replaced by `<LOGFILE>`.

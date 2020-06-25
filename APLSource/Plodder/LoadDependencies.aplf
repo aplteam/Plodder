@@ -1,6 +1,5 @@
  {r}←LoadDependencies dummy;assetsPath
  r←⍬
  assetsPath←GetAssetPath
- CopyConga assetsPath
  CopyRumba assetsPath
 ⍝Done

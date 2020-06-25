@@ -1,6 +1,6 @@
  {success}←CopyRumba path;fullpath
- :If 0=#.⎕NC'RumbaLean'
-     fullpath←path,'\Runtime\Rumba\RumbaLean.dws'
-     'RumbaLean'#.⎕CY ##.FilesAndDirs.NormalizePath fullpath
+ :If 0=##.⎕NC'RumbaLean'
+     fullpath←##.FilesAndDirs.ExpandPath path,'/Runtime/Rumba/RumbaLean.dws'
+     'RumbaLean'##.⎕CY fullpath
  :EndIf
 ⍝Done

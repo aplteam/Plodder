@@ -1,9 +1,8 @@
  Initial
  ##.Plodder.A←##.APLTreeUtils
  ##.Plodder.LoadDependencies ⍬
- Rumba←#.RumbaLean.Core
- ##.Plodder.InitConga ⍬
- Rumba.##.Conga.X509Cert.LDRC←##.DRC
+ Rumba←##.RumbaLean.Core
+ Rumba.InitConga'./Assets/RunTime/Conga'
  :If 0=∆StartTestServer ⍬
      ⎕←'*** Plodder successfully started with an independent Dyalog RunTime EXE'
  :EndIf

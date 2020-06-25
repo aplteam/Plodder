@@ -1,8 +1,0 @@
- {r}←CopyConga path;fullpath
- r←⍬
- :If 0=##.⎕NC'DRC'
-     fullpath←path,'\Runtime\Conga\Conga.dws'
-     'DRC'##.⎕CY ##.FilesAndDirs.NormalizePath fullpath
-     ##.DRC.X509Cert.LDRC←##.DRC
- :EndIf
-⍝Done

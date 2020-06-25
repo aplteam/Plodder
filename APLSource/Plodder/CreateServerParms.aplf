@@ -17,6 +17,7 @@
      parms.PublicCertFile←'expand'F.NormalizePath⊃G.INI.Get'CERTIFICATES:PublicCertFile'
      parms.PrivateKeyFile←'expand'F.NormalizePath⊃G.INI.Get'CERTIFICATES:PrivateKeyFile'
      parms.CertType←⊃G.INI.Get'CERTIFICATES:CertType'
+     parms.TLSFlag←32
  :EndIf
  :If A.IsDevelopment
      parms.Trap←G.INI.Get'TRAP:Rumba'

@@ -4,7 +4,7 @@
 ⍝ *** For a RIDE the Conga DLLs must be available as siblings of the workspace
 ⍝ *** This function changes ⎕LX and ⎕WSID but only temporarily.
  r←1
- #.RumbaLean.⎕EX'DRC'                       ⍝ Delete any leftovers : we need to save this WS
+ ##.RumbaLean.⎕EX'DRC'                       ⍝ Delete any leftovers : we need to save this WS
  LXwas←⎕LX
  ⎕LX←'#.Plodder.TestRun 1'
  WSIDwas←⎕WSID
