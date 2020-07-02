@@ -5,7 +5,7 @@
  ExposeRootNameProperties ⍬
  G←⎕NS''
  G.AppName←'Plodder'  ⍝ Might get overwritten by INI file later on
- G←EstablishPlatFormVars G
+ G←EstablishPlatformVars G
  CreateRefs ##
  F.PolishCurrentDir
  CheckForRide ⍬
