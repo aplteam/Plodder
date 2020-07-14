@@ -20,4 +20,5 @@
          value G.INI.Put category key
      :EndFor
  :EndIf
+ G.HTDOCS←F.ExpandPath⊃G.INI.Get'Config:HTDOCS'
  ⍝Done

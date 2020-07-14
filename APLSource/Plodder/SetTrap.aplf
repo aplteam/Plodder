@@ -8,9 +8,11 @@
  :EndIf
  #.ErrParms←##.HandleError.CreateParms
  appName←G.AppName
- folder←GetAppFolder appName
- #.ErrParms.errorFolder←folder,'/Errors'
- 'create!'F.CheckPath #.ErrParms.errorFolder
+ :If 0<G.⎕NC'INI'
+     folder←⊃G.INI.Get'CONFIG:Folder'
+     #.ErrParms.errorFolder←folder,'/Errors'
+     'create!'F.CheckPath #.ErrParms.errorFolder
+ :EndIf
  :If 'WIN'≡##.APLTreeUtils.Uppercase ##.APLTreeUtils.GetOperatingSystem ⍬
      #.ErrParms.windowsEventSource←appName
  :EndIf

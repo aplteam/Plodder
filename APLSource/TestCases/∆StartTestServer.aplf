@@ -4,7 +4,7 @@
 ⍝ *** For a RIDE the Conga DLLs must be available as siblings of the workspace
 ⍝ *** This function changes ⎕LX and ⎕WSID but only temporarily.
  r←1
- ##.RumbaLean.⎕EX'DRC'                       ⍝ Delete any leftovers : we need to save this WS
+ ##.RumbaLean.⎕EX'DRC'               ⍝ Delete any leftovers : we need to save this WS
  LXwas←⎕LX
  ⎕LX←'#.Plodder.TestRun 1'
  WSIDwas←⎕WSID
@@ -13,34 +13,35 @@
  0 ⎕SAVE ⎕WSID
  ⎕WSID←WSIDwas
  ⎕LX←LXwas
- cl←##.Plodder.GetCommandLineArgs_          ⍝ Current command line
- q←{'"',⍵,'"'}                              ⍝ Quote stuff
- exe←⊃cl                                    ⍝ The interpreter
+ cl←##.Plodder.GetCommandLineArgs_   ⍝ Current command line
+ q←{'"',⍵,'"'}                       ⍝ Quote stuff
+ exe←⊃cl                             ⍝ The interpreter
  :If 1
      :If 'W'=⊃⊃#.APLVersion
-         :If 0=+/'Dyalogrt.exe'⍷exe         ⍝ Might be already a runtime exe (Ride!)
-             exe←(exe↑⍨'Dyalog.exe'{¯1+1⍳⍨⍺⍷⍵}exe),'Dyalogrt.exe'   ⍝ Make it runtime exe
+         :If 0=+/'Dyalogrt.exe'⍷exe  ⍝ Might be already a runtime exe (Ride!)
+             exe←(exe↑⍨'Dyalog.exe'{¯1+1⍳⍨⍺⍷⍵}exe),'Dyalogrt.exe' ⍝ Make it runtime exe
          :EndIf
      :Else
-         :If 0=+/'/dyalog.rt'⍷exe           ⍝ Might be already a runtime exe (Ride!)
-             exe←(exe↑⍨'/dyalog'{¯1+1⍳⍨⍺⍷⍵}exe),'/dyalog.rt'        ⍝ Make it runtime exe
+         :If 0=+/'/dyalog.rt'⍷exe    ⍝ Might be already a runtime exe (Ride!)
+             exe←(exe↑⍨'/dyalog'{¯1+1⍳⍨⍺⍷⍵}exe),'/dyalog.rt' ⍝ Make it runtime exe
          :EndIf
      :EndIf
  :EndIf
- cmd←⊂q exe                                 ⍝
- cmd,←⊂q tempWSID                           ⍝ The workspace
+ cmd←⊂q exe                          ⍝
+ cmd,←⊂q tempWSID                    ⍝ The workspace
  cmd,←⊂'maxws=64MB'
- cmd,←⊂'DYALOG_NOPOPUPS=1'                  ⍝ We don't want the dialog box "You have successfully..." nor any other
+ cmd,←⊂'DYALOG_NOPOPUPS=1'           ⍝ We don't want the dialog box "You have successfully..." nor any other
+ cmd,←⊂'OFF=1'                       ⍝ Should finish itself
  :If 0
-     cmd,←⊂'-ride=4502'                     ⍝ User wants to have a RIDE
+     cmd,←⊂'-ride=4502'              ⍝ User wants to have a RIDE
  :EndIf
  :If 0
-     cmd,←⊂'-x'                             ⍝ Do not execute ⎕LX
+     cmd,←⊂'-x'                      ⍝ Do not execute ⎕LX
  :EndIf
  :If 'W'=⊃⊃#.APLVersion
-     _←⎕CMD(1↓∊' ',¨cmd)''                  ⍝ Run cmd
+     _←⎕CMD(1↓∊' ',¨cmd)''           ⍝ Run cmd
  :Else
-     _←⎕CMD(1↓∊' ',¨cmd),'&'                ⍝ Run cmd
+     _←⎕CMD(1↓∊' ',¨cmd),'&'         ⍝ Run cmd
  :EndIf
  r←0
 ⍝Done
