@@ -1,3 +1,13 @@
+* 0.4.0 from 2020-12-03
+  * Plodder now requires Dyalog Unicode 18.0 (rather than 17.1)
+  * Calls to `APLTreeUtils` replaced by calls to `APLTreeUtils2`
+  * New (Tatin-compatible) versions of all APLTree members are used now
+  * Test cases restructured
+  * When not running in development mode the existence of Conga DLLs is checked.
+  * Bug fixes:
+    * `AllowRide` should not check for Conga DLLs in the current directory in case it's not a RunTime
+  * Internal changes:
+    * Instead of `Lowercase` and `Uppercase` now ⎕C is called.
 * 0.3.7 from 2020-07-14
   * Error snapshots were not saved in the folder specified in the INI.
   * INI entry HTDOCS added as location for static files

@@ -9,7 +9,7 @@
 ⍝     Note that Windows Services usually run under the system account
 ⍝ * Under Linux it is `/etc/Plodder/`
 ⍝ * Under MacOS it is /usr/local/Plodder/
- :Select ##.APLTreeUtils.Uppercase ##.APLTreeUtils.GetOperatingSystem ⍬
+ :Select 1 ⎕C ##.APLTreeUtils2.GetOperatingSystem ⍬
  :Case 'WIN'
      :If IsRunningAsService
          r←1⊃⎕NPARTS 2⊃GetCommandLineArgs_

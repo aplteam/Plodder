@@ -10,7 +10,7 @@ Plodder...
 
 * uses Dyalog's Conga and on top of that [Rumba](https://github.com/the-carlisle-group/Rumba), a light http server implemented in Dyalog.
 
-* requires Dyalog APL 17.1 Unicode or better. 
+* requires Dyalog APL 18.0 Unicode or better. 
 
 * comes with a sample application that shows the details for how to implement an application on top of Plodder.
 

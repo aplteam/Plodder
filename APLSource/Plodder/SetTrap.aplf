@@ -13,7 +13,7 @@
      #.ErrParms.errorFolder←folder,'/Errors'
      'create!'F.CheckPath #.ErrParms.errorFolder
  :EndIf
- :If 'WIN'≡##.APLTreeUtils.Uppercase ##.APLTreeUtils.GetOperatingSystem ⍬
+ :If 'WIN'≡1 ⎕C ##.APLTreeUtils2.GetOperatingSystem ⍬
      #.ErrParms.windowsEventSource←appName
  :EndIf
  #.ErrParms.AppName←appName

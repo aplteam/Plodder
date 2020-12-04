@@ -15,12 +15,9 @@
  :EndIf
  :If (≢/,¨0 port)∧0<≢port
  :AndIf 0=IsConnectedToRide ⍬
-     :If 0=≢⊃⎕NINFO⍠('Wildcard' 1)⊣'conga*_64.dll'
-         :If 'Development'≡4⊃#.APLVersion
-             'Conga DLL is missing"'⎕SIGNAL 6
-         :Else
-             ⎕OFF 106   ⍝ means: "Conga DLL is missing"
-         :EndIf
+     :If ~A.IsDevelopment
+     :AndIf 0=≢⊃⎕NINFO⍠('Wildcard' 1)⊣'conga*_64.dll'
+         ⎕OFF 106   ⍝ means: "Conga DLL is missing"
      :Else
          {}3502⌶0
          rc←3502⌶'Serve::',⍕port

@@ -1,5 +1,5 @@
  {r}←Init dummy
-⍝ Establishes a number of references to APLTreeUtils, FileAndDirs, MarkAPL and the Globals namespace but also Rumba
+⍝ Establishes a number of references to APLTreeUtils2, FileAndDirs, MarkAPL and the Globals namespace but also Rumba
  r←0
  (A F G M)←##.(A F G M)
  R←##.R

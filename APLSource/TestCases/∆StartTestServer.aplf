@@ -17,7 +17,7 @@
  q←{'"',⍵,'"'}                       ⍝ Quote stuff
  exe←⊃cl                             ⍝ The interpreter
  :If 1
-     :If 'W'=⊃⊃#.APLVersion
+     :If 'W'=⊃⊃# ⎕WG'APLVersion'
          :If 0=+/'Dyalogrt.exe'⍷exe  ⍝ Might be already a runtime exe (Ride!)
              exe←(exe↑⍨'Dyalog.exe'{¯1+1⍳⍨⍺⍷⍵}exe),'Dyalogrt.exe' ⍝ Make it runtime exe
          :EndIf
@@ -38,7 +38,7 @@
  :If 0
      cmd,←⊂'-x'                      ⍝ Do not execute ⎕LX
  :EndIf
- :If 'W'=⊃⊃#.APLVersion
+ :If 'W'=⊃⊃# ⎕WG'APLVersion'
      _←⎕CMD(1↓∊' ',¨cmd)''           ⍝ Run cmd
  :Else
      _←⎕CMD(1↓∊' ',¨cmd),'&'         ⍝ Run cmd

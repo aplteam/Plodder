@@ -4,6 +4,6 @@
  #.⎕SHADOW'TEMP'
  'TEMP'#.⎕NS''
  #.TEMP.Log←''
- 1 ⎕NDELETE'./Tests/Rumba/Log/Log.txt'
+ 1 ⎕NDELETE'./Tests/Rumba/Log/Log.txt' ⍝ File access error? Test server is most likely already running!
  'Tests/test.ini'Plodder.Run 0
 ⍝Done
