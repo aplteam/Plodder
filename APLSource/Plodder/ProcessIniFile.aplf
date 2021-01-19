@@ -20,5 +20,8 @@
          value G.INI.Put category key
      :EndFor
  :EndIf
- G.HTDOCS←F.ExpandPath⊃G.INI.Get'Config:HTDOCS'
+ {G.HTDOCS←F.ExpandPath⊃G.INI.Get ⍵ ⋄ G.HTDOCS G.INI.Put ⍵}'Config:HTDOCS'
+ {(F.ExpandPath⊃G.INI.Get ⍵)G.INI.Put ⍵}'Config:Folder'
+ {(F.ExpandPath⊃G.INI.Get ⍵)G.INI.Put ⍵}'Certificates:PublicCertFile'
+ {(F.ExpandPath⊃G.INI.Get ⍵)G.INI.Put ⍵}'Certificates:PrivateKeyFile'
  ⍝Done

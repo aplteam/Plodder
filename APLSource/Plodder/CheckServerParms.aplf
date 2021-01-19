@@ -9,5 +9,5 @@
  :If 1∊b←~(⍎parms.Context).{0=≢⍵:1 ⋄ v←⎕AT ⍵ ⋄ (1 ¯2⍷⍨|1 2⊃v)∧(1=|1 1⊃v)}¨parms.(OnCongaTimeout OnHeader OnRequest OnStart)
      11 ⎕SIGNAL⍨'Invalid handler: ',⊃{⍺,', ',⍵}/b/parms.(OnCongaTimeout OnHeader OnRequest OnStart)
  :EndIf
- 'Invalid: value of "LogHTTP" in INI file'⎕SIGNAL 11/⍨~(G.INI.Get'LOGFILE:LogHTTP')∊0 1 2
+ 'Invalid: value of "LogHTTP" in INI file'⎕SIGNAL 11/⍨~(G.INI.Get'LOGGING:LogHTTP')∊0 1 2
 ⍝Done
