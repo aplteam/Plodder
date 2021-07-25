@@ -1,9 +1,11 @@
- Initial
+ Initial;noQLX;runTimeFlag
  ##.Plodder.A←##.APLTreeUtils2
- ##.Plodder.LoadDependencies ⍬
- Rumba←##.RumbaLean.Core
- {}Rumba.InitConga'./Assets/RunTime/Conga'
- :If 0=∆StartTestServer ⍬
-     ⎕←'*** Plodder successfully started with an independent Dyalog RunTime EXE'
+ Rumba←##.Plodder.CopyRumba ⍬
+ ##.FilesAndDirs.RmDir{⍵↓⍨-⌊/(⌽⍵)⍳'/\'}¯1↓1⊃⎕NPARTS ∆GetLogFilename
+ noQLX←0
+ runTimeFlag←1
+ :If 0=noQLX ∆StartTestServer runTimeFlag
+     ⎕←'*** Plodder successfully started with an independent Dyalog ',((~noQLX)/'Runtime '),'EXE'
  :EndIf
+ {}Rumba.InitConga'./Assets/Runtime/Conga'
 ⍝Done

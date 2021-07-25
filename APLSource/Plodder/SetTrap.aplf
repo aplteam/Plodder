@@ -1,21 +1,19 @@
  TRAP←{force}SetTrap G;folder;appName
 ⍝ General error trapping in case something goes horribly wrong.
-⍝ Normally in development it does not establish error trapping by default, but this can be enfored by apssing a 1 as left argument.
-⍝ In Runtime it always establishes error trapping
+⍝ This does not establish error trapping by default in development, but this can be enforced by passing a 1 as left argument.
+⍝ In Runtime error trapping is always established.
+⍝ Requires #.ErrrorParms to exist!
  force←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'force'
  :If ¯1=force
      force←~A.IsDevelopment
  :EndIf
- #.ErrParms←##.HandleError.CreateParms
  appName←G.AppName
- :If 0<G.⎕NC'INI'
-     folder←⊃G.INI.Get'CONFIG:Folder'
-     #.ErrParms.errorFolder←folder,'/Errors'
-     'create!'F.CheckPath #.ErrParms.errorFolder
- :EndIf
+ folder←⊃G.INI.Get'Trap:Folder'
+ #.ErrorParms.errorFolder←folder
+ 'create!'F.CheckPath #.ErrorParms.errorFolder
  :If 'WIN'≡1 ⎕C ##.APLTreeUtils2.GetOperatingSystem ⍬
-     #.ErrParms.windowsEventSource←appName
+     #.ErrorParms.windowsEventSource←appName
  :EndIf
- #.ErrParms.AppName←appName
- TRAP←force ##.HandleError.SetTrap'#.ErrParms'
+ #.ErrorParms.AppName←appName
+ TRAP←force ##.HandleError.SetTrap'#.ErrorParms'
 ⍝Done

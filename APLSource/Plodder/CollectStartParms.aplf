@@ -1,0 +1,30 @@
+ r←CollectStartParms dummy;ini;b;buff;buff2
+⍝ Collects all pieces of information that might be of interest for debugging purposes.
+ r←''
+ r,←⊂'*** Command line arguments:'
+ r,←' ',¨GetCommandLineArgs_
+ r,←⊂''
+ r,←⊂'*** INI file:'
+ ini←G.INI.Get ⍬ ⍬
+ b←(≢¨ini[;2 3])∨.≠0
+ buff←(≢ini)⍴⊂''
+ buff[⍸~b]←' ',¨(~b)/ini[;1]
+ buff2←↓b⌿ini[;2 3]
+ (1⊃¨buff2)←{(1+⌈/≢¨⍵)↑¨⍵}1⊃¨buff2
+ buff[⍸b]←{'  ',(1⊃⍵),'= ',(A.DLB⍕2⊃⍵)}¨buff2
+ r,←buff
+ r,←⊂''
+ r,←⊂'*** Misc:'
+ buff←''
+ buff,←⊂'APL Version'(A.DLB⍕# ⎕WG'APLVersion')
+ buff,←⊂'Serial No'(⊣2 ⎕NQ'#' 'GetEnvironment' 'DYALOG_SERIAL')
+ buff,←⊂'Rumba(lean)'(A.DLB⊃{⍺,' from ',⍵}/1↓##.RumbaLean.Version)
+ buff,←⊂'Plodder'(A.DLB⊃{⍺,' from ',⍵}/1↓##.Plodder.Version)
+ buff,←⊂'[]TRAP'(A.DLB⍕⎕TRAP)
+ buff,←⊂'System Vars'(⊃{⍺,', ',⍵}/'IO' 'ML' 'WX' 'CT'{⍺,'<-',⍕⍵}¨⎕IO ⎕ML ⎕WX ⎕CT)
+ buff,←⊂'[]WA'((⍕⌊⎕WA÷1024×1024),'MB')
+ buff,←⊂'IP-Address'(⊣2 ⎕NQ #'TCPGetHostID')
+ (1⊃¨buff)←{(1+⌈/≢¨⍵)↑¨⍵}1⊃¨buff
+ buff←{' ',(1⊃⍵),'= ',(A.DLB⍕2⊃⍵)}¨buff
+ r,←buff
+⍝Done

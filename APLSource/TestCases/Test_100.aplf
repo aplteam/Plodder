@@ -5,7 +5,7 @@
 
  c←∆NewClient
  q←Rumba.NewRequest 0
- q.URI←'/This_Does_Not_Exist_For_Sure'
+ q.RequestTarget←'/This_Does_Not_Exist_For_Sure'
  r←c Rumba.SendAndReceive q
 
  →T.PassesIf r.StatusCode=404

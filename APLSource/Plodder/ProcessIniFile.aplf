@@ -1,27 +1,39 @@
- G←G ProcessIniFile iniFilename;folder;data;key;value;home;category
+ G←G ProcessIniFile iniFilename;folder;data;key;value;home;category;tempFolder;data_
 ⍝ Note that some entries from the INI file are copied over to G for convinience.
-⍝ The INI instance is available from G as well: G.INI
+⍝ The INI instance is available from G (for Globals) as well: G.INI
  G.INI←⎕NEW ##.IniFiles(,⊂iniFilename)
- :If ¯1=G.INI.Get'Trap:General' ⍝ Not defined in INI file?
-     (~A.IsDevelopment)G.INI.Put'TRAP:General'
+ :If ¯1=G.INI.Get'Trap:Policy' ⍝ Not defined in INI file?
+     (~A.IsDevelopment)G.INI.Put'TRAP:Policy'
  :EndIf
  G.AppName←⊃G.INI.Get'Config:AppName'
- :If ¯1=G.Trap←G.INI.Get'TRAP:General'
+ :If ¯1=G.Trap←G.INI.Get'TRAP:Policy'
      G.Trap←~A.IsDevelopment
  :EndIf
- ⍝ Replace <INIFILE> by folder the INI file lives in
  data←G.INI.Get ⍬ ⍬
  data[;1]←⊃,/(1++/¨0(≠⊆⊢)0=≢¨data[;1])⍴¨⊂¨(0<≢¨data[;1])⌿data[;1]
- data←({' '=⊃0⍴⍵}¨data[;3])⌿data
- :If 0<≢data←(∨/¨'<INIFILE>'∘⍷¨1 ⎕C data[;3])⌿data
+ data←({' '=⊃0⍴∊⍵}¨data[;3])⌿data
+⍝ Replace <INIFILE> by folder the INI file lives in
+ :If 0<≢data_←(∨/¨'<INIFILE>'∘⍷¨1 ⎕C data[;3])⌿data
      home←{⊃,/(⊂'\\')@(⍸'\'=⍵)⊣⍵}1⊃⎕NPARTS F.ExpandPath iniFilename
-     :For category key value :InEach ↓⍉data
-         value←'\<INIFILE>'⎕R home⍠('IC' 1)⊣value
+     home←(-+/∧\⌽home∊'/\')↓home
+     :For category key value :InEach ↓⍉data_
+         value←F.NormalizePath'\<INIFILE>'⎕R home⍠('IC' 1)⊣value
+         value G.INI.Put category key
+     :EndFor
+ :EndIf
+ ⍝ Replace <TEMP> by the Temp folder returned by 739⌶0
+ :If 0<≢data_←(∨/¨'<TEMP>'∘⍷¨1 ⎕C data[;3])⌿data
+     tempFolder←739⌶0
+     home←{⊃,/(⊂'\\')@(⍸'\'=⍵)⊣⍵}1⊃⎕NPARTS F.ExpandPath iniFilename
+     home←(-+/∧\⌽home∊'/\')↓home
+     :For category key value :InEach ↓⍉data_
+         value←'\<TEMP>'⎕R tempFolder⍠('IC' 1)⊣value
          value G.INI.Put category key
      :EndFor
  :EndIf
  {G.HTDOCS←F.ExpandPath⊃G.INI.Get ⍵ ⋄ G.HTDOCS G.INI.Put ⍵}'Config:HTDOCS'
- {(F.ExpandPath⊃G.INI.Get ⍵)G.INI.Put ⍵}'Config:Folder'
+ {(F.ExpandPath⊃G.INI.Get ⍵)G.INI.Put ⍵}'LOGGING:Folder'
+ {(F.ExpandPath⊃G.INI.Get ⍵)G.INI.Put ⍵}'TRAP:Folder'
  {(F.ExpandPath⊃G.INI.Get ⍵)G.INI.Put ⍵}'Certificates:PublicCertFile'
  {(F.ExpandPath⊃G.INI.Get ⍵)G.INI.Put ⍵}'Certificates:PrivateKeyFile'
  ⍝Done

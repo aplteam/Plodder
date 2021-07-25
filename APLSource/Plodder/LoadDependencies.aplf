@@ -1,5 +1,0 @@
- {r}←LoadDependencies dummy;assetsPath
- r←⍬
- assetsPath←GetAssetPath
- CopyRumba assetsPath
-⍝Done

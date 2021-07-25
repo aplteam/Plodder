@@ -1,5 +1,5 @@
  {r}←Shutdown INI;parms;event
-⍝ INI can be either ⍬ or the instance of the Plodder INI file, If it is the QuitEvent is send to the root
+⍝ INI can be either ⍬ or an instance of the Plodder INI file. If it is the QuitEvent it is send to the root.
  r←⍬
  WindowsEventLog'Shutting down'
  {6::shy←⍬ ⋄ 1:shy←##.DRC.Close'.'}⍬
@@ -12,6 +12,8 @@
      :EndTrap
  :EndIf
  {}⎕TKILL ⎕TNUMS~⎕TID    ⍝ Kill everything but zero and itself
+ ⎕FUNTIE ⎕FNUMS
+ ⎕NUNTIE ⎕NNUMS
  :If A.IsDevelopment
  :AndIf '1'≠1↑2 ⎕NQ #'GetEnvironment' 'OFF'
      ⎕←'***'
@@ -19,4 +21,4 @@
  :Else
      ⎕OFF
  :EndIf
- ⍝Done
+⍝Done

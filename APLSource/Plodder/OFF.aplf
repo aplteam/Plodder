@@ -1,0 +1,5 @@
+ OFF
+ :If ~##.APLTreeUtils2.IsDevelopment
+ :OrIf A.ToNum'0'GetEnvVars'OFF'
+     ⎕OFF
+ :EndIf

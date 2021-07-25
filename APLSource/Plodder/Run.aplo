@@ -1,0 +1,53 @@
+ {r}←{iniFile}(fns Run)y;⎕TRAP;testFlag;trapFlag;more;A;F;M;R;S;G;parms
+⍝ Starts a Plodder server.
+⍝ For special arrangements pass `fns` which might by just {1} in case you don't need to make any.
+⍝ That function gets `G` passed as right argument and is expected to return 1 in case of success and 0 otherwise.
+ ⎕TRAP←0 'S'
+ ⎕IO←1 ⋄ ⎕ML←1
+ (testFlag trapFlag)←2↑y,(≢y)↓¯1 ¯1
+ EnableCONTINUE_workspaces ⍬
+ ExposeRootNameProperties ⍬
+ G←⎕NS''
+ G.AppName←'Plodder'            ⍝ Might get overwritten by INI file later on
+ G←EstablishPlatformVars G
+ CreateRefs ##
+ F.PolishCurrentDir
+ CheckForRide G                 ⍝ Early a RIDE works only with command line parms
+ R←CopyRumba ⍬
+ iniFile←PolishInifilePath{0<⎕NC ⍵:⍎⍵ ⋄ 'server.ini'}'iniFile'
+ G(ProcessIniFile)←iniFile
+ G.INI CheckForRide G           ⍝ Again because now the INI might allow a Ride
+ parms←CreateServerParms G
+ :If (⊂testFlag)∊0 1
+     G.TestFlag←testFlag        ⍝ Overwrite INI setting
+ :Else
+     G.TestFlag←G.INI.Get'CONFIG:TestFlag'
+ :EndIf
+ :If trapFlag∊0 1
+     parms.Trap←1
+ :Else
+     trapFlag←⊃G.INI.Get'TRAP:Policy'
+ :EndIf
+ ⍎(⊃G.INI.Get_'App:Context'),'.G←G'
+
+ parms←CheckServerParms parms
+ G←OpenWindowsEventLog G
+ WindowsEventLog'Starting'
+ #.⎕SHADOW'ErrorParms' ⋄ 'ErrorParms'#.⎕NS''
+ #.ErrorParms←SetErrorParms ##.HandleError.CreateParms
+ :If 0=testFlag
+     ⎕TRAP←G.Trap SetTrap G
+ :EndIf
+ EstablishHandlersForRumbaEvents G
+ parms.Folder←⊃G.INI.Get'Logging:Folder'
+ 'Problem with the folder holding the log file'Assert'CREATE!'F.CheckPath parms.Folder
+ Assert fns G
+ #.ErrorParms.off←0
+ #.ErrorParms.killThreads←0
+ G.Server←r←parms R.Start(GetAssetPath,'/Runtime/Conga')'TATIN_SRV' ⍝ <=== Work horse
+
+ DQ'.'
+ ⎕DL 3
+ ##.RumbaLean.Core.Shutdown
+ OFF
+⍝Done

@@ -1,6 +1,6 @@
  filename←PolishInifilePath filename
 ⍝ In case `filename` is fully qualified (Windows: carries a ":"; others: start with either / or ~) we do not touch it at all.\\
-⍝ If that is not the case then the result of the `GetAppFolder` function rules.
+⍝ If that is not the case then the feed `filename` to the `GetAppFolder` function.
  :If 'WIN'≡1 ⎕C ##.APLTreeUtils2.GetOperatingSystem ⍬
      :If ~F.IsFile filename
      :AndIf ~':'∊filename

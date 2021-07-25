@@ -5,7 +5,7 @@
 
  c←∆NewClient
  q←Rumba.NewRequest 0
- q.URI←'/packages'
+ q.RequestTarget←'/packages'
  r←c Rumba.SendAndReceive q
 
  →T.PassesIf r.StatusCode=200

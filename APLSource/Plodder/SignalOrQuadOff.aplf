@@ -1,0 +1,18 @@
+ {r}←{rc}SignalOrQuadOff msg
+⍝ Signal `msg` to the session when not empty and we run in a development session.
+⍝ In runtime we ⎕OFF.
+⍝ No attempt to log or anything because the most likely case is that this is called very early.
+ r←⍬
+ rc←{0<⎕NC ⍵:⍎⍵ ⋄ 1}'rc'
+ :If 0<≢msg
+     :If A.IsDevelopment
+         msg ⎕SIGNAL rc
+     :Else
+         :If 0=rc
+             ⎕OFF
+         :Else
+             ⎕OFF rc
+         :EndIf
+     :EndIf
+ :EndIf
+⍝Done

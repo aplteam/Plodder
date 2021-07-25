@@ -1,0 +1,27 @@
+ r←default GetEnvVars name;cl;bool
+⍝ Returns the value of "name" as provided on the command line or "default" if not present.
+⍝ Note that "r" is always text since we cannot know or guess the data type.
+⍝ This is true even when "default" is returned because "default" is always converted to simple text.
+⍝ * In case name is something like `foo=value` then ∪alues is returned.
+⍝ * In case there is no `=` but either a leading `-` or `+` then the flag is returned as is if set.
+⍝ Examples:
+⍝ '0'     ←→ 0 GetEnvVars 'foo'        ⍝ In case "foo=" is not part of the command line at all
+⍝ '1'     ←→ 0 GetEnvVars 'foo'        ⍝ In case the command line carries "foo=1"
+⍝ '0'     ←→ 0 GetEnvVars '-flag'      ⍝ In case "-foo" is not part of the command line at all
+⍝ '-flag' ←→ 0 GetEnvVars '-flag'      ⍝ In case the command line carries "-foo"
+⍝ '0'     ←→ 0 GetEnvVars '-flag'      ⍝ In case "-foo" is not part of the command line at all
+⍝ '123'   ←→ 0 GetEnvVars '-flag'      ⍝ In case the command line carries "-foo=123"
+⍝ '0'     ←→ 0 GetEnvVars '+flag'      ⍝ In case "foo" is not part of the command line at all
+⍝ '+flag' ←→ 0 GetEnvVars '+flag'      ⍝ In case the command line carries "+foo"
+ cl←⎕C GetCommandLineArgs_
+ name←⎕C name
+ 'Invalid argument: must start with either an ASCII character or "+" or "-"'⎕SIGNAL 11/⍨~(1⍴name)∊'+-',⎕A,⎕C ⎕A
+ :If 0<+/bool←(name,'='){⍺∘≡¨(≢⍺)↑¨⍵}cl
+     r←(1+≢name)↓(⊃⍸bool)⊃cl
+ :ElseIf 0=+/bool←(name,' '){⍺∘≡¨(≢⍺)↑¨⍵}cl,' '
+     r←⍕∊default
+ :ElseIf '='∊(⍸bool)⊃cl
+     r←(1+≢name)↓(⊃⍸bool)⊃cl
+ :Else
+     r←name
+ :EndIf

@@ -1,3 +1,20 @@
+* 0.6.0 from 2021-07-25
+  * Potentially BREAKING CHANGES: 
+    * New version of Rumba integrated: 2.1.0 which now uses Conga 3.3
+    * Handling of Ride has changed
+    * INI entry TRAP:General renamed : TRAP:Policy
+  * New version of RumbaLean:
+    * Offers a function `Shutdown` which allows a proper restart of Conga
+  * The section `[WINDOWSEVENTLOG]` was removed from the INI file.
+  * The entry `[LOGGING]WindowsEventLog` was added to the INI file
+  * [LOGGING]WindowsEventLog is set to 0 on non-Windows platforms no matter what
+  * `Log` function introduced that allows logging to the Rumba log file
+  * All sorts of information are logged automatically when the server is started
+  * Folder `RunTime` renamed to `Runtime`
+  * Constant `<TEMP>` added to the log file
+  * Bug fixes
+    * Crashed on INI files that contained nested data
+    * `testflag` wrongly defaulted to 0, must be ⍬
 * 0.5.0 from 2021-01-19
   * In the INI [LOGFILE] was renamed to [LOGGING]
   * All paths are now checked an massaged.

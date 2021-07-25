@@ -1,25 +1,30 @@
- r←GetAppFolder filename
+ r←{x}GetAppFolder filename;appName
 ⍝ Depending on the operating system, the folder where your application may write to is or is not different from
 ⍝ the folder it is installed in. The installation folder is where the workspace/EXE resides.
 ⍝ For log files and error snapshots (and possibly the INI file) we need a folder we are allowed to write to.
 ⍝ Under Windows this means it has to be somewhere else. That somewhere else is returned by this function.
 ⍝ * Under Windows it depends on the account:
-⍝   * For any ordinary user account it is `%LOCALAPPDATA%\Plodder\`
+⍝   * For any ordinary user account it is `%LOCALAPPDATA%\{appName}\`
 ⍝   * For the system account it is where the workspace was loaded from\\
 ⍝     Note that Windows Services usually run under the system account
-⍝ * Under Linux it is `/etc/Plodder/`
-⍝ * Under MacOS it is /usr/local/Plodder/
+⍝ * Under Linux it is `/etc/{appName}/`
+⍝ * Under MacOS it is /usr/local/{appName}/
+ :If 0<⎕NC'x'  ⍝ Special case: test cases!
+     ⎕SHADOW'G'
+     G←x
+ :EndIf
+ appName←⊃G.INI.Get'CONFIG:AppName'
  :Select 1 ⎕C ##.APLTreeUtils2.GetOperatingSystem ⍬
  :Case 'WIN'
      :If IsRunningAsService
          r←1⊃⎕NPARTS 2⊃GetCommandLineArgs_
      :Else
-         r←((2 ⎕NQ #'GetEnvironment' 'LOCALAPPDATA'),'\Plodder\'),filename
+         r←((2 ⎕NQ #'GetEnvironment' 'LOCALAPPDATA'),'\',appName,'\'),filename
      :EndIf
  :Case 'LIN'
-     r←('/etc/Plodder/'),filename
+     r←('/etc/',appName,'/'),filename
  :Case 'MAC'
-     r←('/usr/local/Plodder/'),filename
+     r←('/usr/local/',appName,'/'),filename
  :Else
      11 ⎕SIGNAL⍨'Operating system not supported'
  :EndSelect

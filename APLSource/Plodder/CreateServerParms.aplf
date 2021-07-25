@@ -2,7 +2,6 @@
  parms←R.NewServer 0
  parms.Context←⊃G.INI.Get'APP:Context'
  parms.DisplayRequests←G.INI.Get'CONFIG:DisplayRequests'
- parms.Folder←⊃G.INI.Get'CONFIG:Folder'
  parms.LogHTTPToSession←G.INI.Get'CONFIG:LogHTTPToSession'
  parms.MaxNoOfThreads←G.INI.Get'CONFIG:MaxNoOfThreads'
  parms.Name←G.AppName
@@ -13,7 +12,7 @@
  parms.Port←G.INI.Get'CONFIG:Port'
  parms.Secure←G.INI.Get'CONFIG:Secure'
  :If parms.Secure
-     ⍝TODO⍝ We need a proper certificate here!
+     ⍝TODO                                                                  ⍝ We need a proper certificate here!
      parms.PublicCertFile←'expand'F.NormalizePath⊃G.INI.Get'CERTIFICATES:PublicCertFile'
      parms.PrivateKeyFile←'expand'F.NormalizePath⊃G.INI.Get'CERTIFICATES:PrivateKeyFile'
      parms.CertType←⊃G.INI.Get'CERTIFICATES:CertType'
@@ -27,14 +26,14 @@
  G.QuitEvent←G.INI.Get'EVENTS:QuitEvent'
  G.PauseEvent←G.INI.Get'EVENTS:PauseEvent'
  G.ContinueEvent←G.INI.Get'EVENTS:ContinueEvent'
- :If ¯1≡G.INI.Get'WINDOWSEVENTLOG:Write'
+ :If ¯1≡G.INI.Get'LOGGING:WindowsEventLog'
      :If G.IsWin
-         G.WriteToWindowsEventLog←IsRunningAsService
+         G.WriteToWindowsEventLog←IsRunningAsService                        ⍝ Default for a Windows Service is "yes"
      :Else
-         G.WriteToWindowsEventLog←0
+         G.WriteToWindowsEventLog←0                                         ⍝ Never on non-Windows platforms
      :EndIf
  :Else
-     G.WriteToWindowsEventLog←G.INI.Get'WINDOWSEVENTLOG:Write'
+     G.WriteToWindowsEventLog←G.IsWin×G.INI.Get'LOGGING:WindowsEventLog'    ⍝ Take INI entry on Windows and ignore otherwise
  :EndIf
  parms.LogHTTP←G.INI.Get'LOGGING:LogHTTP'
  parms.LogConga←G.INI.Get'LOGGING:LogConga'

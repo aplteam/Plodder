@@ -1,6 +1,6 @@
-.acre/
-Tests/Rumba/Log
-aplcore
-Dist/
-change_history/
-.gitignore
+./.acre/
+./aplcore
+./Dist/
+./change_history/
+./.gitignore
+./CONTINUE.dws

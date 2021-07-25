@@ -1,0 +1,9 @@
+ response←response DeliverFile dummy;c;q;filename;buff
+ filename←(739⌶0),'/Plodder-test-file.txt'
+ 3 ⎕NDELETE filename
+ buff←⎕A,(⎕C ⎕A),⎕D
+ buff←buff[?20000000⍴≢buff]
+ (⊂buff)⎕NPUT filename
+ response.IsFile←1
+ response.FilePath←filename
+ response.ContentType←'application/zip'

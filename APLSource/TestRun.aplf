@@ -1,9 +1,10 @@
- TestRun flag
+ TestRun flag;fn
 ⍝ `flag` is just insurance against accidental call.
-⍝ This function is called via ⎕LX *within the test server* in case the test cases are executed.
- #.⎕SHADOW'TEMP'
- 'TEMP'#.⎕NS''
- #.TEMP.Log←''
- 1 ⎕NDELETE'./Tests/Rumba/Log/Log.txt' ⍝ File access error? Test server is most likely already running!
- 'Tests/test.ini'Plodder.Run 0
+⍝ This function is called via ⎕LX **within the test server** in case the test cases are executed.
+ :If flag
+     #.⎕SHADOW'TEMP'
+     'TEMP'#.⎕NS''
+     #.TEMP.Log←''
+     {}'Tests/test.ini'({1}Plodder.Run)0 1
+ :EndIf
 ⍝Done

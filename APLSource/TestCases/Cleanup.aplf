@@ -1,10 +1,9 @@
  Cleanup;flag;counter
- ⎕EX¨'A' 'Rumba'
  flag←counter←0
  :Repeat
      :Trap 0
      ⍝ Trap is needed because the test server might still run and have the log file tied.
-         1 ⎕NDELETE'Tests/Rumba/Log/log.txt'
+         1 ⎕NDELETE ∆GetLogFilename
          flag←1
      :Else
          :If 20>counter←counter+1
@@ -14,5 +13,8 @@
          :EndIf
      :EndTrap
  :Until flag
+ ##.FilesAndDirs.RmDir ∆GetTestFolder
  1 ⎕NDELETE'Plodder_Testserver.dws'
+ ⎕EX¨'A' 'Rumba'
+ ##.RumbaLean.Conga.UnloadSharedLib
 ⍝Done

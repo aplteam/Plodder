@@ -1,8 +1,11 @@
- OnStart←{
+ r←OnStart server
 ⍝ Note that you can access the server data (configuration, INI instance etc.) via the reference `G` (for "Globals").
-     server←⍵
-     ⎕←'OnStart...'
-     0=#.⎕NC'TEMP':0
+ r←0
+ ⎕←'OnStart...'
+ :If 0<#.⎕NC'TEMP'
      #.TEMP.Log,←⊂'OnStart'
-     0
- }
+ :EndIf
+ :If 0≠server.LogFileTie
+     server ##.Log ##.CollectStartParms ⍬
+ :EndIf
+⍝Done

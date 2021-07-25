@@ -1,10 +1,9 @@
- R←Test_999(stopFlag batchFlag);⎕TRAP;filename;log;counter;flag
+ R←Test_999(stopFlag batchFlag);⎕TRAP;filename;log;counter;flag;expected
 ⍝ Check the log file
  ⎕TRAP←(999 'C' '∘∘∘ ⍝ Deliberate error')(0 'N')
  R←T._Failed
 
- filename←'./Tests/Rumba/Log/log.txt'
-
+ filename←∆GetLogFilename
  flag←counter←0
  :Repeat
      :Trap 0
@@ -26,6 +25,9 @@
  →T.PassesIf 1=+/'"GET /packages HTTP/1.1" 200'⍷log
  →T.PassesIf 1=+/'Application Error:  SYNTAX ERROR'⍷log
  →T.PassesIf 1=+/'GET /Shutdown'⍷log
+ log←(⎕UCS 10)APLTreeUtils2.Split log
+ expected←'*** Command line arguments:' '*** INI file:' '*** Misc:'
+ →T.PassesIf∧/expected∊log
 
  R←T._OK
 ⍝Done

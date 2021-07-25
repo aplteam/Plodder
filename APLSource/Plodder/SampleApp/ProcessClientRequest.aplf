@@ -1,0 +1,30 @@
+ response←response ProcessClientRequest request;html;md
+⍝ This function processes all requests that come from a Browser (always GET)
+ response.StatusCode←200
+ :Select ⎕C request.RequestTarget
+ :Case ,'/'
+     ⎕←'Client asked for the home page'
+     response.Content←⊃,/(CompileHomepPage ⍬),¨⊂⎕UCS 13 10
+ :Case '/packages'
+     ⎕←'Client asked for a list of packages'
+     response(ProcessServiceRequest)←'Packages'
+ :Case '/groups'
+     ⎕←'Client asked for a list of groups'
+     response(ProcessServiceRequest)←'Groups'
+ :Case '/file'
+     ⎕←'Client asked for a file, we send a 20MB-file'
+     response(DeliverFile)←⍬
+ :Case '/stop'
+     response(ProcessStopPage)←⍬
+ :Case '/crash'
+     ⎕←'Client asked for a crash'
+     ∘∘∘ ⍝ In runtime this will be caught by Rumba's "TrapRequest" operator which then attempts to send back a 500
+ :Case '/shutdown'
+     ⎕←'Client asked for shutting down'
+     response(CreateShutdownPage)←G
+     SendQuitEvent ⍬
+ :Else
+     ⎕←'Client asked for something unknown'
+     response(Create404Page)←⍬
+ :EndSelect
+⍝Done

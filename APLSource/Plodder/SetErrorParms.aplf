@@ -1,0 +1,9 @@
+ ref←SetErrorParms ref
+⍝ `ref` is typically the result of ##.HandleError.CreateParms.
+⍝ Adds Plodder-specific adjustments and returns the ref.
+ ref.logFunctionParent←(⍕⎕THIS)
+ ref.logFunction←'LogError'
+ :If 0<≢ref.errorFolder←⊃G.INI.Get'TRAP:Folder'
+     'CREATE!'F.CheckPath ref.errorFolder
+ :EndIf
+⍝Done

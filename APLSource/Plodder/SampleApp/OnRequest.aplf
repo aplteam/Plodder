@@ -5,12 +5,12 @@
  response←R.NewResponse request
  :Select request.Method
  :Case 'GET'
-     response(ProcessBrowserRequest)←request
- :CaseList 'POST' 'PUT' 'PATCH' 'DELETE'
-     response.Content←H.ErrorPage'Error 501: ',request.Method,' is not implemented yet'    ⍝TODO⍝ : Implement those REST commands as well
+     response(ProcessClientRequest)←request
+ :CaseList 'POST' 'PUT' 'PATCH' 'DELETE' 'HEAD'
+     response.Content←H.ErrorPage'Error 501: ',request.Method,' is not implemented yet'
      response.StatusCode←501
  :Else
      response.StatusCode←400
-     response.Content←H.ErrorPage'Error 400: unknown type; must be undefined or "json" or "html" (default)'  ⍝TODO⍝
+     response.Content←H.ErrorPage'Error 400: unknown type; must be undefined or "json" or "html" (default)'
  :EndSelect
 ⍝Done

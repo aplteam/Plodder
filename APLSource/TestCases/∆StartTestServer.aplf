@@ -1,9 +1,13 @@
- r←∆StartTestServer dummy;LXwas;WSIDwas;tempWSID;cl;q;exe;cmd;_
-⍝ Starts a separate instance of Dyalog (RunTime) and starts the server within that instance.
-⍝ The optional left argument defaults to 0. 1 allows one to RIDE into the running server.
+ r←{x}∆StartTestServer runtimeFlag;LXwas;WSIDwas;tempWSID;cl;q;exe;cmd;_;rc
+⍝ Starts a separate instance of Dyalog and starts the server within that instance.
+⍝ The optional left argument defaults to 0, meaning that the server will start.
+⍝ If it's a 1 then "-x" is added to the command line, preventing ⎕LX from being executed.
 ⍝ *** For a RIDE the Conga DLLs must be available as siblings of the workspace
 ⍝ *** This function changes ⎕LX and ⎕WSID but only temporarily.
  r←1
+ 'Invalid right argument: must be a Boolean'⎕SIGNAL 11/⍨~(⊂runtimeFlag)∊0 1
+ x←{0<⎕NC'x':⍎⍵ ⋄ 0}'x'
+ 'Invalid left argument: must be a Boolean'⎕SIGNAL 11/⍨~(⊂x)∊0 1
  ##.RumbaLean.⎕EX'DRC'               ⍝ Delete any leftovers : we need to save this WS
  LXwas←⎕LX
  ⎕LX←'#.Plodder.TestRun 1'
@@ -18,30 +22,33 @@
  exe←⊃cl                             ⍝ The interpreter
  :If 1
      :If 'W'=⊃⊃# ⎕WG'APLVersion'
-         :If 0=+/'Dyalogrt.exe'⍷exe  ⍝ Might be already a runtime exe (Ride!)
+         :If runtimeFlag
+         :AndIf 0=+/'Dyalogrt.exe'⍷exe  ⍝ Might be already a runtime exe (Ride!)
              exe←(exe↑⍨'Dyalog.exe'{¯1+1⍳⍨⍺⍷⍵}exe),'Dyalogrt.exe' ⍝ Make it runtime exe
          :EndIf
      :Else
-         :If 0=+/'/dyalog.rt'⍷exe    ⍝ Might be already a runtime exe (Ride!)
+         :If runtimeFlag
+         :AndIf 0=+/'/dyalog.rt'⍷exe    ⍝ Might be already a runtime exe (Ride!)
              exe←(exe↑⍨'/dyalog'{¯1+1⍳⍨⍺⍷⍵}exe),'/dyalog.rt' ⍝ Make it runtime exe
          :EndIf
      :EndIf
  :EndIf
  cmd←⊂q exe                          ⍝
  cmd,←⊂q tempWSID                    ⍝ The workspace
- cmd,←⊂'maxws=64MB'
+ cmd,←⊂'maxws=512MB'
  cmd,←⊂'DYALOG_NOPOPUPS=1'           ⍝ We don't want the dialog box "You have successfully..." nor any other
  cmd,←⊂'OFF=1'                       ⍝ Should finish itself
  :If 0
-     cmd,←⊂'-ride=4502'              ⍝ User wants to have a RIDE
+     cmd,←⊂'-ride=4502'              ⍝ User wants to have a RIDE. This requires the Conga DLL to be a sibling of the WS!
  :EndIf
- :If 0
+ :If x
      cmd,←⊂'-x'                      ⍝ Do not execute ⎕LX
  :EndIf
  :If 'W'=⊃⊃# ⎕WG'APLVersion'
-     _←⎕CMD(1↓∊' ',¨cmd)''           ⍝ Run cmd
+     rc←⎕CMD(1↓∊' ',¨cmd)''          ⍝ Run cmd
  :Else
-     _←⎕CMD(1↓∊' ',¨cmd),'&'         ⍝ Run cmd
+     rc←⎕CMD(1↓∊' ',¨cmd),'&'        ⍝ Run cmd
  :EndIf
+ ⎕DL 2
  r←0
 ⍝Done

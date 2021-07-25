@@ -2,5 +2,5 @@
  :If 'CLEAR WS'≡⎕WSID
      r←'./Assets/'
  :Else
-     r←(1⊃⎕NPARTS ⎕WSID),'Assets/'
+     r←(1⊃⎕NPARTS''),'Assets/'
  :EndIf

@@ -27,7 +27,7 @@ In particular Plodder offers these features:
 
 2. Windows Event Log
 
-   Under Windows Plodder writes to the Windows Event Log when it runs under a Dyalog RunTime instance. The events "Start", "Pause", "Continue" and "Stop" are logged.  
+   Under Windows Plodder writes to the Windows Event Log when it runs under a Dyalog Runtime instance. The events "Start", "Pause", "Continue" and "Stop" are logged.  
 
 3. Error trapping
 

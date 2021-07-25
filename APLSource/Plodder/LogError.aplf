@@ -1,0 +1,3 @@
+ {r}←{server}LogError msg
+ server←{0<⎕NC ⍵:⍎⍵ ⋄ G.Server}'server'
+ r←server Log⊆msg
