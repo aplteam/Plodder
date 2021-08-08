@@ -1,7 +1,12 @@
  {r}←serverInstance Log msg;msg_
  r←⍬
  :If 2>≡msg
-     msg_←R.{(LogDate QTS),' ',⍵,CrLf}⎕UCS'UTF-8'⎕UCS msg
+     :Trap 0
+         msg_←R.{(LogDate QTS),' ',⍵,CrLf}⎕UCS'UTF-8'⎕UCS msg
+     :Else
+         ⍝ Experimental: we need to find out under which circumstances line 4 crashes
+         msg_←'XSI:',⊃,/R.CrLf∘,¨' ',¨⎕XSI
+     :EndTrap
      msg_ ⎕NAPPEND serverInstance.LogFileTie
  :Else
      ((R.LogDate R.QTS),R.CrLf)⎕NAPPEND serverInstance.LogFileTie

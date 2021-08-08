@@ -1,3 +1,5 @@
+* 0.6.1 from 2021-08-08
+  * We need to find out when exactly the `Log` function crashes!
 * 0.6.0 from 2021-07-25
   * Potentially BREAKING CHANGES: 
     * New version of Rumba integrated: 2.1.0 which now uses Conga 3.3
