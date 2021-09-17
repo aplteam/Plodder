@@ -18,11 +18,7 @@
      parms.CertType←⊃G.INI.Get'CERTIFICATES:CertType'
      parms.TLSFlag←32
  :EndIf
- :If A.IsDevelopment
-     parms.Trap←G.INI.Get'TRAP:Rumba'
- :Else
-     parms.Trap←1
- :EndIf
+ parms.Trap←G.INI.Get'TRAP:Rumba'
  G.QuitEvent←G.INI.Get'EVENTS:QuitEvent'
  G.PauseEvent←G.INI.Get'EVENTS:PauseEvent'
  G.ContinueEvent←G.INI.Get'EVENTS:ContinueEvent'

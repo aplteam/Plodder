@@ -1,4 +1,6 @@
-* 0.6.1 from 2021-08-08
+* 0.6.1 from 2021-09-17
+  * Trapping is now exclusively ruled by the INI file; whether Plodder runs in a development or a runtime
+    version of Dyalog does not make a difference anymore. (You can still overwirte INI settings via ⍵)
   * We need to find out when exactly the `Log` function crashes!
 * 0.6.0 from 2021-07-25
   * Potentially BREAKING CHANGES: 

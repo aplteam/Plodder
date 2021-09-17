@@ -5,7 +5,7 @@
          msg_←R.{(LogDate QTS),' ',⍵,CrLf}⎕UCS'UTF-8'⎕UCS msg
      :Else
          ⍝ Experimental: we need to find out under which circumstances line 4 crashes
-         msg_←'XSI:',⊃,/R.CrLf∘,¨' ',¨⎕XSI
+         msg_←'[]XSI:',⊃,/R.CrLf∘,¨' ',¨⎕XSI{⍺,'[',(⍕⍵),']'}¨⎕LC
      :EndTrap
      msg_ ⎕NAPPEND serverInstance.LogFileTie
  :Else
