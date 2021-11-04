@@ -1,5 +1,7 @@
 (
-  '* 0.6.1 from 2021-09-29'
+  '* 0.6.3 from 2021-11-04'
+  '  * New version of RumaLean'
+  '* 0.6.2 from 2021-10-03'
   '  * Trapping is now exclusively ruled by the INI file; whether Plodder runs in a development or a runtime'
   '    version of Dyalog does not make a difference anymore. (You can still overwrite INI settings via ⍵)'
   '  * New version of RumbaLean integrated'
