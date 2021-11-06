@@ -38,6 +38,7 @@
  cmd,←⊂'maxws=512MB'
  cmd,←⊂'DYALOG_NOPOPUPS=1'           ⍝ We don't want the dialog box "You have successfully..." nor any other
  cmd,←⊂'OFF=1'                       ⍝ Should finish itself
+ cmd,←⊂{0=≢v←2 ⎕NQ #'GetEnvironment'⍵:'' ⋄ ⍵,'="',v,'"'}'DYALOGSTARTUPSE'
  :If 0
      cmd,←⊂'-ride=4502'              ⍝ User wants to have a RIDE. This requires the Conga DLL to be a sibling of the WS!
  :EndIf

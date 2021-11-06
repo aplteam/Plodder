@@ -1,6 +1,7 @@
  r←CollectStartParms dummy;ini;b;buff;buff2
 ⍝ Collects all pieces of information that might be of interest for debugging purposes.
  r←''
+ r,←⊂(⎕PW-1)↑'--- Started at ',(A.FormatDateTime ⎕TS),⎕PW⍴'-'
  r,←⊂'*** Command line arguments:'
  r,←' ',¨GetCommandLineArgs_
  r,←⊂''
