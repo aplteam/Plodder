@@ -24,7 +24,7 @@
      G.TestFlag←G.INI.Get'CONFIG:TestFlag'
  :EndIf
  :If trapFlag∊0 1
-     parms.Trap←trapFlag
+     G.Trap←parms.Trap←trapFlag
  :Else
      trapFlag←⊃G.INI.Get'TRAP:Policy'
  :EndIf
