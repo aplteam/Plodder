@@ -1,4 +1,6 @@
 (
+  '* 1.0.2 from 2021-12-23'
+  '  * New version of RumbaLean'
   '* 1.0.1 from 2021-11-20'
   '  * Problem with the "Trap" flag fixed: was not propagated from the INI file'
   '* 1.0.0 from 2021-11-11'
