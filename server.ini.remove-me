@@ -9,12 +9,12 @@ AppName             = 'Plodder'
 DisplayRequests     = 0             ; 1 makes Rumba display every request in a ⎕ED windows. For debugging only of course.
 LogHTTPToSession    = 0             ; Naturally only useful in development
 MaxNoOfThreads      = 1000
-Port                = 80
+Port                = 0             ; A 0 defaults to either 80 or 443, depending on "Secure"
 Secure              = 0
 HTDOCS              = '{home}'      ; Becomes global G.HTDOCS: folder with static documents
 
 [LOGGING]
-Folder              = '<TEMP>/Plodder-Logs' ; Where the log file goes.
+Folder              = '<TEMP>/Plodder-Logs' ; Where the log file goes
 LogHTTP             = 1
 LogConga            = 1 
 LogRumba            = 1

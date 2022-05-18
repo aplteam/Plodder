@@ -9,8 +9,10 @@
  parms.OnHeader←⊃''G.INI.Get'APP:OnHeader'
  parms.OnRequest←⊃G.INI.Get'APP:OnRequest'
  parms.OnCongaTimeout←⊃''G.INI.Get'APP:OnCongaTimeOut'
- parms.Port←G.INI.Get'CONFIG:Port'
  parms.Secure←G.INI.Get'CONFIG:Secure'
+ :If 0=parms.Port←G.INI.Get'CONFIG:Port'
+     parms.Port←(1+parms.Secure)⊃80 443  ⍝ 0 is translated into default port which depends on "Secure"
+ :EndIf
  :If parms.Secure
      ⍝TODO                                                                  ⍝ We need a proper certificate here!
      parms.PublicCertFile←'expand'F.NormalizePath⊃G.INI.Get'CERTIFICATES:PublicCertFile'
