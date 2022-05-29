@@ -1,4 +1,6 @@
 (
+ '* 1.0.4 from 2022-05-29'
+ '  * Improved version of Rumba (error handling)'
  '* 1.0.3 from 2022-05-18'
  '  * Port 0 should default to either 80 or 443 (depending on "Secure") but did not.'
  '* 1.0.2 from 2021-12-23'
