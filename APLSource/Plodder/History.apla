@@ -1,4 +1,6 @@
 (
+ '* 1.1.0 from 2022-06-10'
+ '  *New version of Rumba whiich uses Conga 3.4 rather than 3.3'
  '* 1.0.4 from 2022-05-29'
  '  * Improved version of Rumba (error handling)'
  '* 1.0.3 from 2022-05-18'
