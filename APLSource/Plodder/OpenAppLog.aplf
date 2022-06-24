@@ -1,0 +1,10 @@
+ G←OpenAppLog G;filename
+ :If G.INI.Get'Logging:Log'
+     filename←(⊃G.INI.Get'Logging:Folder'),'app-log.txt'
+     :If F.IsFile filename
+         G.AppLogTie←filename ⎕NTIE 0
+     :Else
+         G.AppLogTie←filename ⎕NCREATE 0
+     :EndIf
+ :EndIf
+⍝Done

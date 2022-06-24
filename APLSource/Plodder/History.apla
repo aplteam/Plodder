@@ -1,4 +1,9 @@
 (
+ '* 1.2.1 from 2022-06-24'
+ '  * New version of Rumba integrated that comes with a workaround for bug  <02024>'
+ '* 1.2.0 from 2022-06-21'
+ '  * Additional logging level added for application-specific logging.'
+ '  * New version of Rumba integrated'
  '* 1.1.0 from 2022-06-10'
  '  *New version of Rumba whiich uses Conga 3.4 rather than 3.3'
  '* 1.0.4 from 2022-05-29'

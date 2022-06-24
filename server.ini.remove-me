@@ -15,6 +15,7 @@ HTDOCS              = '{home}'      ; Becomes global G.HTDOCS: folder with stati
 
 [LOGGING]
 Folder              = '<TEMP>/Plodder-Logs' ; Where the log file goes
+Log                 = 0             ; In production this will most likely be 1 and for sure the others 0.
 LogHTTP             = 1
 LogConga            = 1 
 LogRumba            = 1

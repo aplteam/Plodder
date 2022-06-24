@@ -40,7 +40,7 @@
  cmd,←⊂'OFF=1'                       ⍝ Should finish itself
  cmd,←⊂{0=≢v←2 ⎕NQ #'GetEnvironment'⍵:'' ⋄ ⍵,'="',v,'"'}'DYALOGSTARTUPSE'
  :If 0
-     cmd,←⊂'-ride=4502'              ⍝ User wants to have a RIDE. This requires the Conga DLL to be a sibling of the WS!
+     cmd,←⊂'-port=4502'              ⍝ User wants to have a RIDE. This requires the Conga DLL to be a sibling of the WS!
  :EndIf
  :If x
      cmd,←⊂'-x'                      ⍝ Do not execute ⎕LX

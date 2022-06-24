@@ -33,6 +33,7 @@
  :Else
      G.WriteToWindowsEventLog←G.IsWin×G.INI.Get'LOGGING:WindowsEventLog'    ⍝ Take INI entry on Windows and ignore otherwise
  :EndIf
+ parms.Log←G.INI.Get'LOGGING:Log'
  parms.LogHTTP←G.INI.Get'LOGGING:LogHTTP'
  parms.LogConga←G.INI.Get'LOGGING:LogConga'
  parms.LogRumba←G.INI.Get'LOGGING:LogRumba'

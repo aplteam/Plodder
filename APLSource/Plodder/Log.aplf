@@ -1,4 +1,5 @@
  {r}←serverInstance Log msg;msg_
+⍝ Use this to log HTTP, Conga and Rumba stuff, but see also AppLog
  r←⍬
  :If 2>≡msg
      :Trap 0
