@@ -2,7 +2,7 @@
 ⍝ General error trapping in case something goes horribly wrong.
 ⍝ This does not establish error trapping by default in development, but this can be enforced by passing a 1 as left argument.
 ⍝ In Runtime error trapping is always established.
-⍝ Requires #.ErrrorParms to exist!
+⍝ Requires #.ErrorParms to exist!
  force←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'force'
  :If ¯1=force
      force←~A.IsDevelopment

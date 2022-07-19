@@ -1,4 +1,6 @@
 (
+ '* 1.2.2 from 2022-07-19'
+ '  * New version of Rumba integrated that fixed a problem with PercentDecode'
  '* 1.2.1 from 2022-06-24'
  '  * New version of Rumba integrated that comes with a workaround for bug  <02024>'
  '* 1.2.0 from 2022-06-21'
