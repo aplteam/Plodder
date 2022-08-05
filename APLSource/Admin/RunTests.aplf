@@ -1,0 +1,11 @@
+ {r}←{stopFlag}RunTests testFlag
+ r←⍬
+ stopFlag←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'stopFlag'
+ :If 9=##.⎕NC'TestCases'
+     ##.FilesAndDirs.PolishCurrentDir
+     ##.TestCases.Prepare
+     stopFlag ##.TestCases.T.Run testFlag
+ :Else
+     ⎕←'No test cases found - this seems to be a release, not an opened project?!'
+ :EndIf
+⍝Done

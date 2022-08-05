@@ -1,4 +1,8 @@
 (
+ '* 1.3.0 from 2022-08-05'
+ '  * Documentation corrected'
+ '  * New "Make" implemented'
+ '  * Packages updated'
  '* 1.2.2 from 2022-07-19'
  '  * New version of Rumba integrated that fixed a problem with PercentDecode'
  '* 1.2.1 from 2022-06-24'
