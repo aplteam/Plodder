@@ -1,6 +1,5 @@
 aplcore
 /Dist/
-/.gitignore
 CONTINUE.dws
-/Project.dws
-/Conga.crash
+conga.crash
+/TestResults/

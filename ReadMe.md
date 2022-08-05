@@ -79,7 +79,7 @@ This namespace also holds a reference to in instance of the INI file of the serv
 
 ## Test cases
 
-Plodder comes with a test suite. You can run the test suite by calling `#.Plodder.Admin.RunTests`.
+Plodder comes with a test suite; enter `]Cider.Make` in order to get the command printed to the session.
 
 However, in order to run the test cases you must have a copy of the project: a release won't do.
 
@@ -90,7 +90,9 @@ However, in order to run the test cases you must have a copy of the project: a r
 
 2. )xload the `Plodder` workspace
 
-   At this point you could already start the server and put `http://localhost` into the address bar of the browser and it would work thanks to the demo application build into Plodder.
+   At this point you could already start the server with `({1}Plodder.Run)0 1` and put `http://localhost` into the address bar of a browser and it would work thanks to the demo application build into Plodder.
+
+   (This would work because Plodder would look for a file `server.ini` in the same folder the workspace was loaded from)
 
 3. Bring in the namespace (or class) that holds the handlers for the four Plodder events as well as everything they need.
 

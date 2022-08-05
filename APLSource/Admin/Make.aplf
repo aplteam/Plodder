@@ -1,0 +1,26 @@
+ Make;targetPath;M;name;targetPath2
+⍝ Version 4.0.0 ⋄ 2022-08-05
+ ⎕IO←1 ⋄ ⎕ML←1
+ {' '≠1↑0⍴∊⍵:.}⎕FX'r←M' 'r←⎕SE.MakeHelpers'
+ :If M.YesOrNo'Sure you want to "make" a new version? The workspace will be destroyed in the process!'
+     targetPath←##.CiderConfig.HOME,'/Dist/'
+     name←'Plodder'
+     ⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝
+     M.RecreateFolder targetPath
+     M.IncreaseBuildID'#.',name,'.',name,'.Version'
+     {}⎕SE.Link.Break'#.',name
+     targetPath2←targetPath,name
+     M.RecreateFolder targetPath2
+     ⎕WSID←targetPath2,'/',name,'.dws'
+     SaveProjectWorkpace ⍬
+     (M.##.F.ListFiles ##.CiderConfig.HOME,'/CongaDLLs/*')M.CopyTo targetPath2,'/Assets/Runtime/Conga/'
+     M.RecreateFolder targetPath2,'/Data'
+     (##.CiderConfig.HOME,'/Assets')M.CopyTo targetPath2,'/'
+     (##.CiderConfig.HOME,'/LICENSE')M.CopyTo targetPath2,'/'
+     (##.CiderConfig.HOME,'/server.ini.remove-me')M.CopyTo targetPath2,'/server.ini'
+     M.CreateZipFile name targetPath(⍎'#.',name,'.Version')
+     ⎕←'*** New version created, but the workspace got destroyed in the process'
+     ⎕←'      )CLEAR'
+ :Else
+     ⎕←'Cancelled by user'
+ :EndIf
