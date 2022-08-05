@@ -18,7 +18,7 @@
      (##.CiderConfig.HOME,'/Assets')M.CopyTo targetPath2,'/'
      (##.CiderConfig.HOME,'/LICENSE')M.CopyTo targetPath2,'/'
      (##.CiderConfig.HOME,'/server.ini.remove-me')M.CopyTo targetPath2,'/server.ini'
-     M.CreateZipFile name targetPath(⍎'#.',name,'.Version')
+     M.CreateZipFile name targetPath(2⊃⍎'#.',name,'.Version')
      ⎕←'*** New version created, but the workspace got destroyed in the process'
      ⎕←'      )CLEAR'
  :Else
