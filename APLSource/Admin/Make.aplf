@@ -1,6 +1,8 @@
- Make;targetPath;M;name;targetPath2
-⍝ Version 4.0.0 ⋄ 2022-08-05
+ Make;targetPath;M;name;targetPath2;APLversion
+⍝ Version 4.0.1 ⋄ 2022-10-08
  ⎕IO←1 ⋄ ⎕ML←1
+ APLversion←'18.0'
+ ('Invalid version of Dyalog; create new version from Dyalog Unicode ',APLversion)##.Plodder.Assert APLversion≡{⍵/⍨2>+\'.'=⍵}2⊃# ⎕WG'APLVersion'
  {' '≠1↑0⍴∊⍵:.}⎕FX'r←M' 'r←⎕SE.MakeHelpers'
  :If M.YesOrNo'Sure you want to "make" a new version? The workspace will be destroyed in the process!'
      targetPath←##.CiderConfig.HOME,'/Dist/'
@@ -21,6 +23,7 @@
      M.CreateZipFile name targetPath(2⊃⍎'#.',name,'.Version')
      ⎕←'*** New version created, but the workspace got destroyed in the process'
      ⎕←'      )CLEAR'
+     ⎕CLEAR
  :Else
      ⎕←'Cancelled by user'
  :EndIf

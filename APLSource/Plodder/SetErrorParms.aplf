@@ -3,6 +3,8 @@
 ⍝ Adds Plodder-specific adjustments and returns the ref.
  ref.logFunctionParent←(⍕⎕THIS)
  ref.logFunction←'LogError'
+ ref.killThreads←0
+ ref.saveVars←0
  :If 0<≢ref.errorFolder←⊃G.INI.Get'TRAP:Folder'
      'CREATE!'F.CheckPath ref.errorFolder
  :EndIf

@@ -2,14 +2,14 @@
 ⍝ Use this to log application level stuff without IP, but see also `Log` for logging HTTP, Conga and Rumba stuff.
 ⍝ Relies on the namespace `G` being around and having a variable `AppLogTie`.
  r←⍬
- :Trap 0 ⍝ This should never crash the calling app, so in this particular case we do a
+ :Trap (~G.TestFlag)/0 ⍝ This should never crash the calling app unless it's a test
      ts←,'ZI4,<->,ZI2,<->,ZI2,< >,ZI2,<:>,ZI2,<:>,ZI2'⎕FMT,[0.5]6↑⎕TS
      :If 2>≡msg
          msg_←ts,' ',(⎕UCS'UTF-8'⎕UCS msg),R.CrLf
          msg_ ⎕NAPPEND G.AppLogTie
      :Else
-         msg_←(⎕UCS'UTF-8'⎕UCS⊃,/ts∘,¨msg_,¨⊂R.CrLf)
-         msg ⎕NAPPEND G.AppLogTie
+         msg_←(⎕UCS'UTF-8'⎕UCS⊃,/(⊂ts,' '),¨msg,¨⊂R.CrLf)
+         msg_ ⎕NAPPEND G.AppLogTie
      :EndIf
  :EndTrap
 ⍝Done
