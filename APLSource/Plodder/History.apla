@@ -1,4 +1,6 @@
 (
+ '* 1.3.3 from 2022-12-25'
+ '  * `LogError` now adds (⊂''*** Error'') to the message provided.'
  '* 1.3.2 from 2022-11-17'
  '  * Comes with a new version of RumbaLean that in turn fixes a minor problem in WaitForData that'
  '    only hits when Rumba is interrupted by the user and no threads are running.'

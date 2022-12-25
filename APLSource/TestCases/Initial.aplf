@@ -1,7 +1,7 @@
  Initial;noQLX;runTimeFlag
  ##.Plodder.A←##.APLTreeUtils2
  Rumba←##.Plodder.CopyRumba ⍬
- ##.FilesAndDirs.RmDir{⍵↓⍨-⌊/(⌽⍵)⍳'/\'}¯1↓1⊃⎕NPARTS ∆GetLogFilename
+ {}##.FilesAndDirs.RmDirByForce{⍵↓⍨-⌊/(⌽⍵)⍳'/\'}¯1↓1⊃⎕NPARTS ∆GetLogFilename
  noQLX←0
  runTimeFlag←1
  :If 0=noQLX ∆StartTestServer runTimeFlag

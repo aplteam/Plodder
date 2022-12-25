@@ -13,7 +13,7 @@
          :EndIf
      :EndTrap
  :Until flag
- ##.FilesAndDirs.RmDir ∆GetTestFolder
+ {}##.FilesAndDirs.RmDirByForce ∆GetTestFolder
  1 ⎕NDELETE'Plodder_Testserver.dws'
  ⎕EX¨'A' 'Rumba'
  ##.RumbaLean.Conga.UnloadSharedLib
