@@ -10,7 +10,7 @@ DisplayRequests     = 0             ; 1 makes Rumba display every request in a â
 LogHTTPToSession    = 0             ; Naturally only useful in development
 MaxNoOfThreads      = 1000
 Port                = 0             ; A 0 defaults to either 80 or 443, depending on "Secure"
-Secure              = 0
+Secure              = 0             ; If the port is 0 then "Secure" decides whether 80 or 443 is used
 HTDOCS              = '{home}'      ; Becomes global G.HTDOCS: folder with static documents
 
 [LOGGING]
