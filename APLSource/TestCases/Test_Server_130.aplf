@@ -1,0 +1,16 @@
+ R←Test_Server_130(stopFlag batchFlag);⎕TRAP;c;q;r;noOf
+⍝ Ask for a file. The server will send a 20-MB file
+ ⎕TRAP←(999 'C' '∘∘∘ ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ c←∆NewClient
+ q←Rumba.NewRequest 0
+ q.RequestTarget←'/file'
+ r←c Rumba.SendAndReceive q
+
+ →T.PassesIf 200≡r.StatusCode
+ →T.PassesIf 20000002=r.ContentLength
+ →T.PassesIf r.ContentLength=≢r.Content
+
+ R←T._OK
+⍝Done

@@ -1,0 +1,22 @@
+ R←Test_Server_120(stopFlag batchFlag);⎕TRAP;c;q;r;noOf
+⍝ Ask for the "crash" page
+ ⎕TRAP←(999 'C' '∘∘∘ ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ :If ##.FilesAndDirs.IsDir ∆GetCrashFolder
+     noOf←≢##.FilesAndDirs.ListFiles ∆GetCrashFolder
+ :Else
+     noOf←0
+ :EndIf
+
+ c←∆NewClient
+ q←Rumba.NewRequest 0
+ q.RequestTarget←'/crash'
+ r←c Rumba.SendAndReceive q
+
+ →T.PassesIf r.StatusCode=500
+ →T.PassesIf∨/'<h1>500: Internal Server Error</h1>'⍷r.Content
+ →T.PassesIf(noOf+2)=≢##.FilesAndDirs.ListFiles ∆GetCrashFolder
+
+ R←T._OK
+⍝Done

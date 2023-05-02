@@ -1,5 +1,5 @@
  TestRun flag;fn
-⍝ `flag` is just insurance against accidental call.
+⍝ `flag` is just insurance against accidental calls.
 ⍝ This function is called via ⎕LX **within the test server** in case the test cases are executed.
  :If flag
      #.⎕SHADOW'TEMP'
