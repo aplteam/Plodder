@@ -1,5 +1,5 @@
  Make;targetPath;M;name;targetPath2;APLversion
-⍝ Version 4.0.1 ⋄ 2022-10-08
+⍝ Version 4.1.0 ⋄ 2023-02-15
  ⎕IO←1 ⋄ ⎕ML←1
  APLversion←'18.0'
  ('Invalid version of Dyalog; create new version from Dyalog Unicode ',APLversion)##.Plodder.Assert APLversion≡{⍵/⍨2>+\'.'=⍵}2⊃# ⎕WG'APLVersion'
@@ -9,13 +9,12 @@
      name←'Plodder'
      ⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝
      M.RecreateFolder targetPath
-     M.IncreaseBuildID'#.',name,'.',name,'.Version'
+     M.IncreaseBuildIDInFunction'#.',name,'.',name,'.Version'
      {}⎕SE.Link.Break'#.',name
      targetPath2←targetPath,name
      M.RecreateFolder targetPath2
      ⎕WSID←targetPath2,'/',name,'.dws'
      SaveProjectWorkpace ⍬
-     (M.##.F.ListFiles ##.CiderConfig.HOME,'/CongaDLLs/*')M.CopyTo targetPath2,'/Assets/Runtime/Conga/'
      M.RecreateFolder targetPath2,'/Data'
      (##.CiderConfig.HOME,'/Assets')M.CopyTo targetPath2,'/'
      (##.CiderConfig.HOME,'/LICENSE')M.CopyTo targetPath2,'/'

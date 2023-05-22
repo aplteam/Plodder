@@ -1,0 +1,34 @@
+ R←Test_Server_999(stopFlag batchFlag);⎕TRAP;filename;log;counter;flag;expected
+⍝ Check the log file
+ ⎕TRAP←(999 'C' '∘∘∘ ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ filename←∆GetLogFilename
+ flag←counter←0
+ :Repeat
+     →T.PassesIf ⎕NEXISTS filename ⍝ Must exist at this point
+     :Trap 0
+ ⍝ Trap is needed because the server might still run, holding the log file.
+         log←⊃⎕NGET filename
+         flag←1
+     :Else
+         :If 20>counter←counter+1
+             ⎕DL 1
+         :Else
+             'Something went wrong'∆Assert 0
+         :EndIf
+     :EndTrap
+ :Until flag
+
+ →T.PassesIf 0<≢log
+ →T.PassesIf 1=+/'Server started'⍷log
+ →T.PassesIf 1=+/'"GET /This_Does_Not_Exist_For_Sure HTTP/1.1" 404'⍷log
+ →T.PassesIf 1=+/'"GET /packages HTTP/1.1" 200'⍷log
+ →T.PassesIf 1=+/'Application Error:  SYNTAX ERROR'⍷log
+ →T.PassesIf 1=+/'GET /Shutdown'⍷log
+ log←(⎕UCS 10)APLTreeUtils2.Split log
+ expected←'*** Command line arguments:' '*** INI file:' '*** Misc:'
+ →T.PassesIf∧/expected∊log
+
+ R←T._OK
+⍝Done

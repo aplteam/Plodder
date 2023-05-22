@@ -79,7 +79,7 @@ This namespace also holds a reference to in instance of the INI file of the serv
 
 ## Test cases
 
-Plodder comes with a test suite; enter `]Cider.Make` in order to get the command printed to the session.
+Plodder comes with a test suite; enter `]Cider.RunTests` in order to get the command printed to the session.
 
 However, in order to run the test cases you must have a copy of the project: a release won't do.
 

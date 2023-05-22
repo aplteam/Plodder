@@ -1,0 +1,28 @@
+ {r}←{forceCurrentDir}CopyConga Rumba;currentAPL;success
+⍝ Tries to copy the "Conga" namespace from conga.dws of the current interpreter.
+⍝ If that fails (for example because Plodder is running from a runtime EXE of DLL) then
+⍝ we try to copy it from a WS conga.dws in the current directory.
+⍝ If that fails as well an error is thrown.
+⍝ If you want to **always** copy from a WS "conga.dws" in the current directory then pass a 1 as `⍺`.
+⍝ Returns always ⍬.
+ r←⍬
+ forceCurrentDir←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'forceCurrentDir'
+ success←0
+ :If ~forceCurrentDir
+ :AndIf 0<≢currentAPL←2 ⎕NQ #'GetEnvironment' 'DYALOG'
+     :Trap 0
+         'Conga'Rumba.⎕CY currentAPL,'/ws/conga.dws'
+         success←1
+     :EndTrap
+ :EndIf
+ :If 0=success
+ :OrIf forceCurrentDir
+     :Trap 0
+         'Conga'Rumba.⎕CY'./conga.dws'
+         success←1
+     :EndTrap
+ :EndIf
+ :If success=0
+     11 ⎕SIGNAL⍨'Could not copy the "Conga" namespace from either ',currentAPL,'/ws/conga.dws nor from a WS conga.dws in the current directory'
+ :EndIf
+⍝Done

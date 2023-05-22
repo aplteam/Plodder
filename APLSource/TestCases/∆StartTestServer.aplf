@@ -1,4 +1,4 @@
- r←{x}∆StartTestServer runtimeFlag;LXwas;WSIDwas;tempWSID;cl;q;exe;cmd;_;rc
+ r←{x}∆StartTestServer runtimeFlag;LXwas;WSIDwas;tempWSID;cl;q;exe;cmd;_;rc;flag;filename;counter
 ⍝ Starts a separate instance of Dyalog and starts the server within that instance.
 ⍝ The optional left argument defaults to 0, meaning that the server will start.
 ⍝ If it's a 1 then "-x" is added to the command line, preventing ⎕LX from being executed.
@@ -8,7 +8,10 @@
  'Invalid right argument: must be a Boolean'⎕SIGNAL 11/⍨~(⊂runtimeFlag)∊0 1
  x←{0<⎕NC'x':⍎⍵ ⋄ 0}'x'
  'Invalid left argument: must be a Boolean'⎕SIGNAL 11/⍨~(⊂x)∊0 1
- ##.RumbaLean.⎕EX'DRC'               ⍝ Delete any leftovers : we need to save this WS
+ Cleanup
+ filename←∆GetLogFilename
+ ##.FilesAndDirs.DeleteFile filename
+ ##.RumbaLean.⎕EX'DRC'                  ⍝ Delete any leftovers : we need to save this WS
  LXwas←⎕LX
  ⎕LX←'#.Plodder.TestRun 1'
  WSIDwas←⎕WSID
@@ -17,9 +20,9 @@
  0 ⎕SAVE ⎕WSID
  ⎕WSID←WSIDwas
  ⎕LX←LXwas
- cl←##.Plodder.GetCommandLineArgs_   ⍝ Current command line
- q←{'"',⍵,'"'}                       ⍝ Quote stuff
- exe←⊃cl                             ⍝ The interpreter
+ cl←##.Plodder.GetCommandLineArgs_      ⍝ Current command line
+ q←{'"',⍵,'"'}                          ⍝ Quote stuff
+ exe←⊃cl                                ⍝ The interpreter
  :If 1
      :If 'W'=⊃⊃# ⎕WG'APLVersion'
          :If runtimeFlag
@@ -33,23 +36,27 @@
          :EndIf
      :EndIf
  :EndIf
- cmd←⊂q exe                          ⍝
- cmd,←⊂q tempWSID                    ⍝ The workspace
+ cmd←⊂q exe                             ⍝
+ cmd,←⊂q tempWSID                       ⍝ The workspace
  cmd,←⊂'maxws=512MB'
- cmd,←⊂'DYALOG_NOPOPUPS=1'           ⍝ We don't want the dialog box "You have successfully..." nor any other
- cmd,←⊂'OFF=1'                       ⍝ Should finish itself
+ cmd,←runtimeFlag/⊂'DYALOG_NOPOPUPS=1'  ⍝ We don't want the dialog box "You have successfully..." nor any other
+ cmd,←⊂'OFF=1'                          ⍝ Should finish itself
  cmd,←⊂{0=≢v←2 ⎕NQ #'GetEnvironment'⍵:'' ⋄ ⍵,'="',v,'"'}'DYALOGSTARTUPSE'
  :If 0
-     cmd,←⊂'-port=4502'              ⍝ User wants to have a RIDE. This requires the Conga DLL to be a sibling of the WS!
+     cmd,←⊂'-port=4502'                 ⍝ User wants to have a RIDE. This requires the Conga DLL to be a sibling of the WS!
  :EndIf
  :If x
-     cmd,←⊂'-x'                      ⍝ Do not execute ⎕LX
+     cmd,←⊂'-x'                         ⍝ Do not execute ⎕LX
  :EndIf
  :If 'W'=⊃⊃# ⎕WG'APLVersion'
-     rc←⎕CMD(1↓∊' ',¨cmd)''          ⍝ Run cmd
+     rc←⎕CMD(1↓∊' ',¨cmd)''             ⍝ Run cmd
  :Else
-     rc←⎕CMD(1↓∊' ',¨cmd),'&'        ⍝ Run cmd
+     rc←⎕CMD(1↓∊' ',¨cmd),'&'           ⍝ Run cmd
  :EndIf
- ⎕DL 2
+ flag←counter←0
+ :Repeat
+     ⎕DL 1
+     flag←⎕NEXISTS filename
+ :Until flag∨10<counter←counter+1
  r←0
 ⍝Done
