@@ -1,4 +1,4 @@
- {r}←{iniFile}(fns Run)y;⎕TRAP;testFlag;trapFlag;more;A;F;M;R;G;parms;buff;S
+ {r}←{iniFile}(fns Run)y;⎕TRAP;testFlag;trapFlag;more;A;F;M;R;G;parms;buff;S;CaDir
 ⍝ Starts a Plodder server.
 ⍝ For special arrangements pass `fns` which might by just {1} in case you don't need to make any.
 ⍝ That function gets `G` passed as right argument and is expected to return 1 in case of success and 0 otherwise.
@@ -39,11 +39,16 @@
  ⎕TRAP←G.Trap SetTrap G
  EstablishHandlersForRumbaEvents G
  parms.Folder←⊃G.INI.Get'Logging:Folder'
-'Problem with the folder holding the log file'Assert'CREATE!'F.CheckPath parms.Folder
+ 'Problem with the folder holding the log file'Assert'CREATE!'F.CheckPath parms.Folder
  G←OpenAppLog G
  Assert fns G
  #.ErrorParms.off←0
  #.ErrorParms.killThreads←0
+
+ :If G.INI.Exist'CERTIFICATES' 'CA_Folder'
+ :AndIf 0<≢CaDir←⊃G.INI.Get'CERTIFICATES' 'CA_Folder'
+     {}##.RumbaLean.Core.DRC.SetProp'.' 'RootCertDir'CaDir
+ :EndIf
 
  G.Server←r←parms R.Start(GetAssetPath,'/Runtime/Conga')'TATIN_SRV' ⍝ <=== Work horse
 
