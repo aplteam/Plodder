@@ -72,14 +72,23 @@ To run the tests, you need a copy of the project; the release version will not s
 
 2. `)xload` the `Plodder` workspace.
 
-You can now start the server with `({1}Plodder.Run)0 1` and access it at `http://localhost`. The demo application built into Plodder will respond.
+   You can now start the server with 
 
-(This works because Plodder looks for a `server.ini` file in the same folder as the workspace.)
+   ```
+   ({1}Plodder.Run)0 1
+   ``` 
 
-3. Bring in the namespace or class containing the handlers for the four Plodder events.
+   Access it at `http://localhost` (NOT `https://`!). The demo application built into Plodder will respond.
+
+   (This works because Plodder looks for a `server.ini` file in the same folder as the workspace.)
+
+In order to bring in your own application continue with the following steps:
+
+3. Bring in the namespace or class containing your handlers for the four Plodder events.
 
 4. Review the INI file settings to ensure they meet your needs.  
 At a minimum, you must modify the `[APP]` section.
 
 5. Execute `⎕LX`.
+
 
