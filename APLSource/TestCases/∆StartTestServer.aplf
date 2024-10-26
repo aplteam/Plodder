@@ -11,7 +11,7 @@
  Cleanup
  filename←∆GetLogFilename
  ##.FilesAndDirs.DeleteFile filename
- ##.RumbaLean.⎕EX'DRC'                  ⍝ Delete any leftovers : we need to save this WS
+ ##.Rumba.⎕EX'DRC'                  ⍝ Delete any leftovers : we need to save this WS
  LXwas←⎕LX
  ⎕LX←'#.Plodder.TestRun 1'
  WSIDwas←⎕WSID

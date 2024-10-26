@@ -1,3 +1,3 @@
  r←Version
  ⍝ See also `History`
- r←'Plodder' '1.6.0+255' '2024-04-20'
+ r←'Plodder' '1.7.0-beta-1+257' '2024-10-26'

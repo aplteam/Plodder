@@ -47,13 +47,13 @@
 
  :If G.INI.Exist'CERTIFICATES' 'CA_Folder'
  :AndIf 0<≢CaDir←⊃G.INI.Get'CERTIFICATES' 'CA_Folder'
-     {}##.RumbaLean.Core.DRC.SetProp'.' 'RootCertDir'CaDir
+     {}##.Rumba.Core.DRC.SetProp'.' 'RootCertDir'CaDir
  :EndIf
 
  G.Server←r←parms R.Start(GetAssetPath,'/Runtime/Conga')'TATIN_SRV' ⍝ <=== Work horse
 
  DQ'.'
  ⎕DL 3
- ##.RumbaLean.Core.Shutdown
+ ##.Rumba.Core.Shutdown
  OFF
 ⍝Done
