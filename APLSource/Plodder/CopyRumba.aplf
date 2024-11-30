@@ -1,11 +1,11 @@
  ref←CopyRumba dummy;assetsPath;fullpath;path
 ⍝ Copies Rumba from its workpsace and returns a reference to it
  assetsPath←GetAssetPath
- :If 0=##.⎕NC'Rumba'
+ :If 0=##.⎕NC'RumbaLean'
      path←GetAssetPath
-     fullpath←##.FilesAndDirs.ExpandPath path,'/Runtime/Rumba/Rumba.dws'
-     'Rumba'##.⎕CY fullpath
+     fullpath←##.FilesAndDirs.ExpandPath path,'/Runtime/Rumba/RumbaLean.dws'
+     'RumbaLean'##.⎕CY fullpath
  :EndIf
- ref←##.Rumba
+ ref←##.RumbaLean
  ref←ref.Core
 ⍝Done

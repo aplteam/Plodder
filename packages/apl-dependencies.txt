@@ -3,5 +3,5 @@ aplteam-FilesAndDirs-5.8.1
 aplteam-OS-3.1.1
 aplteam-HandleError-4.1.4
 aplteam-WindowsEventLog-3.0.1
-aplteam-IniFiles-5.0.3
-aplteam-MarkAPL-11.1.0
+aplteam-IniFiles-5.1.0
+aplteam-MarkAPL-13.1.0

@@ -1,7 +1,7 @@
  Make;targetPath;M;name;targetPath2;APLversion
 ⍝ Version 4.1.0 ⋄ 2023-02-15
  ⎕IO←1 ⋄ ⎕ML←1
- APLversion←'18.0'
+ APLversion←'18.2'
  ('Invalid version of Dyalog; create new version from Dyalog Unicode ',APLversion)##.Plodder.Assert APLversion≡{⍵/⍨2>+\'.'=⍵}2⊃# ⎕WG'APLVersion'
  {' '≠1↑0⍴∊⍵:.}⎕FX'r←M' 'r←⎕SE.MakeHelpers'
  :If M.YesOrNo'Sure you want to "make" a new version? The workspace will be destroyed in the process!'

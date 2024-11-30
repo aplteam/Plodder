@@ -4,7 +4,7 @@
  #.⎕EX #.⎕NL⍳16
  '#.Plodder.Plodder'#.⎕CY ⎕WSID
  ⎕LX←''
- 'Rumba'#.⎕CY'Assets/Runtime/Rumba/Rumba.dws'
+ 'RumbaLean'#.⎕CY'Assets/Runtime/Rumba/RumbaLean.dws'
  ⎕SE.Tatin.LoadDependencies(##.CiderConfig.HOME,'/packages')'#'
  0 ⎕SAVE ⎕WSID
  ⍝Done

@@ -14,8 +14,8 @@
      :EndTrap
  :Until flag
  1 ⎕NDELETE'Plodder_Testserver.dws'
- :If 0<##.Rumba.⎕NC'Conga'
- :AndIf 0<##.Rumba.Conga.⎕NC'⍙naedfns'
-     ##.Rumba.Conga.UnloadSharedLib
+ :If 0<##.RumbaLean.⎕NC'Conga'
+ :AndIf 0<##.RumbaLean.Conga.⎕NC'⍙naedfns'
+     ##.RumbaLean.Conga.UnloadSharedLib
  :EndIf
 ⍝Done

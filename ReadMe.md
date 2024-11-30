@@ -7,7 +7,7 @@ Plodder...
 * is a general server for HTTP(S) requests of any kind.
 * runs on Windows, Linux, or MacOS. Currently, there are no plans for Raspberry Pi support, and it is not compatible with AIX.
 * uses Dyalog's Conga and, on top of that, [Rumba](https://github.com/the-carlisle-group/Rumba), a lightweight HTTP server implemented in Dyalog.
-* requires Dyalog APL 18.0 Unicode or higher.
+* requires Dyalog APL 18.2 Unicode or higher.
 * comes with a sample application that demonstrates how to build an application on top of Plodder.
 
 ## Features
@@ -90,5 +90,6 @@ In order to bring in your own application continue with the following steps:
 At a minimum, you must modify the `[APP]` section.
 
 5. Execute `⎕LX`.
+
 
 
