@@ -1,4 +1,7 @@
 (
+ '* 1.7.1 from 2025-01-19'
+ '  * RumbaLean updated'
+ '    * Fixed a VALUE ERROR in ServerLoop that I introduced myself'
  '* 1.7.0 from 2024-11-30'
  '  * RumbaLean updated'
  '    * Now ready for 20.0'
