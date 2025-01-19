@@ -1,28 +1,61 @@
- Make;targetPath;M;name;targetPath2;APLversion
-⍝ Version 4.1.0 ⋄ 2023-02-15
- ⎕IO←1 ⋄ ⎕ML←1
- APLversion←'18.2'
- ('Invalid version of Dyalog; create new version from Dyalog Unicode ',APLversion)##.Plodder.Assert APLversion≡{⍵/⍨2>+\'.'=⍵}2⊃# ⎕WG'APLVersion'
- {' '≠1↑0⍴∊⍵:.}⎕FX'r←M' 'r←⎕SE.MakeHelpers'
- :If M.YesOrNo'Sure you want to "make" a new version? The workspace will be destroyed in the process!'
-     targetPath←##.CiderConfig.HOME,'/Dist/'
-     name←'Plodder'
-     ⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝
-     M.RecreateFolder targetPath
-     M.IncreaseBuildIDInFunction'#.',name,'.',name,'.Version'
-     {}⎕SE.Link.Break'#.',name
-     targetPath2←targetPath,name
-     M.RecreateFolder targetPath2
-     ⎕WSID←targetPath2,'/',name,'.dws'
+ {r}←Make;M;C;path;zipFilename;res;cfg;noOf;answer;q;path2;flag;aplVersion
+⍝ "Make"s this projects.
+⍝ The function checks whether `MakeHelpers` is available in `⎕SE`.
+⍝ If it is, the user is asked whether she wants to use that.
+⍝ If she refuses or if it's not available in `⎕SE`, then the function
+⍝ attempts to load the package into `⎕SE` with ]Tatin.LoadPackages.
+⍝ Returns 1 in case a new version was created and 0 otherwise.
+⍝ Version 4.2.0 ⋄ 2025-04-10
+ r←0
+ :Section  ⍝ Establish ref to "MakeHelpers"
+     :If 9=⎕SE.⎕NC'MakeHelpers'
+         flag←¯1
+         :Repeat
+             answer←⍞,0/⍞←q←'Do you want to use "MakeHelpers" ',⎕SE.MakeHelpers.Version,' in ⎕SE (n=re-load) (Y/n)?'
+             answer←(≢q)↓answer
+             :If 0=≢answer
+             :OrIf 'Yy'∊⍨¯1↑answer
+                 flag←1
+             :ElseIf 'Nn'∊⍨¯1↑answer
+                 flag←0
+             :EndIf
+         :Until flag∊0 1
+         :If flag
+             M←⎕SE.MakeHelpers
+         :Else
+             noOf←⎕SE.Tatin.LoadPackages'MakeHelpers'⎕SE
+             'Could not load the package "MakeHelpers"'⎕SIGNAL 6/⍨0=noOf
+             M←⎕SE.MakeHelpers
+         :EndIf
+     :Else
+         noOf←⎕SE.Tatin.LoadPackages'MakeHelpers'⎕SE
+         'Could not load the package "MakeHelpers"'⎕SIGNAL 6/⍨0=noOf
+         M←⎕SE.MakeHelpers
+     :EndIf
+ :EndSection
+ aplVersion←⊃(//)⎕VFI{⍵/⍨2>+\⍵='.'}2⊃'#'⎕WG'APLVersion'
+ 'Use Dyalog 18.2 for producing a new version'⎕SIGNAL 11/⍨18.2≠aplVersion
+ :If 1 M.YesOrNo'Sure you want to "make" a new version? The workspace will be destroyed in the process!'
+     ⎕←'Using "MakeHelpers" version ',⎕SE.MakeHelpers.Version
+     C←##.CiderConfig
+     ⎕←'' ⋄ 0 0⍴⍞,0/⍞←'Pause sync services like Dropbox, Google Drive etc. in order to avoid FILE ACCESS errors. Press <enter> to continue '
+     ##.Plodder.⎕ED'Version'
+     {}⎕SE.Link.Break'#.Plodder'
+     path←C.HOME,'/',C.CIDER.distributionFolder
+     path2←path,'/Plodder'
+     M.RecreateFolder path2
+     ⎕WSID←path,'/Plodder.dws'
+     ⎕EX'M'
      SaveProjectWorkpace ⍬
-     M.RecreateFolder targetPath2,'/Data'
-     (##.CiderConfig.HOME,'/Assets')M.CopyTo targetPath2,'/'
-     (##.CiderConfig.HOME,'/LICENSE')M.CopyTo targetPath2,'/'
-     (##.CiderConfig.HOME,'/server.ini.remove-me')M.CopyTo targetPath2,'/server.ini'
-     M.CreateZipFile name targetPath(2⊃⍎'#.',name,'.Version')
-     ⎕←'*** New version created, but the workspace got destroyed in the process'
-     ⎕←'      )CLEAR'
-     ⎕CLEAR
+     M←⎕SE.MakeHelpers
+     M.RecreateFolder path2,'/Data'
+     (##.CiderConfig.HOME,'/Assets')M.CopyTo path2,'/'
+     (##.CiderConfig.HOME,'/LICENSE')M.CopyTo path2,'/'
+     (##.CiderConfig.HOME,'/server.ini.remove-me')M.CopyTo path2,'/server.ini'
+     zipFilename←M.CreateZipFile'Plodder'path #.Plodder.Version
+     ⎕←'*** New version created successfully:',M.CR,'    ',zipFilename,M.CR,'    Note that the current WS got destroyed in the process'
+     ⎕←'    )CLEAR'
+     r←1
  :Else
      ⎕←'Cancelled by user'
  :EndIf

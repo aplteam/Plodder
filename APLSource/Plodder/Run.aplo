@@ -45,7 +45,8 @@
  #.ErrorParms.off←0
  #.ErrorParms.killThreads←0
 
- :If G.INI.Exist'CERTIFICATES' 'CA_Folder'
+ :If G.INI.Get'CONFIG:Secure'
+ :AndIf G.INI.Exist'CERTIFICATES' 'CA_Folder'
  :AndIf 0<≢CaDir←⊃G.INI.Get'CERTIFICATES' 'CA_Folder'
      {}##.RumbaLean.Core.DRC.SetProp'.' 'RootCertDir'CaDir
  :EndIf

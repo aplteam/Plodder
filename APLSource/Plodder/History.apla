@@ -1,6 +1,13 @@
 (
+ '* 1.8.0 from 2025-04-10'
+ '  * Packages updated'
+ '  * `Make` process improved and streamlined'
+ '* 1.7.2 from 2025-03-16'
+ '  * Bug fixes'
+ '    * `##.RumbaLean.Core.DRC.SetProp` was called no matter whether `CONFIG:Secure` was 1 or not.'
  '* 1.7.1 from 2025-01-19'
  '  * RumbaLean updated'
+ '  * Bug fixes'
  '    * Fixed a VALUE ERROR in ServerLoop that I introduced myself'
  '* 1.7.0 from 2024-11-30'
  '  * RumbaLean updated'
