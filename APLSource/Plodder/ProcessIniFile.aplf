@@ -34,6 +34,8 @@
  {G.HTDOCS←F.ExpandPath⊃G.INI.Get ⍵ ⋄ G.HTDOCS G.INI.Put ⍵}'Config:HTDOCS'
  {(F.ExpandPath⊃G.INI.Get ⍵)G.INI.Put ⍵}'LOGGING:Folder'
  {(F.ExpandPath⊃G.INI.Get ⍵)G.INI.Put ⍵}'TRAP:Folder'
- {(F.ExpandPath⊃G.INI.Get ⍵)G.INI.Put ⍵}'Certificates:PublicCertFile'
- {(F.ExpandPath⊃G.INI.Get ⍵)G.INI.Put ⍵}'Certificates:PrivateKeyFile'
+ :If G.INI.Get'CONFIG:Secure'
+     {(F.ExpandPath⊃G.INI.Get ⍵)G.INI.Put ⍵}'Certificates:PublicCertFile'
+     {(F.ExpandPath⊃G.INI.Get ⍵)G.INI.Put ⍵}'Certificates:PrivateKeyFile'
+ :EndIf
  ⍝Done
