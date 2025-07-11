@@ -14,7 +14,7 @@ Plodder...
 
 Plodder is a fully-featured HTTP(S) server. It supports all HTTP 1.1 features except one: [Server-Sent Events (SSE)](https://en.wikipedia.org/wiki/Server-sent_events) are not yet implemented.
 
-Key features include:
+Apart from serving HTTP requests, features include:
 
 1. **Log Files**  
    Conga, HTTP, and Rumba events can be logged independently. By default, only HTTP events are logged.
@@ -58,7 +58,7 @@ The INI file, named `server.ini`, is extensively documented.
 
 ### The Conga namespace
 
-Plodder tries to copy Conga from the installation of the version of Dyalog Plodder is running on. 
+By default, Plodder tries to copy Conga from the installation of the version of Dyalog Plodder is running on. 
 
 If that does not work Plodder tries to copy it from a workspace `conga.dws` in the current directory.
 
@@ -69,17 +69,21 @@ By default Plodder uses the ones that are available from the currently running v
 ### I don't want that
 
 If you don't want neither of this, and instead specify precisely which version to use, then you
-must create an entry `[CONFIG]CongaFolder` in the INI file. The folder it points to must contain all Conga DLLs required for all platform you will run on, and a workspace `conga.dws` that must contain the class `Conga` that Plodder should use.
+must create an entry `[CONFIG]CongaFolder` in the INI file. This was introduced in version 1.9.0
+
+The folder it points to must contain all Conga DLLs required for all platform you will run on, and a workspace `conga.dws` that must contain the class `Conga` that Plodder should use.
 
 ## Access to Server Configuration
 
 All relevant data for running the server is collected in a namespace `G` (for "Globals),", which holds a reference to an unnamed namespace. This namespace also contains a reference to the server's INI file.
 
-`G` is accessible from event handlers through the `Context` namespace defined in the INI file. However, applications should not modify any values in `G` or the INI file.
+`G` is accessible from event handlers through the `Context` namespace defined in the INI file. 
+
+Note that an applications should not modify any values in `G` or the INI file.
 
 ## Test Cases
 
-Plodder includes a test suite. Use `]Cider.RunTests` to print the test command to the session.
+Plodder includes a test suite. Use `]cider.HowToRunTests` to find out how.
 
 To run the tests, you need a copy of the project; the release version will not suffice.
 
@@ -97,16 +101,17 @@ To run the tests, you need a copy of the project; the release version will not s
 
    Access it at `http://localhost` (NOT `https://`!). The demo application built into Plodder will respond.
 
-   (This works because Plodder looks for a `server.ini` file in the same folder as the workspace.)
+   (This works because Plodder looks for a `server.ini` file in the same folder the workspace was loaded from.)
 
 In order to bring in your own application continue with the following steps:
 
-3. Bring in the namespace or class containing your handlers for the four Plodder events.
+3. Bring in the namespace or class containing your handlers for the up to four Plodder events.
 
 4. Review the INI file settings to ensure they meet your needs.  
 At a minimum, you must modify the `[APP]` section.
 
 5. Execute `⎕LX`.
+
 
 
 
