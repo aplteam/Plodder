@@ -5,7 +5,7 @@
 Plodder...
 
 * is a general server for HTTP(S) requests of any kind.
-* runs on Windows, Linux, or MacOS. Currently, there are no plans for Raspberry Pi support, and it is not compatible with AIX.
+* runs on Windows, Linux, and MacOS. Currently, there are no plans for Raspberry Pi support, and it is not compatible with AIX.
 * uses Dyalog's Conga and, on top of that, [Rumba](https://github.com/the-carlisle-group/Rumba), a lightweight HTTP server implemented in Dyalog.
 * requires Dyalog APL 18.2 Unicode or higher.
 * comes with a sample application that demonstrates how to build an application on top of Plodder.
@@ -54,6 +54,23 @@ The `Context` entry in the INI file specifies the fully qualified name of the na
 
 The INI file, named `server.ini`, is extensively documented.
 
+## Conga
+
+### The Conga namespace
+
+Plodder tries to copy Conga from the installation of the version of Dyalog Plodder is running on. 
+
+If that does not work Plodder tries to copy it from a workspace `conga.dws` in the current directory.
+
+### The Conga DLLs
+
+By default Plodder uses the ones that are available from the currently running version of APL.
+
+### I don't want that
+
+If you don't want neither of this, and instead specify precisely which version to use, then you
+must create an entry `[CONFIG]CongaFolder` in the INI file. The folder it points to must contain all Conga DLLs required for all platform you will run on, and a workspace `conga.dws` that must contain the class `Conga` that Plodder should use.
+
 ## Access to Server Configuration
 
 All relevant data for running the server is collected in a namespace `G` (for "Globals),", which holds a reference to an unnamed namespace. This namespace also contains a reference to the server's INI file.
@@ -90,6 +107,10 @@ In order to bring in your own application continue with the following steps:
 At a minimum, you must modify the `[APP]` section.
 
 5. Execute `⎕LX`.
+
+
+
+
 
 
 

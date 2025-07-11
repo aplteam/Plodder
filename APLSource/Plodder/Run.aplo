@@ -1,4 +1,4 @@
- {r}←{iniFile}(fns Run)y;⎕TRAP;testFlag;trapFlag;more;A;F;M;R;G;parms;buff;S;CaDir
+ {r}←{iniFile}(fns Run)y;⎕TRAP;testFlag;trapFlag;more;A;F;M;R;G;parms;buff;S;CaDir;congaFolder
 ⍝ Starts a Plodder server.
 ⍝ For special arrangements pass `fns` which might by just {1} in case you don't need to make any.
 ⍝ That function gets `G` passed as right argument and is expected to return 1 in case of success and 0 otherwise.
@@ -12,11 +12,12 @@
  G←EstablishPlatformVars G
  CreateRefs ##
  F.PolishCurrentDir
- CheckForRide G                 ⍝ Early a RIDE works only with command line parms
- R←CopyRumba ⍬
-⍝ CopyConga R
+ CheckForRide G                 ⍝ An early RIDE works only with command line parms
  iniFile←PolishInifilePath{0<⎕NC ⍵:⍎⍵ ⋄ 'server.ini'}'iniFile'
  G(ProcessIniFile)←iniFile
+ R←CopyRumba ⍬                  ⍝ R points to Rumba[Lean].Core
+ congaFolder←CopyConga R.## G.INI
+ {}R.InitConga congaFolder('DEFAULT'G.INI.Get'Config' 'CongaName')
  G.INI CheckForRide G           ⍝ Again because now the INI might allow a Ride
  parms←CreateServerParms G
  :If (⊂testFlag)∊0 1
@@ -51,7 +52,7 @@
      {}##.RumbaLean.Core.DRC.SetProp'.' 'RootCertDir'CaDir
  :EndIf
 
- G.Server←r←parms R.Start(GetAssetPath,'/Runtime/Conga')'TATIN_SRV' ⍝ <=== Work horse
+ G.Server←r←parms R.Start congaFolder'TATIN_SRV' ⍝ <=== Work horse
 
  DQ'.'
  ⎕DL 3

@@ -1,5 +1,5 @@
  {r}←{ini}CheckForRide G;INI;address;b;port;rc;wait;buff
-⍝ Checks for an ENV vars -ride` specifying a port but and also the `IniFile` instance when "ini" is not empty an instance of `IniFiles`.
+⍝ Checks for an ENV vars -ride` specifying a port but also the `IniFile` instance when "ini" is not empty but an instance of `IniFiles`.
 ⍝ If enabled a Ride is made possible, overwriting any RIDE_INIT specified as an ENV var.
 ⍝ Returns 1 in case a Ride is possible and 0 otherwise.
  ini←{0<⎕NC ⍵:⍎⍵ ⋄ ⍬}'ini'
@@ -20,7 +20,7 @@
          :EndIf
          address←{0::'*' ⋄ ⍬≡⍵:'*' ⋄ ⊃⍵.Get'RIDE:address'}ini
          rc←3502⌶'Serve:',address,':',⍕port
-         :If rc∊0 ¯2 ¯1                 ⍝ 0=okay, ¯2=Ride is already active, ¯1=don;t do anything
+         :If rc∊0 ¯2 ¯1                 ⍝ 0=okay, ¯2=Ride is already active, ¯1=don't do anything
              {}3502⌶1
              :If wait←{0::0 ⋄ ⍬≡⍵:0 ⋄ ⊃⍵.Get'RIDE:wait'}ini
                  {_←⎕DL 0.5 ⋄ ∇ ⍵}⍬     ⍝ Endless loop that allows a RIDEr to interrupt

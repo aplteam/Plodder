@@ -1,13 +1,14 @@
- Initial;noQLX;runTimeFlag;DllFolder
+ Initial;noQLX;runTimeFlag;congaFolder
  ##.Plodder.A←##.APLTreeUtils2
- Rumba←##.Plodder.CopyRumba ⍬
  {}##.FilesAndDirs.RmDirByForce{⍵↓⍨-⌊/(⌽⍵)⍳'/\'}¯1↓1⊃⎕NPARTS ∆GetLogFilename
  noQLX←0
  runTimeFlag←0
  {}##.FilesAndDirs.RmDirByForce ∆GetTestFolder
+ Rumba←##.Plodder.CopyRumba 0
  :If 0=noQLX ∆StartTestServer runTimeFlag
-     ⎕←'*** Plodder successfully started with an independent Dyalog ',((~noQLX)/'Runtime '),'EXE'
+     ⎕←'*** Plodder successfully started with an independent instance of Dyalog'
  :EndIf
- DllFolder←(⊃⎕NPARTS ⎕WSID),'Assets/Runtime/Conga/'
- {}Rumba.InitConga DllFolder'PLODDER'
+ 'Conga'Rumba.##.⎕CY'conga.dws'
+ congaFolder←(2 ⎕NQ #'GetEnvironment' 'DYALOG'),('Win'≢3↑1⊃# ⎕WG'APLVersion')/'/lib'
+ {}Rumba.InitConga congaFolder''
 ⍝Done

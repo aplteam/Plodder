@@ -1,28 +1,33 @@
- {r}←{forceCurrentDir}CopyConga Rumba;currentAPL;success
-⍝ Tries to copy the "Conga" namespace from conga.dws of the current interpreter.
-⍝ If that fails (for example because Plodder is running from a runtime EXE of DLL) then
-⍝ we try to copy it from a WS conga.dws in the current directory.
-⍝ If that fails as well an error is thrown.
-⍝ If you want to **always** copy from a WS "conga.dws" in the current directory then pass a 1 as `⍺`.
-⍝ Returns always ⍬.
- r←⍬
- forceCurrentDir←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'forceCurrentDir'
+ {congaFolder}←CopyConga(Rumba INI);currentAPL;success
+⍝ Tries to copy the "Conga" namespace from conga.dws of the current interpreter unless INI carries
+⍝ an entry [CONFIG]CongaFolder that is not empty: then Conga is copied from conga.dws in that folder.
+⍝ (The folder must also carry all Conga DLLs for all platforms Plodder is supposed to run on)
+⍝ If neither works an error is thrown.
+⍝ Returns the path where the Conga DLLs can be found
  success←0
- :If ~forceCurrentDir
- :AndIf 0<≢currentAPL←2 ⎕NQ #'GetEnvironment' 'DYALOG'
+ currentAPL←2 ⎕NQ #'GetEnvironment' 'DYALOG'
+ :If ~(⊂INI)∊''⍬
+ :AndIf INI.Exist'CONFIG:CongaFolder'
+     congaFolder←⊃INI.Get'Config:CongaFolder'
+ :AndIf 0<≢congaFolder
+     :Trap 0
+         'Conga'Rumba.⎕CY congaFolder,'/conga.dws'
+         success←1
+     :Else
+         'Could not copy the "Conga" namespace from what the INIs [CONFIG]CongaFolder specified'Assert 0
+     :EndTrap
+ :Else
+     congaFolder←currentAPL,(~G.IsWin)/'/lib'
      :Trap 0
          'Conga'Rumba.⎕CY currentAPL,'/ws/conga.dws'
          success←1
      :EndTrap
  :EndIf
  :If 0=success
- :OrIf forceCurrentDir
      :Trap 0
          'Conga'Rumba.⎕CY'./conga.dws'
          success←1
      :EndTrap
  :EndIf
- :If success=0
-     11 ⎕SIGNAL⍨'Could not copy the "Conga" namespace from either ',currentAPL,'/ws/conga.dws nor from a WS conga.dws in the current directory'
- :EndIf
+ ('Could not copy the "Conga" namespace from either ',currentAPL,'/ws/conga.dws nor from a WS conga.dws in the current directory')Assert success
 ⍝Done

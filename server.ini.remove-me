@@ -12,6 +12,7 @@ MaxNoOfThreads      = 1000
 Port                = 0             ; A 0 defaults to either 80 or 443, depending on "Secure"
 Secure              = 0             ; If the port is 0 then "Secure" decides whether 80 or 443 is used
 HTDOCS              = '{home}'      ; Becomes global G.HTDOCS: folder with static documents
+;CongaFolder		= '/path2/conga'; Optional: when specified the folder must contain conga.dws and all required Conga DLLs
 
 [LOGGING]
 Folder              = '<TEMP>/Plodder-Logs' ; Where the log file goes

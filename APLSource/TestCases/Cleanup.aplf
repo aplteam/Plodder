@@ -16,6 +16,8 @@
  1 ⎕NDELETE'Plodder_Testserver.dws'
  :If 0<##.RumbaLean.⎕NC'Conga'
  :AndIf 0<##.RumbaLean.Conga.⎕NC'⍙naedfns'
-     ##.RumbaLean.Conga.UnloadSharedLib
+     :Trap 11
+         ##.RumbaLean.Conga.UnloadSharedLib
+     :EndTrap
  :EndIf
 ⍝Done

@@ -5,8 +5,10 @@
 ⍝ If she refuses or if it's not available in `⎕SE`, then the function
 ⍝ attempts to load the package into `⎕SE` with ]Tatin.LoadPackages.
 ⍝ Returns 1 in case a new version was created and 0 otherwise.
-⍝ Version 4.2.0 ⋄ 2025-04-10
+⍝ Version 4.3.0 ⋄ 2025-07-09
  r←0
+ aplVersion←⊃(//)⎕VFI{⍵/⍨2>+\⍵='.'}2⊃'#'⎕WG'APLVersion'
+ 'Use Dyalog 18.2 for producing a new version'⎕SIGNAL 11/⍨18.2≠aplVersion
  :Section  ⍝ Establish ref to "MakeHelpers"
      :If 9=⎕SE.⎕NC'MakeHelpers'
          flag←¯1
@@ -33,17 +35,13 @@
          M←⎕SE.MakeHelpers
      :EndIf
  :EndSection
- aplVersion←⊃(//)⎕VFI{⍵/⍨2>+\⍵='.'}2⊃'#'⎕WG'APLVersion'
- 'Use Dyalog 18.2 for producing a new version'⎕SIGNAL 11/⍨18.2≠aplVersion
  :If 1 M.YesOrNo'Sure you want to "make" a new version? The workspace will be destroyed in the process!'
-     ⎕←'Using "MakeHelpers" version ',⎕SE.MakeHelpers.Version
      C←##.CiderConfig
-     ⎕←'' ⋄ 0 0⍴⍞,0/⍞←'Pause sync services like Dropbox, Google Drive etc. in order to avoid FILE ACCESS errors. Press <enter> to continue '
      ##.Plodder.⎕ED'Version'
      {}⎕SE.Link.Break'#.Plodder'
      path←C.HOME,'/',C.CIDER.distributionFolder
+     M.RecreateFolder path
      path2←path,'/Plodder'
-     M.RecreateFolder path2
      ⎕WSID←path,'/Plodder.dws'
      ⎕EX'M'
      SaveProjectWorkpace ⍬
