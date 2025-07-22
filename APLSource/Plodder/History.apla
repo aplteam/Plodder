@@ -1,4 +1,6 @@
 (
+ '* 1.9.1 from 2025-07-22'
+ '  * Important bug fix by updatingthe `HandleError` package'
  '* 1.9.0 from 2025-07-11'
  '  * Plodder copies Conga from the currently running version of Dyalog by default, and uses the '
  '    suitable Conga DLLs.'
