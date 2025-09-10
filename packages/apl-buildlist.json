@@ -1,11 +1,11 @@
 {
   packageID: [
-    "aplteam-WindowsEventLog-4.0.0",
-    "aplteam-OS-4.0.0",
-    "aplteam-MarkAPL-14.1.0",
-    "aplteam-IniFiles-6.0.0",
+    "aplteam-WindowsEventLog-4.1.0",
+    "aplteam-OS-4.1.0",
+    "aplteam-MarkAPL-14.2.0",
+    "aplteam-IniFiles-6.1.0",
     "aplteam-HandleError-5.0.2",
-    "aplteam-FilesAndDirs-7.0.0",
+    "aplteam-FilesAndDirs-7.1.1",
     "aplteam-APLTreeUtils2-1.4.1",
     "aplteam-CommTools-2.0.1",
   ],
