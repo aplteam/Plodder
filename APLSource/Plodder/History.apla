@@ -1,4 +1,7 @@
 (
+ '* 1.10.0 from 2025-09-10'
+ '  * Folder "Licenses/" introduced that holds all LICENSE files of Plodder''s dependencies'
+ '  * Packages updated'
  '* 1.9.1 from 2025-07-22'
  '  * Important bug fix by updatingthe `HandleError` package'
  '* 1.9.0 from 2025-07-11'
