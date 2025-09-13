@@ -5,7 +5,7 @@
 ⍝ If she refuses or if it's not available in `⎕SE`, then the function
 ⍝ attempts to load the package into `⎕SE` with ]Tatin.LoadPackages.
 ⍝ Returns 1 in case a new version was created and 0 otherwise.
-⍝ Version 4.3.0 ⋄ 2025-07-09
+⍝ Version 4.4.0 ⋄ 2025-09-11
  r←0
  aplVersion←⊃(//)⎕VFI{⍵/⍨2>+\⍵='.'}2⊃'#'⎕WG'APLVersion'
  'Use Dyalog 18.2 for producing a new version'⎕SIGNAL 11/⍨18.2≠aplVersion
@@ -47,7 +47,7 @@
      SaveProjectWorkpace ⍬
      M←⎕SE.MakeHelpers
      M.RecreateFolder path2,'/Data'
-     {}M.CopyLicenseFiles C
+     HandleLicenses C
      (##.CiderConfig.HOME,'/Assets')M.CopyTo path2,'/'
      (##.CiderConfig.HOME,'/LICENSE')M.CopyTo path2,'/'
      (##.CiderConfig.HOME,'/server.ini.remove-me')M.CopyTo path2,'/server.ini'

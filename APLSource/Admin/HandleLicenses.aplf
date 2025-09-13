@@ -1,0 +1,7 @@
+ {r}←HandleLicenses C
+⍝ "C" mustb be a Cider config namespace
+⍝ Handle Tatin packages as well as the Rumba license
+ r←0
+ {}M.CopyLicenseFiles C
+ 'Create!'M.##.F.CheckPath C.HOME,'/',C.CIDER.distributionFolder,'/Licenses/Rumba'
+ (C.HOME,'/',C.CIDER.distributionFolder,'/Licenses/Rumba')⎕NCOPY C.HOME,'/Rumba/License'
