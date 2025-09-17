@@ -1,4 +1,6 @@
 (
+ '* 1.11.0 from 2025-09-17'
+ '  * Folder Licenses/ replaced by a file NOTIFY.md that keeps all license information'
  '* 1.10.0 from 2025-09-13'
  '  * Folder "Licenses/" introduced that holds all LICENSE files of Plodder''s dependencies'
  '  * Packages updated'

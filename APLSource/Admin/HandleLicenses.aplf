@@ -1,7 +1,12 @@
- {r}←HandleLicenses C
+ {r}←HandleLicenses C;report;version;NOTICE
 ⍝ "C" mustb be a Cider config namespace
 ⍝ Handle Tatin packages as well as the Rumba license
  r←0
- {}M.CopyLicenseFiles C
- 'Create!'M.##.F.CheckPath C.HOME,'/',C.CIDER.distributionFolder,'/Licenses/Rumba'
- (C.HOME,'/',C.CIDER.distributionFolder,'/Licenses/Rumba')⎕NCOPY C.HOME,'/Rumba/License'
+ version←{⍵↑⍨¯1+⍵⍳'+'}2⊃#.RumbaLean.Version
+ NOTICE←'# Third-Party Licenses' ''
+ NOTICE,←('## Rumba ',version)'' '```'
+ NOTICE,←⊃⎕NGET(C.HOME,'/Assets/Runtime/Rumba/LICENSE')1
+ NOTICE,←'```' ''
+ report←NOTICE M.CreateNoticeFile(⊂C.HOME,'/'),¨C.CIDER.dependencies.tatin C.CIDER.distributionFolder
+ ('Missing a license file: ',{0=≢⍵:⍵ ⋄ ⊃{⍺,', ',⍵}/⍵}report)Assert 0=≢report
+⍝Done
