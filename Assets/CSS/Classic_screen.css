@@ -1,5 +1,5 @@
-/* MarkAPL's default screen style sheet "Dark" since version 12.0 */
-/* Version 1.0.3 from 2024-08-09 */
+/* This was MarkAPL's default screen style sheet until version 12.0 */
+/* Version 3.0.1 from 2024-08-09 */
 
 /* Note that there are some variables embedded as comments which will be replaced
    by MarkAPL. The names are embraced by "<<", so for a variable "foo" it is
@@ -17,7 +17,7 @@
  */
 
 html {
-/*  line-height: 1.15; 1 MarkAPL has other ideas */
+  line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
 }
 
@@ -46,6 +46,7 @@ main {
  */
 
 h1 {
+  font-size: 2em;
   margin: 0.67em 0;
 }
 
@@ -70,6 +71,7 @@ hr {
 
 pre {
   font-family: monospace, monospace; /* 1 */
+  font-size: 1em; /* 2 */
 }
 
 /* Text-level semantics
@@ -353,60 +355,29 @@ template {
 [hidden] {
   display: none;
 }
+
 /* ##########################################################################
    ##########################################################################
    ########################################################################## */
 
-/* MarkAPL: Additional styles */
-
-/*
-
-Variables don't work with the OCXControl use in Meddy!
-They offer little value here anyway because only two variables are used in more than one place.
-Also, HTMLPad does not offer color selection on a variable.
-
-:root {
-  --global-background-color: #323232;
-  --global-color: #DDD;
-  --header-color: hsl(39,97%,83%);
-  --link-color: #A3A3FF;
-  --visited-link-color: hsl(270,70%,85%);
-  --pre-background-color: #1A1A1A;
-  --code-color: #FFC266;
-  --code-background-color: #1A1A1A;
-  --nav-background-color: #4C4C4C;
-  --leanpub-background-color: #4C004C;
-  --leanpub-color: #DDD;
-  --leanpub-image-color: #CCCCFF;
-  --accordion-background-color: #4C004C;
-  --collapsible-background-color: #4C004C;
-  --pre-button-background-color: #BCBABB;
-  --svg-background-color: #CCCCFF;
-  --tbody-color-even-color: #DAA520;
-  --tbody-color-odd-color: #E6BD56;
-  --thead-background-color: #B68A1B;
-  --tfoot-background-color: #B68A1B;
-  --th-background-color: #C3941D;
-  --table-a-color: blue;
-  --nav-a-color: #EDEDED;
-  --nav-a-visited-color: #B0B0B0;
-}
-*/
-
-
+/* MarkAPL: "Classic" screen style sheet                                        */
+/* A timeless, book-like look: warm ivory paper, elegant serif typography,      */
+/* small-caps headings with traditional rules, and scholarly maroon links.      */
 
 body  {
     margin: 0;
-    font-family: Verdana, Arial, "Liberation Sans", sans-serif;
-    background-color: #323232;
-    font-size: 16px;
-    max-width: 900px; /* <<maxwidth>> */
-    padding: 0.83em;
-    color: #DDD;
+    font-family: Georgia, "Palatino Linotype", "Book Antiqua", Palatino, Garamond, "Times New Roman", serif;
+    background-color: #f8f4ea;
+    background-image: linear-gradient(#f8f4ea, #f5f0e2);
+    background-attachment: fixed;
+    font-size: 19px;
+    line-height: 1.55;
+    max-width: 780px; /* <<maxwidth>> */
+    padding: 1.5em 1.2em 3em 1.2em;
+    color: #2e2a24;
     margin-left: auto;
     margin-right: auto;
     overflow-wrap: break-word;
-    line-height: 1.4;
 }
 
 h1,
@@ -415,20 +386,36 @@ h3,
 h4,
 h5,
 h6 {
-    color: hsl(39,97%,83%);
+    color: #402a20;
+    font-weight: 700;
     padding-left: 0;
+    font-family: "Palatino Linotype", Palatino, "Book Antiqua", Georgia, "Times New Roman", serif;
+    line-height: 1.25;
+}
+
+h1,
+h2,
+h3 {
+    font-variant: small-caps;
+    letter-spacing: 0.02em;
 }
 
 h1,
 h2,
 h3,
-h4 {
+h4,
+p {
     margin-bottom: 0.88em;
 }
 
 h1 {
-    font-size: 1.5em;
-    margin: 0.27em 0 1.11em 0;
+    font-size: 2.1em;
+    font-weight: 700;
+    text-align: center;
+    margin: 0.4em 0 0.9em 0;
+    padding-bottom: 0.35em;
+    border-bottom: 3px double #b08d57;
+    letter-spacing: 0.04em;
 }
 
 h1 > code,
@@ -437,66 +424,67 @@ h3 > code,
 h4 > code,
 h5 > code,
 h6 > code {
-    font-size: 1em;
+    font-size: 0.9em;
     background-color: inherit;
+    font-variant: normal;
 }
 
 h2 {
-    font-size: 1.35em;
-    margin: 0.55em 0 0.55em 0;
-    padding-top: 0.55em;
-    border-bottom: 1px solid Silver;
-}
-
-nav h2 {
-    font-size: 1.20em;
-    margin: 0 0 0.75em 0;
+    font-size: 1.5em;
+    margin: 1.1em 0 0.5em 0;
+    padding-bottom: 0.15em;
+    border-bottom: 1px solid #cdbb95;
 }
 
 h3 {
     margin: 0;
-    margin-top: 0.75em;
-    font-size: 1.25em;
+    margin-top: 0.9em;
+    font-size: 1.28em;
+}
+
+nav h3 {
+    font-size: 1.2em;
+    margin: 0 0 0.75em 0;
 }
 
 h4 {
-    font-size: 1.2em;
+    font-size: 1.1em;
     margin: 0;
-    margin-top: 0.75em;
+    margin-top: 0.85em;
 }
 
 h5 {
-    font-size: 1.15em;
+    font-size: 1em;
     margin: 0;
-    margin-top: 0.60em;
-    padding:0;
+    margin-top: 0.65em;
+    padding: 0;
 }
 
 h6 {
-    font-size: 1em;
+    font-size: 0.95em;
+    color: #6a5a48;
     margin: 0;
-    margin-top: 0.60em;
-    padding:0;
-}
-
-hr {
-    border: 0;
-    border-top: 1px solid silver;
+    margin-top: 0.6em;
+    padding: 0;
 }
 
 a {
-    color: #A3A3FF;
+    color: #8b2635;
+    text-decoration: underline;
+    text-decoration-color: #c99aa0;
+    text-underline-offset: 2px;
     margin: 0;
     padding: 0;
     vertical-align: baseline;
 }
 
-a:visited {
-    color: hsl(270,70%,85%);
+a:hover {
+    color: #a83544;
+    text-decoration-color: #a83544;
 }
 
-a:visited code {
-    color: hsl(270,70%,85%);
+a:visited {
+    color: #5c4a6b;
 }
 
 a.autoheader_anchor {
@@ -506,6 +494,7 @@ a.autoheader_anchor {
 img {
     margin-top: 0.55em;
     margin-bottom: 0.27em;
+    max-width: 100%;
 }
 
 ul {
@@ -522,12 +511,13 @@ p.first_dd {
 
 li > ul,
 li > ol {
-    padding-bottom:0;
+    padding-bottom: 0;
 }
 
 li {
+    line-height: 1.45;
     margin-left: 1.38em;
-    margin-bottom: 0.5em;
+    margin-bottom: 0.3em;
 }
 
 ul > li {
@@ -535,7 +525,7 @@ ul > li {
 }
 
 ol > li {
-    margin-left: 2.5em;
+    margin-left: 1.5em;
 }
 
 li ul {
@@ -549,149 +539,118 @@ li ul {
 li p {
     padding: 1px 0 0 0;
     margin: 0.55em 0 0.27em 0;
+    line-height: 1.45;
 }
 
 ul, ol {
-    padding: 0 0 0 1.5em;
-    margin: 0.5em -0.6em;
+    line-height: 1.45;
+    padding: 0;
+    margin: 0.5em;
 }
 
 ul ul,
 ul ol,
 ol ol,
 ol ul {
-    margin-top: 0.5em;
-    margin-left: -0.6em;
+    margin-top: 0.25em;
 }
 
 p {
-    padding: 0.6em 0 0 0;
+    line-height: 1.55;
+    padding: 0.2em 0 0 0;
     margin: 0;
 }
 
 pre {
     position: relative;
     overflow: auto;
-    padding: 0.6em 0.5em;
-    margin: 0.55em 0 0.55em 0 !important;
-    background-color: #1A1A1A;
-    -moz-tab-size: 4;
-    tab-size: 4;
-    -o-tab-size: 4;
+    padding: 0.25em 0.5em;
+    margin: 0.9em 0 0.9em 0 !important;
+    background-color: #f2ead8;
+    color: #3a352c;
+    border: 1px solid #d8caa8;
+    border-left: 4px solid #b08d57;
+    box-shadow: inset 0 0 0.5em rgba(176, 141, 87, 0.12);
     display: block;
+    line-height: 1.25;
     font-family: APLFont, monospace;
-    -webkit-hyphens: none;
-    -ms-hyphens: none;
-    hyphens: none;
-    border: 1px solid silver;
-    line-height: 1;
-    border-radius: 5px;
+    font-weight: normal;
 }
 
 pre > code {
-    line-height: 1.2;
+    line-height: 1.25;
     border: 0;
     padding: 0;
     margin: 0;
     background-color: inherit;
-    font-weight: normal;
+    color: inherit;
+    font-weight: inherit;
     white-space: pre-wrap;
 }
 
-th code ,
 td code {
-    color: #FFC266;   /* match the amber of ordinary inline code, not red */
-    background-color: inherit;
-    padding: 0.02em 0.3em;
-    border-radius: 5px;
-    border: 1px solid #737373;
+    padding: 0;
 }
 
 a code {
     padding: 0;
     font-size: 1em;
-    background-color: inherit;
-    color: inherit;
 }
 
 nav code {
     background-color: inherit;
     font-weight: 400;
+    color: inherit;
 }
 
 mark {
-    background-color: #ffd24d;   /* warm gold highlight: reads on the dark ground, echoes the amber accent */
-    color: #1a1a1a;
+    background-color: yellow;
+    color: black;
 }
 
 code {
     font-family: APLFont, monospace;
-    color: #FFC266;
-    background-color: #1A1A1A;
-    line-height: 1.4;
+    font-weight: 400;
+    color: #8a2b1b;
+    background-color: #efe7d3;
+    line-height: 1.1;
+    font-size: 88%;
     white-space: nowrap;
-    margin: 0 0.2em 0 0.2em;
-    padding: 0.02em 0.3em;
-    border-radius: 5px;
+    margin: 0;
+    padding: 0.12em 0.4em;
+    border: 1px solid #e0d4b6;
+    border-radius: 2px;
 }
 
 tbody tr:nth-child(even) {
-    background-color: #3a3a3a;
-}
-
-tbody tr:nth-child(odd) {
-    background-color: #323232;
+    background-color: #f3ecdb;
 }
 
 th {
-    background-color: #4c4c4c;
-    color: #DDD;
+    background-color: #e7dcbf;
+    color: #402a20;
 }
 
 th, td {
-    padding: 0.3em 0.8em;
-    font-weight: normal;
-    color: #DDD;
-    border-bottom: 1px solid #474747;
+    padding: 0.28em 0.7em;
+    vertical-align: top;
 }
 
-table td + td {
-    border-left: 1px solid #474747;
-}
-
-table th + th {
-    border-left: 1px solid #474747;
-}
+table td + td { border-left: 1px solid #cdbb95; }
+table th + th { border-left: 1px solid #cdbb95; }
 
 table {
-    margin: 0.75em 0;
+    border-color: #b08d57;
+    margin: 1em 0;
     border-collapse: collapse;
     font-family: APLFont;
-    font-size: 1em;
-    line-height: 1.0;
-    border: 1px solid #5a5a5a;
+    font-size: 0.9em;
+    line-height: 1.35;
+    border: 1px solid #b08d57;
 }
 
-table a {
-    color: #A3A3FF;
-}
-
-table a:visited {
-    color: hsl(270,70%,85%);
-}
-
-thead th {
-    color: #DDD;
-    background-color: #4c4c4c;
-}
-
-td {
-    color: #DDD;
-}
-
-tfoot td {
-    color: #DDD;
-    background-color: #4c4c4c;
+thead {
+    border-bottom: 2px solid #b08d57;
 }
 
 li > table {
@@ -702,45 +661,50 @@ tr  {
     margin: 1.11em;
 }
 
+th { font-weight: bold; }
+
+tfoot td {
+    font-weight: bold;
+    border-top: 2px solid #b08d57;
+}
+
 blockquote {
-    border-left: 0.27em solid silver;
-    padding: 0 0.25em;
-    margin: 0.5em 0.25em 0.80em 0.5em;
-}
-
-blockquote p:first-child {
-    padding-top: 0;
-}
-
-blockquote p:last-child {
-    padding-bottom: 0;
+    border-left: 3px solid #b08d57;
+    padding: 0.1em 1em;
+    margin: 1em 0.25em 1em 0.5em;
+    color: #4a4235;
+    font-style: italic;
 }
 
 blockquote p {
-    padding: 0.25em;
+    padding: 0 0.25em;
+}
+
+blockquote code {
+    font-style: normal;
 }
 
 blockquote ul li {
-    margin-left: 1.38em;
+    padding-left: 0;
 }
 
 blockquote ol li {
-    margin-left: 1.38em;
+    padding-left: 0;
 }
 
-li > blockquote {margin-left: 0;}
+li > blockquote { margin-left: 0; }
 
 nav {
-    background-color: #4C4C4C;
-    border: 1px solid Silver;
-    padding: 0.55em;
-    margin: 0.50em 0 1em 0;
-    margin-right:0;
-    overflow : hidden;
-    font-size: 1em;
+    background-color: #f2ead8;
+    border: 1px solid #cdbb95;
+    padding: 0.7em 1em;
+    margin: 0.5em 0.3em 2em 0.3em;
+    margin-right: 0;
+    box-shadow: 0.25em 0.25em 0.4em rgba(120, 100, 70, 0.25);
+    overflow: hidden;
 }
 
-nav#main_nav{
+nav#main_nav {
     width: auto;
 }
 
@@ -750,21 +714,16 @@ nav ul  {
     padding: 0;
 }
 
-nav ul,
-nav ul  {
-    margin-left: 2em;
-}
-
-nav > ul ul {
-    margin-left: 2em;
-}
-
 nav a {
-    color: #EDEDED;
+    text-decoration: none;
+}
+
+nav a:hover {
+    text-decoration: underline;
 }
 
 nav a:visited {
-    color: #B0B0B0;
+    color: #5c4a6b;
 }
 
 nav ul li {
@@ -775,8 +734,6 @@ nav li p {
     margin: 0;
     padding: 0;
     line-height: 1;
-    margin: 0;
-    padding: 0;
 }
 
 nav li {
@@ -787,7 +744,7 @@ nav li {
     margin-left: 2em;
 }
 
-nav p{
+nav p {
     font-weight: bold;
     font-size: 1em;
     padding-top: 0;
@@ -802,22 +759,23 @@ dl {
 dt {
     margin-top: 0.75em;
     margin-bottom: 0.1em;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 .toc-container {
     height: auto;
     margin: 0;
-    padding: 0.5em 0.5em 0 0;
+    padding: 0;
 }
 
 nav h2 {
-    font-size: 1.5em;
+    font-size: 1.4em;
+    font-variant: small-caps;
     margin: 0.27em 1em 0.27em 1em;
+    border-bottom: none;
 }
 
 div.toc-container ul {
-    margin-left: 0.5em;
     margin-right: 1em;
     padding-left: 1em;
 }
@@ -836,14 +794,21 @@ label {
     padding-left: 1em;
 }
 
+div#footnotes_div {
+    border-top: 1px solid #cdbb95;
+    margin-top: 2em;
+    padding-top: 0.5em;
+    font-size: 0.92em;
+}
+
 div#footnotes_div p {
-    line-height:1.2;
-    padding-bottom:0;
-    padding-top:0;
+    line-height: 1.2;
+    padding-bottom: 0;
+    padding-top: 0;
 }
 
 div#footnotes_div ol {
-    padding-top:0;
+    padding-top: 0;
 }
 
 @font-face {
@@ -856,16 +821,20 @@ div#footnotes_div ol {
 
 /* User classes */
 
+.no_screen {  /* deprecated: use .hide instead */
+  display: none;
+}
+
 .hide {
   display: none;   /* instant: animating this class janks the mouse on large TOCs */
 }
 
-.red {color: red;}
+.red { color: #8b2635; }
 
 .center {
     text-align: center;     /* for inline elements */
     margin-left: auto;      /* for Block ... */
-    margin-right:auto;      /* ...elements */
+    margin-right: auto;     /* ...elements */
 }
 
 .left {
@@ -895,21 +864,11 @@ div.leanpub {
     align-items: center;   /* vertically centre the icon with the adjacent text */
 }
 
-div.leanpub p:first-child,
-div.leanpub h1:first-child,
-div.leanpub h2:first-child,
-div.leanpub h3:first-child,
-div.leanpub ul:first-child,
-div.leanpub ol:first-child {
-    padding-top: 0;
-}
-
 div.leanpub_A {
-    border: 1px solid silver;
-    background-color: #3c3c3c;
+    border: 1px solid #cdbb95;
+    background-color: #f2ead8;
     padding: 0.55em;
     margin: 1.11em 0 0.83em 0;
-    color: #DDD;
 }
 
 div.leanpub h3,
@@ -940,6 +899,11 @@ div.leanpub_A h5 {
     margin: 0;
 }
 
+div.leanpub img {
+    padding: 0;
+    margin: 0 1.11em 0.27em 0;
+}
+
 div.leanpub_A > p:first-child {
     padding-top: 0;
     margin-top: 0;
@@ -947,10 +911,9 @@ div.leanpub_A > p:first-child {
 
 div.leanpub img {
     float: left;
-    padding: 0.5em;
-    margin: 0.5em 1em 0 0;
-    clear:both;
-    background-color: #CCCCFF;
+    padding: 0;
+    margin: 0.55em 1.11em 0 0;
+    clear: both;
 }
 
 div.leanpub tbody * {
@@ -959,25 +922,20 @@ div.leanpub tbody * {
 
 div.leanpub p {
     padding: 0.17em 0 0 0;
-    margin:0;
+    margin: 0;
 }
 
 span.leanpub_code {
-    font-family: APLFont, monospace;
-    color: #FFC266;
-    background-color: #1A1A1A;
-    padding: 0.02em 0.3em;
-    border-radius: 5px;
-    white-space: nowrap;
+    color: #8b2635;
 }
 
 div.leanpub p {
-    display:block;
+    display: block;
     padding: 0.44em 0 0 0;
 }
 
 div.leanpub > div {
-    margin-left: 3em;
+    margin-left: 2.27em;  /* margin (20px) plus width of icon (21px) */
 }
 
 pre[class*="language-"] {
@@ -995,14 +953,14 @@ details summary > * {
 }
 
 div.accordion {
-    border: 1px solid silver;
+    border: 1px solid #cdbb95;
     padding: 0;
     margin: 0.5em 0;
-    background-color: #3c3c3c;
+    background-color: #f2ead8;
 }
 
 div.accordion > div {
-    border: 1px solid silver;
+    border: 1px solid #cdbb95;
     padding: 0.5em;
     margin: 0 0;
 }
@@ -1016,10 +974,10 @@ div.accordion > div table {
 }
 
 div.collapsible {
-    border: 1px solid silver;
+    border: 1px solid #cdbb95;
     padding: 0.5em;
     margin: 0.5em 0;
-    background-color: #3c3c3c;
+    background-color: #f2ead8;
 }
 
 div.collapsible p,
@@ -1033,44 +991,48 @@ div.collapsible table {
 ul.checkboxes {
   list-style: none;
   margin-left: 0;
-  padding-left: 0em;
+  padding-left: 0;
 }
 
 li {
   text-indent: 0;
   padding-left: 0;
-  line-height: 1.4;
-  margin-left: 4em;
 }
 
-ul.checkboxes > li::before {content: "☐ ";}
-ul.checkboxes > li.checked::before {content: "☒ ";}
+ul.checkboxes > li::before {
+    content: "☐";
+    margin-right: 0.5em;
+}
+
+ul.checkboxes > li.checked::before {
+    content: "☒";
+    margin-right: 0.5em;
+}
+
+ul.checkboxes > li {
+    margin-left: 0;
+    padding-left: 1em;
+}
 
 pre > button {
   position: absolute;
-  top: 5px;
-  right: 5px;
-  font-size: 0.8em;
-  padding: 0.15em;
-  color: #DDD;
-  background-color: #1A1A1A;
-  border: 1.25px solid #1A1A1A;
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
-  border-bottom-right-radius: 6px;
-  border-bottom-left-radius: 6px;
+  top: 8px;
+  right: 10px;
+  padding: 0;
+  line-height: 0;
+  color: #a2896a;              /* muted sepia icon that sits quietly on the parchment */
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 150ms, color 150ms;
 }
 
 pre button:hover {
   cursor: pointer;
-  color: #FFFFFF;   /* brighten the icon on hover; background stays put */
-}
-
-/* The copy-button icon uses currentColor, so it must not get the light backing */
-/* that the global svg rule adds for the (black-drawn) LeanPub icon.             */
-pre > button svg {
   background-color: transparent;
-  padding: 0;
+  color: #8b2635;             /* classic maroon on hover */
+  opacity: 1;
 }
 
 #main_nav {
@@ -1079,20 +1041,17 @@ pre > button svg {
 }
 
 #main_nav h2 {
-    font-size: 1.2em;
+    font-size: 1.4em;
+    font-variant: small-caps;
     margin: 0;
-    padding: 0.5em 0.5em 0em 0.5em;
-    border-bottom: 0px solid Silver;
+    padding: 0.5em;
+    border-bottom: 1px solid #b08d57;
 }
 
 #toc-toggle {
   position: absolute;
-  top: 1.1em;
+  top: 1.5em;
   right: 1em;
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
-  border-bottom-right-radius: 6px;
-  border-bottom-left-radius: 6px;
 }
 #toc-list {
     margin: 1em 1em 0.25em 0;
@@ -1112,29 +1071,9 @@ pre > button svg {
     margin: 0;
     padding: 0.5em 1em;
     box-sizing: border-box;
-    background-color: #4C4C4C;
-    border: 1px solid Silver;
-    border-radius: 6px;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
-}
-
-sup, sub {
-    text-decoration: none;
-}
-
-svg {
-    padding: 0.5em;
-    background-color: #CCCCFF;
-}
-
-/* The LeanPub icon is drawn in black; recolour it light so it needs no light box. */
-div.leanpub > svg {
-    padding: 0;
-    background-color: transparent;
-}
-
-div.leanpub > svg g {
-    fill: #DDD;
+    background-color: #f2ead8;
+    border: 1px solid #cdbb95;
+    box-shadow: 0.25em 0.25em 0.6em rgba(120, 100, 70, 0.35);
 }
 
 /* Narrow viewports (phones): the layout is already fluid, so only tame the few
@@ -1149,4 +1088,3 @@ div.leanpub > svg g {
         overflow-x: auto;
     }
 }
-
