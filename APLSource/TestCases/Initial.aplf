@@ -4,7 +4,7 @@
  noQLX←0
  runTimeFlag←0
  {}##.FilesAndDirs.RmDirByForce ∆GetTestFolder
- Rumba←##.Plodder.CopyRumba 0
+ Rumba←##.Plodder.CopyRumba 1
  :If 0=noQLX ∆StartTestServer runTimeFlag
      ⎕←'*** Plodder successfully started with an independent instance of Dyalog'
  :EndIf

@@ -1,4 +1,6 @@
 (
+ '* 1.12.0 from 2026-09-??'
+ '  * `CopyRumba` now treats ⍵ as a flag that can be used to enforce the copy op. Was ignored so far.'
  '* 1.11.0 from 2025-09-17'
  '  * Folder Licenses/ replaced by a file NOTIFY.md that keeps all license information'
  '* 1.10.0 from 2025-09-13'

@@ -15,7 +15,7 @@
  CheckForRide G                 ⍝ An early RIDE works only with command line parms
  iniFile←PolishInifilePath{0<⎕NC ⍵:⍎⍵ ⋄ 'server.ini'}'iniFile'
  G(ProcessIniFile)←iniFile
- R←CopyRumba ⍬                  ⍝ R points to Rumba[Lean].Core
+ R←CopyRumba 1                  ⍝ R points to Rumba[Lean].Core
  congaFolder←CopyConga R.## G.INI
  {}R.InitConga congaFolder('DEFAULT'G.INI.Get'Config' 'CongaName')
  G.INI CheckForRide G           ⍝ Again because now the INI might allow a Ride
@@ -45,6 +45,7 @@
  Assert fns G
  #.ErrorParms.off←0
  #.ErrorParms.killThreads←0
+ #.ErrorParms.signal←689
 
  :If G.INI.Get'CONFIG:Secure'
  :AndIf G.INI.Exist'CERTIFICATES' 'CA_Folder'
