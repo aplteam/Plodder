@@ -46,6 +46,9 @@
  #.ErrorParms.off←0
  #.ErrorParms.killThreads←0
  #.ErrorParms.signal←689
+ ⎕TRAP←(⊂#.ErrorParms.signal'C' '→∆Crashed'),⎕TRAP   ⍝ HandleError signals this once it has processed a
+                                                     ⍝ crash. It must come first: the catch-all entry
+                                                     ⍝ SetTrap installs would otherwise match it and loop
 
  :If G.INI.Get'CONFIG:Secure'
  :AndIf G.INI.Exist'CERTIFICATES' 'CA_Folder'
@@ -59,4 +62,15 @@
  ⎕DL 3
  ##.RumbaLean.Core.Shutdown
  OFF
+ :Return
+
+∆Crashed:                       ⍝ HandleError has saved and logged the crash and then signalled
+ ⎕TRAP←0 'S'                    ⍝ Disarm first: a failure below must not re-enter here
+ {}{0::0 ⋄ 'error'WindowsEventLog'Stopped after an unhandled error'}⍬
+ {}{0::0 ⋄ LogError'Stopped after an unhandled error'}⍬
+ {}{0::0 ⋄ ##.RumbaLean.Core.Shutdown}⍬
+ :If IsConnectedToRide          ⍝ With a Ride attached we don't ⎕OFF, for obvious reasons
+     ∘∘∘                        ⍝ Check it out, dear ⎕AN
+ :EndIf
+ ⎕OFF 125                       ⍝ Enforce a restart, as Rumba's ErrorInRumba does
 ⍝Done

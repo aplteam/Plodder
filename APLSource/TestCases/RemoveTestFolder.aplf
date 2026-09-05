@@ -1,0 +1,17 @@
+ RemoveTestFolder dummy;flag;counter;rc;msg
+ flag←counter←0
+ :If ⎕NEXISTS ∆GetTestFolder
+     :Repeat
+         :Trap 0
+     ⍝ Trap is needed because the test server might still run and have the log file tied.
+             (rc msg)←##.FilesAndDirs.RmDirByForce ∆GetTestFolder
+             flag←rc=0
+         :Else
+             :If 20>counter←counter+1
+                 ⎕DL 1
+             :Else
+                 'Something went wrong'∆Assert 0
+             :EndIf
+         :EndTrap
+     :Until flag
+ :EndIf
