@@ -1,2 +1,2 @@
- {r}←{server}LogError msg
+ {r}←LogError msg
  r←AppLog(⊂'*** Error'),⊆msg
