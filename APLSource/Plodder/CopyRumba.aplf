@@ -1,10 +1,10 @@
-ref←CopyRumba enforce;fullpath;path
+ ref←{enforce}CopyRumba dummy;fullpath
 ⍝ Copies Rumba from its workspace if its not already in the WS, and returns a reference to it in any case
+ enforce←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'enforce'
  :If 0=##.⎕NC'RumbaLean'
  :OrIf enforce
      ##.⎕EX'RumbaLean'
-     path←GetAssetPath
-     fullpath←##.FilesAndDirs.ExpandPath path,'/Runtime/Rumba/RumbaLean.dws'
+     fullpath←##.FilesAndDirs.ExpandPath GetAssetPath,'Runtime/Rumba/RumbaLean.dws'
      'RumbaLean'##.⎕CY fullpath
      ##.RumbaLean.⎕EX'DRC'
  :EndIf
