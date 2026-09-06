@@ -1,0 +1,104 @@
+# Plodder Release Notes
+
+
+## 1.12.0 from 2026-09-??
+* BREAKING NAME CHANGES
+  * The function `LogError` was renamed to `AppLogError`.
+  * The function `Log` was renamed to `ServerLog`.
+* New version of Rumba with improved (OnRequest) and enhanced (OnHeader) error trapping
+* Optional left argument removed from `LogError`: was not used when specified.
+* `CopyRumba` now treats ⍵ as a flag that can be used to enforce the copy op. Was ignored so far.
+
+## 1.11.0 from 2025-09-17
+* Folder Licenses/ replaced by a file NOTIFY.md that keeps all license information
+
+## 1.10.0 from 2025-09-13
+* Folder "Licenses/" introduced that holds all LICENSE files of Plodder's dependencies
+* Packages updated
+
+## 1.9.1 from 2025-07-22
+* Important bug fix by updatingthe `HandleError` package
+
+## 1.9.0 from 2025-07-11
+* Plodder copies Conga from the currently running version of Dyalog by default, and uses the suitable Conga DLLs.
+* A new (optional) INI entry `[CONFIG]CongaFolder` can be used to specify a folder that is expected to hold a suitable workspace `conga.dws` as well as suitable Conga DLLs if you don't want Plodder to dynamically switch between Conga versions depending on the currently running version of Dyalog
+* Packages updated
+* Bug fixes
+  * Conga was copied into the wrong place. As a result Plodder always used Conga 3.4
+
+## 1.8.0 from 2025-04-10
+* Packages updated
+* `Make` process improved and streamlined
+
+## 1.7.2 from 2025-03-16
+* Bug fixes
+  * `##.RumbaLean.Core.DRC.SetProp` was called no matter whether `CONFIG:Secure` was 1 or not.
+
+## 1.7.1 from 2025-01-19
+* RumbaLean updated
+* Bug fixes
+  * Fixed a VALUE ERROR in ServerLoop that I introduced myself
+
+## 1.7.0 from 2024-11-30
+* RumbaLean updated
+  * Now ready for 20.0
+  * Error trapping for general errors brought back
+
+## 1.6.0 from 2024-04-20
+* RumbaLean updated
+
+## 1.5.0 from 2024-04-19
+* Comments in `CheckForRide` polished
+* RumbaLean updated
+* Packages updated
+
+## 1.4.1 from 2023-05-20
+* New RumbaLean (3.1.1) integrated with several bug fixes
+
+## 1.4.0 from 2023-05-02
+* New RumbaLean (3.1) integrated: supports proxy
+* `Prepare`, `Initial` and `Cleanup` improved
+* `LogError` now adds `(⊂'*** Error')` to the message provided
+
+## 1.3.2 from 2022-11-17
+* Comes with a new version of RumbaLean that in turn fixes a minor problem in WaitForData that only hits when Rumba is interrupted by the user and no threads are running
+
+## 1.3.1 from 2022-10-08
+* Saving visible variables in the DCF file created in case of an error is now suppressed: in the vast majority of cases it would just save local Rumba variables anyway, and that does not help
+* Bug fixes
+  * "Make" created a new version from the currently running version of APL; since it creates a workspace this should be made explicit
+  * Logging was buggy
+
+## 1.3.0 from 2022-08-05
+* Documentation corrected
+* New "Make" implemented
+* Packages updated
+
+## 1.2.2 from 2022-07-19
+* New version of Rumba integrated that fixed a problem with PercentDecode
+
+## 1.2.1 from 2022-06-24
+* New version of Rumba integrated that comes with a workaround for bug `<02024>`
+
+## 1.2.0 from 2022-06-21
+* Additional logging level added for application-specific logging
+* New version of Rumba integrated
+
+## 1.1.0 from 2022-06-10
+* New version of Rumba whiich uses Conga 3.4 rather than 3.3
+
+## 1.0.4 from 2022-05-29
+* Improved version of Rumba (error handling)
+
+## 1.0.3 from 2022-05-18
+* Port 0 should default to either 80 or 443 (depending on "Secure") but did not
+
+## 1.0.2 from 2021-12-23
+* New version of RumbaLean
+
+## 1.0.1 from 2021-11-20
+* Problem with the "Trap" flag fixed: was not propagated from the INI file
+
+## 1.0.0 from 2021-11-11
+* Finally!
+* New version of FilesAndDirs included
