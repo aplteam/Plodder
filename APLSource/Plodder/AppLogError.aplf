@@ -1,0 +1,5 @@
+ {r}←AppLogError msg
+⍝ The official error logging function for application errors.
+⍝ Enforces a defined format for error messages.
+ r←AppLog(⊂'*** Error'),⊆msg
+⍝Done

@@ -6,6 +6,6 @@
      #.TEMP.Log,←⊂'OnStart'
  :EndIf
  :If 0≠server.LogFileTie
-     server ##.Log ##.CollectStartParms ⍬
+     server ##.ServerLog ##.CollectStartParms ⍬
  :EndIf
 ⍝Done

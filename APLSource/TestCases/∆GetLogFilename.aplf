@@ -1,2 +1,4 @@
  r←∆GetLogFilename
- r←∆GetTestFolder,'/Logs/app-log.txt'
+⍝ This is Rumba's log file: HTTP, Conga and Rumba entries all go there.
+⍝ Plodder's application log is a different file in the same folder: app-log.txt
+ r←∆GetTestFolder,'/Logs/log.txt'

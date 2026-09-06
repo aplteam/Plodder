@@ -60,15 +60,13 @@
 
  DQ'.'
  ⎕DL 3
- ##.RumbaLean.Core.Shutdown
  OFF
  :Return
 
 ∆Crashed:                       ⍝ HandleError has saved and logged the crash and then signalled
  ⎕TRAP←0 'S'                    ⍝ Disarm first: a failure below must not re-enter here
  {}{0::0 ⋄ 'error'WindowsEventLog'Stopped after an unhandled error'}⍬
- {}{0::0 ⋄ LogError'Stopped after an unhandled error'}⍬
- {}{0::0 ⋄ ##.RumbaLean.Core.Shutdown}⍬
+ {}{0::0 ⋄ AppLogError'Stopped after an unhandled error'}⍬
  :If IsConnectedToRide          ⍝ With a Ride attached we don't ⎕OFF, for obvious reasons
      ∘∘∘                        ⍝ Check it out, dear ⎕AN
  :EndIf

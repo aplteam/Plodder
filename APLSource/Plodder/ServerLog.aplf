@@ -1,0 +1,23 @@
+ {r}←serverInstance ServerLog msg;msg_;qdmx
+⍝ Use this to log HTTP, Conga and Rumba stuff. For application-level logging see also AppLog and AppLogError.
+ r←⍬
+ :If 2>≡msg
+     :Trap 0
+         msg_←R.{(LogDate QTS),' ',⍵,CrLf}⎕UCS'UTF-8'⎕UCS msg
+     :Else
+         ⍝ Experimental: we need to find out under which circumstances the trapped line crashes (it has in the past!)
+         :Trap 0
+             msg_←'[]XSI:',⊃,/R.CrLf∘,¨' ',¨⎕XSI{⍺,'[',(⍕⍵),']'}¨⎕LC
+         :Else
+             qdmx←⎕DMX
+             msg_←'Trying to set msg_ in "',(⊃⎕XSI),'" crashed with ',qdmx.DM
+         :EndTrap
+     :EndTrap
+     msg_ ⎕NAPPEND serverInstance.LogFileTie
+ :Else
+     :If 0>serverInstance.LogFileTie
+         ((R.LogDate R.QTS),R.CrLf)⎕NAPPEND serverInstance.LogFileTie
+         serverInstance.LogFileTie{(⎕UCS'UTF-8'⎕UCS ⍵)⎕NAPPEND ⍺}⊃,/msg,¨⊂R.CrLf
+     :EndIf
+ :EndIf
+⍝Done
