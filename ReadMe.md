@@ -57,9 +57,21 @@ The INI file, named `server.ini`, is extensively documented.
 
 ### Housekeeping
 
-The function named by `[APP]OnCongaTimeout` is called at regular intervals, so that an application has somewhere to do whatever it needs to do periodically. `[CONFIG]HouseKeepingInterval` says how often, in seconds; it defaults to 5.
+The function named by `[APP]OnCongaTimeout` is called at regular intervals, so that an application can carry out whatever work it needs to repeat. `[CONFIG]HouseKeepingInterval` says how often, in seconds; it defaults to 5.
 
-Note that the function is called on the server loop thread, and no request is dispatched while it runs. Keep it short, and start anything lengthy in a thread of its own.
+Note that the function is called on the server loop thread, and no request is processed while it runs. Keep it short, and start any long-running work in a thread of its own.
+
+### Idle connections
+
+Idle connections are closed on the same schedule. Every time the housekeeping interval expires, and before the housekeeping function is called, the server closes any connection that has neither sent nor received anything for `[CONFIG]IdleConnectionTimeout` seconds. It defaults to 30. A connection whose request has not been answered yet is never closed, so a request that is still being processed cannot be interrupted.
+
+The two entries therefore depend on each other, in two ways.
+
+First, connections are only examined when the housekeeping interval expires, so that interval is also the accuracy of the idle timeout. With the default settings — an interval of 5 seconds and a timeout of 30 — a connection is closed between 30 and 35 seconds after it last sent or received anything.
+
+Second, `HouseKeepingInterval` may be set higher than `IdleConnectionTimeout`, but then the timeout has no effect: no connection can be closed before the interval expires, so the interval becomes the timeout that actually applies. An interval of 60 with a timeout of 30 keeps idle connections open for 60 to 90 seconds, not 30. Plodder accepts such a configuration, because there are good reasons to run expensive housekeeping rarely, but the timeout is then not honoured.
+
+In general, set `HouseKeepingInterval` well below `IdleConnectionTimeout`. If your housekeeping is expensive, keep the interval short anyway and let the housekeeping function itself decide how often to do the expensive part.
 
 ## Logging
 

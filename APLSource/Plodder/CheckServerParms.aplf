@@ -13,5 +13,9 @@
  :OrIf (parms.CongaTimeout≠⌊parms.CongaTimeout)∨1>parms.CongaTimeout
      'Invalid: value of "HouseKeepingInterval" in INI file'⎕SIGNAL 11
  :EndIf
+ :If (' '=⊃0⍴∊parms.IdleTimeout)∨1≠≢,parms.IdleTimeout
+ :OrIf (parms.IdleTimeout≠⌊parms.IdleTimeout)∨1>parms.IdleTimeout
+     'Invalid: value of "IdleConnectionTimeout" in INI file'⎕SIGNAL 11
+ :EndIf
  'Invalid: value of "LogHTTP" in INI file'⎕SIGNAL 11/⍨~(G.INI.Get'LOGGING:LogHTTP')∊0 1 2
 ⍝Done

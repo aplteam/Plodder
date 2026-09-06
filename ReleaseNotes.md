@@ -6,7 +6,7 @@
   * The function `LogError` was renamed to `AppLogError`.
   * The function `Log` was renamed to `ServerLog`.
 * New INI entry `[CONFIG]HouseKeepingInterval` introduced.
-* New INI entry `[CONFIG]???` introduced.
+* New INI entry `[CONFIG]IdleConnectionTimeout` introduced.
 * New version of Rumba with improved (`OnRequest`) and enhanced (`OnHeader`) error trapping.
 * Optional left argument removed from `AppLogError`: was not used when specified.
 * `CopyRumba` now treats `⍵` as a flag that can be used to enforce the copy op. Was ignored so far.
@@ -104,4 +104,5 @@
 ## 1.0.0 from 2021-11-11
 * Finally!
 * New version of FilesAndDirs included
+
 
