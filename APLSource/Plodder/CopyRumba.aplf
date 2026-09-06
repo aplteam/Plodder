@@ -1,6 +1,5 @@
-ref←CopyRumba enforce;assetsPath;fullpath;path
+ref←CopyRumba enforce;fullpath;path
 ⍝ Copies Rumba from its workspace if its not already in the WS, and returns a reference to it in any case
- assetsPath←GetAssetPath
  :If 0=##.⎕NC'RumbaLean'
  :OrIf enforce
      ##.⎕EX'RumbaLean'
