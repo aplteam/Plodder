@@ -55,6 +55,12 @@ The `Context` entry in the INI file specifies the fully qualified name of the na
 
 The INI file, named `server.ini`, is extensively documented.
 
+### Housekeeping
+
+The function named by `[APP]OnCongaTimeout` is called at regular intervals, so that an application has somewhere to do whatever it needs to do periodically. `[CONFIG]HouseKeepingInterval` says how often, in seconds; it defaults to 5.
+
+Note that the function is called on the server loop thread, and no request is dispatched while it runs. Keep it short, and start anything lengthy in a thread of its own.
+
 ## Logging
 
 Plodder maintains two log files, both of them in the folder named by the `[LOGGING]Folder` entry of the INI file:

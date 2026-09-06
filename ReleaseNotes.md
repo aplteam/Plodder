@@ -1,13 +1,15 @@
 # Plodder Release Notes
 
 
-## 1.12.0 from 2026-09-??
-* BREAKING NAME CHANGES
+## 1.12.0 from 2026-09-07
+* **BREAKING NAME CHANGES**
   * The function `LogError` was renamed to `AppLogError`.
   * The function `Log` was renamed to `ServerLog`.
-* New version of Rumba with improved (OnRequest) and enhanced (OnHeader) error trapping
-* Optional left argument removed from `LogError`: was not used when specified.
-* `CopyRumba` now treats ⍵ as a flag that can be used to enforce the copy op. Was ignored so far.
+* New INI entry `[CONFIG]HouseKeepingInterval` introduced.
+* New INI entry `[CONFIG]???` introduced.
+* New version of Rumba with improved (`OnRequest`) and enhanced (`OnHeader`) error trapping.
+* Optional left argument removed from `AppLogError`: was not used when specified.
+* `CopyRumba` now treats `⍵` as a flag that can be used to enforce the copy op. Was ignored so far.
 
 ## 1.11.0 from 2025-09-17
 * Folder Licenses/ replaced by a file NOTIFY.md that keeps all license information
@@ -102,3 +104,4 @@
 ## 1.0.0 from 2021-11-11
 * Finally!
 * New version of FilesAndDirs included
+

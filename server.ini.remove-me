@@ -9,6 +9,9 @@ AppName             = 'Plodder'
 DisplayRequests     = 0             ; 1 makes Rumba display every request in a ⎕ED windows. For debugging only of course.
 LogHTTPToSession    = 0             ; Naturally only useful in development
 MaxNoOfThreads      = 1000
+
+HouseKeepingInterval= 5              ; In seconds
+
 Port                = 0             ; A 0 defaults to either 80 or 443, depending on "Secure"
 Secure              = 0             ; If the port is 0 then "Secure" decides whether 80 or 443 is used
 HTDOCS              = '{home}'      ; Becomes global G.HTDOCS: folder with static documents
@@ -48,4 +51,4 @@ Context             = '#.Plodder.SampleApp'            ; Where in the workspace 
 OnStart             = 'OnStart'                        ; Once called when the server starts
 OnHeader            = 'OnHeader'                       ; Especially useful for handling "Expect" with value "100-continue"
 OnRequest           = 'OnRequest'                      ; Called in the event of a request. Setting this is mandatory
-OnCongaTimeout      = 'OnHouseKeeping'                 ; Do any housekeeping here
+OnCongaTimeout      = 'OnHouseKeeping'                 ; Housekeeping. Runs on the server loop thread, so start anything lengthy in a thread

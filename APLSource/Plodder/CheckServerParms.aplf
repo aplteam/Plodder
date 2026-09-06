@@ -9,5 +9,9 @@
  :If 1∊b←~(⍎parms.Context).{0=≢⍵:1 ⋄ v←⎕AT ⍵ ⋄ (1 ¯2⍷⍨|1 2⊃v)∧(1=|1 1⊃v)}¨parms.(OnCongaTimeout OnHeader OnRequest OnStart)
      11 ⎕SIGNAL⍨'Invalid handler: ',⊃{⍺,', ',⍵}/b/parms.(OnCongaTimeout OnHeader OnRequest OnStart)
  :EndIf
+ :If (' '=⊃0⍴∊parms.CongaTimeout)∨1≠≢,parms.CongaTimeout   ⍝ parms.CongaTimeout is the interval in ms by now
+ :OrIf (parms.CongaTimeout≠⌊parms.CongaTimeout)∨1>parms.CongaTimeout
+     'Invalid: value of "HouseKeepingInterval" in INI file'⎕SIGNAL 11
+ :EndIf
  'Invalid: value of "LogHTTP" in INI file'⎕SIGNAL 11/⍨~(G.INI.Get'LOGGING:LogHTTP')∊0 1 2
 ⍝Done

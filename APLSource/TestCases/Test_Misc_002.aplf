@@ -1,0 +1,17 @@
+ R←Test_Misc_002(stopFlag batchFlag);⎕TRAP;version;date;filename;notes
+⍝ Checks that the version reported by `Version` has made it into ReleaseNotes.md
+ ⎕TRAP←(999 'C' '∘∘∘ ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ (version date)←1↓##.Plodder.Version
+ version←version↑⍨¯1+⌊/version⍳'-+'      ⍝ Drop pre-release and build ID: 1.2.3-beta-1+456 → 1.2.3
+
+ filename←##.CiderConfig.HOME,'/ReleaseNotes.md'
+ →T.PassesIf ⎕NEXISTS filename
+
+ notes←⊃⎕NGET filename 1
+ →T.PassesIf 1=+/∨/¨('## ',version,' from')∘⍷¨notes          ⍝ There is a section for this version
+ →T.PassesIf 1=+/∨/¨('## ',version,' from ',date)∘⍷¨notes    ⍝ ... and it carries the release date
+
+ R←T._OK
+⍝Done

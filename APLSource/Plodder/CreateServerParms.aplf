@@ -1,9 +1,11 @@
- parms←CreateServerParms G;x509
+ parms←CreateServerParms G;x509;interval
  parms←R.NewServer 0
  parms.Context←⊃G.INI.Get'APP:Context'
  parms.DisplayRequests←G.INI.Get'CONFIG:DisplayRequests'
  parms.LogHTTPToSession←G.INI.Get'CONFIG:LogHTTPToSession'
  parms.MaxNoOfThreads←G.INI.Get'CONFIG:MaxNoOfThreads'
+ interval←(0.001×parms.CongaTimeout)G.INI.Get'CONFIG:HouseKeepingInterval'  ⍝ Seconds; defaults to whatever Rumba suggests
+ parms.CongaTimeout←1000×interval                                          ⍝ Conga expects milliseconds
  parms.Name←G.AppName
  parms.OnStart←⊃''G.INI.Get'APP:OnStart'
  parms.OnHeader←⊃''G.INI.Get'APP:OnHeader'
