@@ -1,6 +1,7 @@
  {r}←Initialize;⎕TRAP
  ⎕TRAP←0 'S'
  r←⍬
- {}⎕SE.UCMD'cd ',CiderConfig.HOME
+ {}FilesAndDirs.Cd CiderConfig.HOME
  ⎕WSID←CiderConfig.HOME,'/project.dws'
+ {}1 Plodder.CopyRumba 0
 ⍝Done
