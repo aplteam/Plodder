@@ -1,7 +1,7 @@
 # Plodder Release Notes
 
 
-## 1.12.0 from 2026-09-07
+## 1.12.0 from 2026-09-09
 * **BREAKING NAME CHANGES**
   * The function `LogError` was renamed to `AppLogError`.
   * The function `Log` was renamed to `ServerLog`.
@@ -104,5 +104,6 @@
 ## 1.0.0 from 2021-11-11
 * Finally!
 * New version of FilesAndDirs included
+
 
 
