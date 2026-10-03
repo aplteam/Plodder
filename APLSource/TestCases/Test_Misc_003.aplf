@@ -1,0 +1,21 @@
+ R←Test_Misc_003(stopFlag batchFlag);⎕TRAP;CR;LF;secret;text;expected
+⍝ Exercise `MaskSecretHeaders`
+ ⎕TRAP←(999 'C' '∘∘∘ ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ (CR LF)←⎕UCS 13 10
+ secret←##.Plodder.SecretHeaders
+
+ →T.PassesIf''≡secret ##.Plodder.MaskSecretHeaders''
+
+ text←'GET /foo HTTP/1.1',CR,LF,'Host: localhost',CR,LF,'Authorization: Bearer 4711',CR,LF
+ text,←'api-key : 0815',CR,LF,CR,LF,'body: stays'
+ expected←'GET /foo HTTP/1.1',CR,LF,'Host: localhost',CR,LF,'Authorization: ***',CR,LF
+ expected,←'api-key : ***',CR,LF,CR,LF,'body: stays'
+ →T.PassesIf expected≡secret ##.Plodder.MaskSecretHeaders text
+
+ →T.PassesIf'Cookie: ***'≡secret ##.Plodder.MaskSecretHeaders'Cookie: a=1'
+ →T.PassesIf(LF,LF,'x')≡secret ##.Plodder.MaskSecretHeaders LF,LF,'x'
+
+ R←T._OK
+⍝Done

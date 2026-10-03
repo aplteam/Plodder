@@ -1,22 +1,33 @@
- R←Test_Server_120(stopFlag batchFlag);⎕TRAP;c;q;r;noOf
-⍝ Ask for the "crash" page
+ R←Test_Server_120(stopFlag batchFlag);⎕TRAP;c;q;r;noOf;before;new;report
+⍝ Ask for the "crash" page.
+⍝ Besides HandleError's own files, the request must be saved next to them, without its credentials.
  ⎕TRAP←(999 'C' '∘∘∘ ⍝ Deliberate error')(0 'N')
  R←T._Failed
 
  :If ##.FilesAndDirs.IsDir ∆GetCrashFolder
      noOf←≢##.FilesAndDirs.ListFiles ∆GetCrashFolder
+     before←##.FilesAndDirs.ListFiles ∆GetCrashFolder,'/*.request.json'
  :Else
      noOf←0
+     before←''
  :EndIf
 
  c←∆NewClient
  q←Rumba.NewRequest 0
  q.RequestTarget←'/crash'
+ q.Headers,←⊂'Authorization' 'Bearer Test_Server_120-secret'
  r←c Rumba.SendAndReceive q
 
  →T.PassesIf r.StatusCode=500
  →T.PassesIf∨/'<h1>500: Internal Server Error</h1>'⍷r.Content
- →T.PassesIf(noOf+2)=≢##.FilesAndDirs.ListFiles ∆GetCrashFolder
+ →T.PassesIf(noOf+3)=≢##.FilesAndDirs.ListFiles ∆GetCrashFolder
+
+ new←(##.FilesAndDirs.ListFiles ∆GetCrashFolder,'/*.request.json')~before
+ →T.PassesIf 1=≢new
+ report←⎕JSON⊃⎕NGET⊃new
+ →T.PassesIf'/crash'≡(⊃report.Messages).RequestTarget
+ →T.PassesIf~∨/'Test_Server_120-secret'⍷⊃⎕NGET⊃new
+ →T.PassesIf(⊂'authorization' '***')∊(⊃report.Messages).Headers
 
  R←T._OK
 ⍝Done

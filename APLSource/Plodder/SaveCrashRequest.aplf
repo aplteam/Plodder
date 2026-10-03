@@ -1,0 +1,55 @@
+ {r}←SaveCrashRequest parms;c;d;e;h;m;b;cap;secret;get;keep
+⍝ HandleError's `customFns` (see `SetErrorParms`): writes what the crashed thread was working on
+⍝ next to the crash files, as `<crash>.request.json`, so that a crash caused by an ill-formed or
+⍝ unexpected request can be investigated with that request at hand.
+⍝ HandleError calls this in the thread that crashed, and Rumba serves every connection in a
+⍝ thread of its own, so the thread number identifies the connection: see Rumba's
+⍝ `GetConnectionOfThread`. Nothing is written for a thread that is not serving a connection.
+⍝ The report holds the connection's last block of data exactly as received, and every message of
+⍝ the connection: normally one, more when requests were pipelined. A message that was not fully
+⍝ received may lack its request line and parsed headers; then the raw header is reported.
+⍝ Values of headers that carry credentials are replaced by "***" (see `SecretHeaders`), and data
+⍝ is capped, so the report holds neither live secrets nor the whole of a big upload.
+⍝ Relies on `G` and `R` being around, just like `AppLog` does.
+ r←⍬
+ :If 0=⎕NC'G'
+ :OrIf 9≠G.⎕NC'Server'
+     :Return
+ :EndIf
+ c←G.Server R.GetConnectionOfThread ⎕TID
+ :If ⍬≡c
+     :Return
+ :EndIf
+ cap←65536                                          ⍝ Characters kept of `LastBlock` and of any content
+ secret←SecretHeaders
+ get←{0<⍺.⎕NC ⍵:⍺⍎⍵ ⋄ ''}                           ⍝ Properties may not exist yet
+ keep←{(⍺⌊≢⍵)↑⍵}
+ d←⎕NS''
+ d.Time←A.FormatDateTime ⎕TS
+ d.Thread←⎕TID
+ d.PeerAddress←c get'PeerAddress'
+ d.LastBlockLength←≢c get'LastBlock'
+ d.LastBlock←secret MaskSecretHeaders cap keep c get'LastBlock'
+ d.Messages←⍬
+ :For m :In c get'Messages'
+     e←⎕NS''
+     e.StartLine←m get'StartLine'
+     e.Method←m get'Method'
+     e.RequestTarget←m get'RequestTarget'
+     :If 0<m.⎕NC'Headers'
+         h←m.Headers
+         :If 0<≢h
+             b←(1 ⎕C⊃¨h)∊secret
+             h[⍸b]←{(⊃⍵)'***'}¨b/h
+         :EndIf
+         e.Headers←h
+     :Else
+         e.Header←secret MaskSecretHeaders m get'Header'  ⍝ Not parsed yet: the raw header
+     :EndIf
+     e.ContentLength←≢m get'Content'
+     e.Content←cap keep m get'Content'
+     e.(HeaderComplete ContentComplete)←m get¨'HeaderComplete' 'ContentComplete'
+     d.Messages,←e
+ :EndFor
+ (⊂(⎕JSON⍠('Compact' 0))d)⎕NPUT(parms.crashFilename,'.request.json')1
+⍝Done

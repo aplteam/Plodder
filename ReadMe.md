@@ -26,6 +26,8 @@ Apart from serving HTTP requests, features include:
 3. **Error Trapping**  
    Plodder traps critical errors and captures as much information as possible to aid debugging, whether the issue stems from Plodder, Conga, or Rumba.  
    Application errors are also logged, and Plodder returns "500: Internal Server Error" to the client.
+   When a crash happens while a request is being handled, that request is saved next to the crash files
+   as `<crash>.request.json`, with the values of headers that carry credentials masked.
 
 4. **Running as a Windows Service**  
    On Windows, Plodder can run as a Windows Service. Use `Plodder.Admin.PrintInstallAsServiceCommand` to print the command that must be executed with admin rights to install Plodder as a service. For example:

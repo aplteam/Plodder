@@ -3,8 +3,9 @@
 ⍝ Adds Plodder-specific adjustments and returns the ref.
  ref.logFunctionParent←(⍕⎕THIS)
  ref.logFunction←'AppLogError'
+ ref.customFns←(⍕⎕THIS),'.SaveCrashRequest'         ⍝ Saves the request the crashed thread was handling
  ref.killThreads←0
- ref.saveVars←0
+ ref.saveVars←1
  :If 0<≢ref.errorFolder←⊃G.INI.Get'TRAP:Folder'
      'CREATE!'F.CheckPath ref.errorFolder
  :EndIf
