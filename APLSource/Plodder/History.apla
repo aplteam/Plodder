@@ -1,4 +1,9 @@
 (
+ '* 1.13.0 from 2026-10-03'
+ '  * A new version of Rumba comes with deep error trapping on housekeeping and when handling a request'
+ '  * Bug fix: accidentally saving variables when taking an error snapshot was off.'
+ '  * When a crash happens while a request is handled, the request is saved next to the crash files'
+ '    as `<crash>.request.json`, with credentials masked: see `SaveCrashRequest`. Needs RumbaLean 3.5.0'
  '* 1.12.0 from 2026-09-09'
  '  * BREAKING NAME CHANGES'
  '    * The function `LogError` was renamed to `AppLogError`.'

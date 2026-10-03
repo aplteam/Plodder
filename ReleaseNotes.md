@@ -1,6 +1,11 @@
 # Plodder Release Notes
 
 
+## 1.13.0 from 2026-10-03
+* New version of Rumba with improved error trapping
+* Bug fix: saving variables in error snapshots was accidentally off.
+* When a crash happens while a request is being handled, the request is saved next to the crash   files as `<crash>.request.json`: the last block of data received, exactly as it arrived, and the request(s) of the connection. Values of headers that carry credentials are masked, and data is   capped. Requires RumbaLean 3.5.0
+
 ## 1.12.0 from 2026-09-09
 * **BREAKING NAME CHANGES**
   * The function `LogError` was renamed to `AppLogError`.
@@ -104,6 +109,8 @@
 ## 1.0.0 from 2021-11-11
 * Finally!
 * New version of FilesAndDirs included
+
+
 
 
 

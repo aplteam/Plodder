@@ -1,3 +1,3 @@
  r←Version
  ⍝ See also `History`
- r←'Plodder' '1.12.0+271' '2026-09-09'
+ r←'Plodder' '1.13.0+271' '2026-10-03'
