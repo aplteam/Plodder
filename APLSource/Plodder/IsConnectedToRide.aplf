@@ -1,1 +1,2 @@
- IsConnectedToRide←{3501⌶⊣⍬}
+ r←IsConnectedToRide
+ r←3501⌶⍬
