@@ -1,4 +1,4 @@
- {r}←{iniFile}(fns Run)y;⎕TRAP;testFlag;trapFlag;more;A;F;M;R;G;parms;buff;S;CaDir;congaFolder;qdmx
+ {r}←{iniFile}(fns Run)y;⎕TRAP;testFlag;trapFlag;more;A;F;M;R;G;parms;buff;S;CaDir;congaFolder
 ⍝ Starts a Plodder server.
 ⍝ For special arrangements pass `fns` which might by just {1} in case you don't need to make any.
 ⍝ That function gets `G` passed as right argument and is expected to return 1 in case of success and 0 otherwise.
@@ -64,12 +64,11 @@
  :Return
 
 ∆Crashed:                       ⍝ HandleError has saved and logged the crash and then signalled
- qdmx←⎕DMX
  ⎕TRAP←0 'S'                    ⍝ Disarm first: a failure below must not re-enter here
- {}{0::0 ⋄ 'error'WindowsEventLog'Stopped after an unhandled error'}⍬
- {}{0::0 ⋄ AppLogError'Stopped after an unhandled error'}⍬
+ {}{0::0 ⋄ 'error'WindowsEventLog'Stopped due to a crash'}⍬
+ {}{0::0 ⋄ AppLogError'Stopped due to a crash'}⍬
  :If IsConnectedToRide          ⍝ With a Ride attached we don't ⎕OFF, for obvious reasons
-     ∘∘∘                        ⍝ Check it out, dear ⎕AN
+     ∘∘∘                        ⍝ Check it out, dear ⎕AN, in particular '∆' #.ErrorParms.⎕NL 2
  :EndIf
  ⎕OFF 125                       ⍝ Enforce a restart, as Rumba's ErrorInRumba does
 ⍝Done
