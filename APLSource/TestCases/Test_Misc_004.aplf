@@ -1,0 +1,61 @@
+ R←Test_Misc_004(stopFlag batchFlag);⎕TRAP;c;m;g;parms;filename;report;json;raw;note;CR;LF
+⍝ Exercise `SaveCrashRequest` for a message whose header has not been parsed yet.
+⍝ That is what a crash inside the server's own parsing of a request leaves behind, and
+⍝ `Test_Server_120` cannot reach it: there the request is complete, so `Headers` is
+⍝ available and the raw header is not reported.
+⍝ Needs neither a server nor a crash: a stand-in with one connection is all it looks at.
+ ⎕TRAP←(999 'C' '∘∘∘ ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ (CR LF)←⎕UCS 13 10
+ raw←'GET /%C0 HTTP/1.1',CR,LF,'Host: localhost',CR,LF
+ raw,←'Authorization: Bearer Test_Misc_004-secret',CR,LF
+
+ ##.Plodder.⎕SHADOW'G'                              ⍝ Both are locals of `Run` in a running server,
+ ##.Plodder.⎕SHADOW'R'                              ⍝ so they must be established here
+ ##.Plodder.R←Rumba
+ ##.Plodder.G←⎕NS''
+ g←##.Plodder.G
+ g.Server←⎕NS''
+ g.Server.Connections←⎕NS''
+ g.Server.Connections.C1←⎕NS''
+ c←g.Server.Connections.C1
+ c.Tid←⎕TID                                         ⍝ `GetConnectionOfThread` matches on this
+ c.PeerAddress←'127.0.0.1'
+ c.LastBlock←raw
+ m←⎕NS''
+ m.Header←raw                                       ⍝ No `Headers`: parsing did not get that far
+ m.Method←'GET'
+ m.RequestTarget←'/%C0'
+ c.Messages←,m
+
+ filename←∆GetTestFolder,'/Test_Misc_004'
+ 'CREATE!'##.FilesAndDirs.CheckPath ∆GetTestFolder
+ parms←⎕NS''
+ parms.crashFilename←filename
+ parms.addToMsg←''                                 ⍝ That is what `CreateParms` establishes
+ ##.Plodder.SaveCrashRequest parms
+
+ →T.PassesIf ⎕NEXISTS filename,'.request.json'
+ json←⊃⎕NGET filename,'.request.json'
+ ⎕NDELETE filename,'.request.json'
+ report←⎕JSON json
+
+ →T.PassesIf'127.0.0.1'≡report.PeerAddress
+ →T.PassesIf report.Thread=⎕TID
+ →T.PassesIf report.LastBlockLength=≢raw
+ →T.PassesIf 1=≢report.Messages
+ →T.PassesIf 0=(⊃report.Messages).⎕NC⊂'Headers'      ⍝ The raw header, not name/value pairs
+ →T.PassesIf∨/'Authorization: ***'⍷(⊃report.Messages).Header
+ →T.PassesIf∨/'Authorization: ***'⍷report.LastBlock
+ →T.PassesIf~∨/'Test_Misc_004-secret'⍷json
+
+ note←parms.addToMsg                               ⍝ What the HTML report will show
+ →T.PassesIf 2=≢note
+ →T.PassesIf∨/'GET /%C0'⍷⊃note
+ →T.PassesIf∨/'127.0.0.1'⍷⊃note
+ →T.PassesIf∨/(filename,'.request.json')⍷⊃⌽note
+ →T.PassesIf~∨/'Test_Misc_004-secret'⍷⊃,/note
+
+ R←T._OK
+⍝Done

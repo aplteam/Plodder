@@ -1,4 +1,4 @@
- {r}←SaveCrashRequest parms;c;d;e;h;m;b;cap;secret;get;keep
+ {r}←SaveCrashRequest parms;c;d;e;h;m;b;cap;secret;get;keep;buff;last;note
 ⍝ HandleError's `customFns` (see `SetErrorParms`): writes what the crashed thread was working on
 ⍝ next to the crash files, as `<crash>.request.json`, so that a crash caused by an ill-formed or
 ⍝ unexpected request can be investigated with that request at hand.
@@ -10,6 +10,8 @@
 ⍝ received may lack its request line and parsed headers; then the raw header is reported.
 ⍝ Values of headers that carry credentials are replaced by "***" (see `SecretHeaders`), and data
 ⍝ is capped, so the report holds neither live secrets nor the whole of a big upload.
+⍝ A summary of the request and the name of that file are added to HandleError's `addToMsg`,
+⍝ so that the HTML report says what the thread was working on and where the full data is.
 ⍝ Relies on `G` and `R` being around, just like `AppLog` does.
  r←⍬
  :If 0=⎕NC'G'
@@ -51,5 +53,23 @@
      e.(HeaderComplete ContentComplete)←m get¨'HeaderComplete' 'ContentComplete'
      d.Messages,←e
  :EndFor
+ ⍝ Note in HandleError's HTML report what the thread was working on, and where the data is.
+ ⍝ This happens before the file is written, so that the note survives a failing `⎕NPUT`:
+ ⍝ HandleError adds "customFns failed" right after it, which tells the reader there is no file.
+ buff←⍬
+ :If 0<≢d.Messages
+     last←⊃⌽d.Messages                                 ⍝ The message the thread was working on
+     :If 0<≢last.Method,last.RequestTarget
+         buff,←⊂'request: ',last.Method,' ',last.RequestTarget
+     :Else
+         buff,←⊂'request: the request line was not received'
+     :EndIf
+     buff,←⊂'messages: ',⍕≢d.Messages
+ :EndIf
+ buff,←⊂'peer address: ',d.PeerAddress
+ buff,←⊂'last block: ',(⍕d.LastBlockLength),' characters'
+ note←⊃{⍺,'; ',⍵}/buff
+ note←(⊂note),⊂'Full request in "',parms.crashFilename,'.request.json"'
+ parms.addToMsg←((⊆parms get'addToMsg')~⊂''),note
  (⊂(⎕JSON⍠('Compact' 0))d)⎕NPUT(parms.crashFilename,'.request.json')1
 ⍝Done

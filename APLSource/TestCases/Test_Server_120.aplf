@@ -1,4 +1,4 @@
- R←Test_Server_120(stopFlag batchFlag);⎕TRAP;c;q;r;noOf;before;new;report
+ R←Test_Server_120(stopFlag batchFlag);⎕TRAP;c;q;r;noOf;before;new;report;html
 ⍝ Ask for the "crash" page.
 ⍝ Besides HandleError's own files, the request must be saved next to them, without its credentials.
  ⎕TRAP←(999 'C' '∘∘∘ ⍝ Deliberate error')(0 'N')
@@ -24,6 +24,10 @@
 
  new←(##.FilesAndDirs.ListFiles ∆GetCrashFolder,'/*.request.json')~before
  →T.PassesIf 1=≢new
+ html←⊃⎕NGET(¯13↓⊃new),'.html'                  ⍝ `.request.json` is 13 characters
+ →T.PassesIf~∨/'customFns failed'⍷html          ⍝ HandleError notes a failing customFns there
+ →T.PassesIf∨/'Full request in'⍷html            ⍝ `SaveCrashRequest` points at its file ...
+ →T.PassesIf∨/'GET /crash'⍷html                 ⍝ ... and summarizes the request
  report←⎕JSON⊃⎕NGET⊃new
  →T.PassesIf'/crash'≡(⊃report.Messages).RequestTarget
  →T.PassesIf~∨/'Test_Server_120-secret'⍷⊃⎕NGET⊃new
