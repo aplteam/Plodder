@@ -58,7 +58,14 @@
  ⍝ HandleError adds "customFns failed" right after it, which tells the reader there is no file.
  buff←⍬
  :If 0<≢d.Messages
-     last←⊃⌽d.Messages                                 ⍝ The message the thread was working on
+     ⍝ Rumba appends a new message as soon as one is complete (see `GatherRequestMessage`),
+     ⍝ so the last message may well be an empty one, waiting for the next request.
+     b←0<≢¨{⍵.Method,⍵.RequestTarget}¨d.Messages
+     :If ∨/b
+         last←⊃¯1↑b/d.Messages                      ⍝ The last one with a request line
+     :Else
+         last←⊃¯1↑d.Messages
+     :EndIf
      :If 0<≢last.Method,last.RequestTarget
          buff,←⊂'request: ',last.Method,' ',last.RequestTarget
      :Else

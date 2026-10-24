@@ -54,7 +54,7 @@
  →T.PassesIf 2=≢note
  →T.PassesIf∨/'GET /%C0'⍷⊃note
  →T.PassesIf∨/'127.0.0.1'⍷⊃note
- →T.PassesIf∨/(filename,'.request.json')⍷⊃⌽note
+ →T.PassesIf∨/(filename,'.request.json')⍷⊃¯1↑note
  →T.PassesIf~∨/'Test_Misc_004-secret'⍷⊃,/note
 
  R←T._OK

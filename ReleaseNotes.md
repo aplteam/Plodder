@@ -1,6 +1,10 @@
 # Plodder Release Notes
 
 
+## 1.14.0 from 2026-10-24
+ * New Rumba included that has workarounds for the `⎕UCS`-bugs and shortcomings.
+ * In addition to creating the JSON file with the request in cases of an error, a summary is now added to the HTML report.
+
 ## 1.13.0 from 2026-10-03
 * New version of Rumba with improved error trapping
 * Bug fix: saving variables in error snapshots was accidentally off.
@@ -109,6 +113,7 @@
 ## 1.0.0 from 2021-11-11
 * Finally!
 * New version of FilesAndDirs included
+
 
 
 
