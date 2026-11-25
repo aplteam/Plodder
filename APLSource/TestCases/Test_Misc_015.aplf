@@ -1,0 +1,23 @@
+ R←Test_Misc_015(stopFlag batchFlag);⎕TRAP;folder;s;tie;level
+⍝ Rumba's `OpenLogFile` must create log.txt for every value of [LOGGING]LogHTTP that Plodder accepts.
+⍝ Up to RumbaLean 3.5.2 it failed with a DOMAIN ERROR on `LogHTTP = 2`, so the server could not start.
+ ⎕TRAP←(999 'C' '∘∘∘ ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ folder←∆GetTestFolder,'/Test_Misc_015'
+ :For level :In 1 2
+     {}##.FilesAndDirs.RmDirByForce folder
+     s←⎕NS''
+     s.(LogHTTP LogRumba LogConga)←level 0 0
+     s.Folder←folder
+     tie←Rumba.OpenLogFile s
+     →T.PassesIf 0>tie
+     ⎕NUNTIE tie
+     →T.PassesIf ⎕NEXISTS folder,'/log.txt'
+ :EndFor
+
+ s.(LogHTTP LogRumba LogConga)←0 0 0
+ →T.PassesIf 0=Rumba.OpenLogFile s                  ⍝ No log.txt when nothing is logged
+
+ R←T._OK
+⍝Done

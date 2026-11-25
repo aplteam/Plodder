@@ -1,20 +1,12 @@
  filename←PolishInifilePath filename
-⍝ In case `filename` is fully qualified (Windows: carries a ":"; others: start with either / or ~) we do not touch it at all.\\
-⍝ If that is not the case then the feed `filename` to the `GetAppFolder` function.
- :If 'WIN'≡1 ⎕C ##.APLTreeUtils2.GetOperatingSystem ⍬
-     :If ~F.IsFile filename
-     :AndIf ~':'∊filename
-         :If F.IsFile F.PWD,'/',filename
-             filename←F.PWD,'/',filename
-             filename←(1⊃⎕NPARTS 2⊃GetCommandLineArgs_),filename
-         :EndIf
-     :EndIf
- :Else
-     :If ~(⊃filename)∊'~/'
-         filename←⊃,/1 ⎕NPARTS filename
-     :EndIf
+⍝ Returns `filename` as an absolute path. A relative name is taken relative to the current
+⍝ directory, which `Run` has set to the folder of the workspace by then (see `F.PolishCurrentDir`).
+⍝ A name that starts with "~" is left alone.
+⍝ Signals 6 when there is no such file.
+ :If '~'≠⊃filename
+     filename←⊃,/1 ⎕NPARTS filename
  :EndIf
  :If ~F.IsFile filename
-     'No INI file found'⎕SIGNAL 6
+     ('No INI file found: ',filename)⎕SIGNAL 6
  :EndIf
- ⍝Done
+⍝Done

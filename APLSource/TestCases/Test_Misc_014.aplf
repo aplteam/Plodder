@@ -1,0 +1,27 @@
+ R←Test_Misc_014(stopFlag batchFlag);⎕TRAP;g;r;os;folder
+⍝ Exercise `GetAppFolder`: the result must be `filename` in a folder named after [CONFIG]AppName,
+⍝ which sits in the user's own data folder of the current operating system.
+⍝ The Windows Service branch is not covered: it depends on the command line.
+ ⎕TRAP←(999 'C' '∘∘∘ ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ g←⎕NS''
+ g.INI←∆CreateIni'Test_Misc_014'('[CONFIG]' 'AppName = ''MyApp''')
+ r←g ##.Plodder.GetAppFolder'foo.txt'
+ os←1 ⎕C ##.APLTreeUtils2.GetOperatingSystem ⍬
+ :Select os
+ :Case 'WIN'
+     folder←(2 ⎕NQ #'GetEnvironment' 'LOCALAPPDATA'),'\MyApp\'
+ :Case 'LIN'
+     folder←2 ⎕NQ #'GetEnvironment' 'XDG_DATA_HOME'
+     :If 0=≢folder
+         folder←(2 ⎕NQ #'GetEnvironment' 'HOME'),'/.local/share'
+     :EndIf
+     folder,←'/MyApp/'
+ :Case 'MAC'
+     folder←(2 ⎕NQ #'GetEnvironment' 'HOME'),'/Library/Application Support/MyApp/'
+ :EndSelect
+ →T.PassesIf r≡folder,'foo.txt'
+
+ R←T._OK
+⍝Done

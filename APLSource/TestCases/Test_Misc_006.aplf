@@ -1,0 +1,77 @@
+ R←Test_Misc_006(stopFlag batchFlag);⎕TRAP;parms;handlerMsg
+⍝ Exercise `CheckServerParms`: valid parameters pass, and every invalid value is rejected with its own message
+ ⎕TRAP←(999 'C' '∘∘∘ ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ #.⎕SHADOW'TEMP' ⋄ 'TEMP'#.⎕NS''
+ {}#.TEMP.⎕FX'r←OnRequest y' 'r←y'
+ {}#.TEMP.⎕FX'r←Niladic' 'r←1'
+ ##.Plodder.⎕SHADOW'G'                              ⍝ A local of `Run` in a running server,
+ ##.Plodder.G←⎕NS''                                 ⍝ so it must be established here
+ ##.Plodder.G.INI←∆CreateIni'Test_Misc_006'('[LOGGING]' 'Log = 0' 'LogHTTP = 2')
+
+ →T.PassesIf''≡∆CheckServerParmsFails ∆ValidServerParms ⍬
+
+ parms←∆ValidServerParms ⍬
+ parms.Context←'#.DoesNotExist'
+ →T.PassesIf'Invalid: "Context"'≡∆CheckServerParmsFails parms
+
+ parms←∆ValidServerParms ⍬
+ parms.OnRequest←''
+ →T.PassesIf'Invalid: "OnRequest" is mandatory'≡∆CheckServerParmsFails parms
+
+ parms←∆ValidServerParms ⍬
+ parms.OnHeader←'DoesNotExist'
+ →T.PassesIf'Unknown handler: DoesNotExist'≡∆CheckServerParmsFails parms
+
+ handlerMsg←'Invalid handler (must return a result and take a right argument only): '
+ parms←∆ValidServerParms ⍬
+ parms.OnStart←'Niladic'
+ →T.PassesIf(handlerMsg,'Niladic')≡∆CheckServerParmsFails parms
+
+ parms←∆ValidServerParms ⍬
+ parms.CongaTimeout←0
+ →T.PassesIf'Invalid: value of "HouseKeepingInterval" in INI file'≡∆CheckServerParmsFails parms
+
+ parms←∆ValidServerParms ⍬
+ parms.IdleTimeout←0.5
+ →T.PassesIf'Invalid: value of "IdleConnectionTimeout" in INI file'≡∆CheckServerParmsFails parms
+
+ parms←∆ValidServerParms ⍬
+ parms.Secure←2
+ →T.PassesIf'Invalid: value of "Secure" in INI file'≡∆CheckServerParmsFails parms
+
+ parms←∆ValidServerParms ⍬
+ parms.Port←70000
+ →T.PassesIf'Invalid: value of "Port" in INI file'≡∆CheckServerParmsFails parms
+ parms.Port←'x'
+ →T.PassesIf'Invalid: value of "Port" in INI file'≡∆CheckServerParmsFails parms
+ parms.Port←65535
+ →T.PassesIf''≡∆CheckServerParmsFails parms
+
+ parms←∆ValidServerParms ⍬
+ parms.MaxNoOfThreads←0                             ⍝ Rumba would reject every connection
+ →T.PassesIf'Invalid: value of "MaxNoOfThreads" in INI file'≡∆CheckServerParmsFails parms
+ parms.MaxNoOfThreads←2.5
+ →T.PassesIf'Invalid: value of "MaxNoOfThreads" in INI file'≡∆CheckServerParmsFails parms
+
+ parms←∆ValidServerParms ⍬
+ parms.LogConga←2
+ →T.PassesIf'Invalid: value of "LogConga" in INI file'≡∆CheckServerParmsFails parms
+ parms.LogConga←1
+ →T.PassesIf''≡∆CheckServerParmsFails parms
+
+ parms←∆ValidServerParms ⍬
+ parms.LogRumba←'1'
+ →T.PassesIf'Invalid: value of "LogRumba" in INI file'≡∆CheckServerParmsFails parms
+ parms.LogRumba←1
+ →T.PassesIf''≡∆CheckServerParmsFails parms
+
+ ##.Plodder.G.INI←∆CreateIni'Test_Misc_006'('[LOGGING]' 'Log = 0' 'LogHTTP = 3')
+ →T.PassesIf'Invalid: value of "LogHTTP" in INI file'≡∆CheckServerParmsFails ∆ValidServerParms ⍬
+
+ ##.Plodder.G.INI←∆CreateIni'Test_Misc_006'('[LOGGING]' 'Log = 2' 'LogHTTP = 0')
+ →T.PassesIf'Invalid: value of "Log" in INI file'≡∆CheckServerParmsFails ∆ValidServerParms ⍬
+
+ R←T._OK
+⍝Done

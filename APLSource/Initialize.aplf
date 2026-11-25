@@ -3,5 +3,5 @@
  r←⍬
  {}FilesAndDirs.Cd CiderConfig.HOME
  ⎕WSID←CiderConfig.HOME,'/project.dws'
- {}1 Plodder.CopyRumba 0
+ {}1 Plodder.CopyRumba ⍬
 ⍝Done

@@ -1,5 +1,5 @@
  {r}←AppLog msg;msg_;ts
-⍝ Use this to log application level stuff without IP, but see also `Log` for logging HTTP, Conga and Rumba stuff.
+⍝ Use this to log application level stuff without IP, but see also `ServerLog` for logging HTTP, Conga and Rumba stuff.
 ⍝ Relies on the namespace `G` being around and having a variable `AppLogTie`.
  r←⍬
  :Trap (~G.TestFlag)/0 ⍝ This should never crash the calling app unless it's a test

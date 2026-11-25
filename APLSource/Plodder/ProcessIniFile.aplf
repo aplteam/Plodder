@@ -21,21 +21,20 @@
          value G.INI.Put category key
      :EndFor
  :EndIf
- ⍝ Replace <TEMP> by the Temp folder returned by 739⌶0
+ ⍝ Replace <TEMP> by the Temp folder returned by GetTempFolder
  :If 0<≢data_←(∨/¨'<TEMP>'∘⍷¨1 ⎕C data[;3])⌿data
-     tempFolder←739⌶0
-     home←{⊃,/(⊂'\\')@(⍸'\'=⍵)⊣⍵}1⊃⎕NPARTS F.ExpandPath iniFilename
-     home←(-+/∧\⌽home∊'/\')↓home
+     tempFolder←GetTempFolder
      :For category key value :InEach ↓⍉data_
          value←'\<TEMP>'⎕R tempFolder⍠('IC' 1)⊣value
          value G.INI.Put category key
      :EndFor
  :EndIf
- {G.HTDOCS←F.ExpandPath⊃G.INI.Get ⍵ ⋄ G.HTDOCS G.INI.Put ⍵}'Config:HTDOCS'
- {(F.ExpandPath⊃G.INI.Get ⍵)G.INI.Put ⍵}'LOGGING:Folder'
- {(F.ExpandPath⊃G.INI.Get ⍵)G.INI.Put ⍵}'TRAP:Folder'
+ G.HTDOCS←F.ExpandPath⊃G.INI.Get'Config:HTDOCS'
+ G.HTDOCS G.INI.Put'Config:HTDOCS'
+ (F.ExpandPath⊃G.INI.Get'LOGGING:Folder')G.INI.Put'LOGGING:Folder'
+ (F.ExpandPath⊃G.INI.Get'TRAP:Folder')G.INI.Put'TRAP:Folder'
  :If G.INI.Get'CONFIG:Secure'
-     {(F.ExpandPath⊃G.INI.Get ⍵)G.INI.Put ⍵}'Certificates:PublicCertFile'
-     {(F.ExpandPath⊃G.INI.Get ⍵)G.INI.Put ⍵}'Certificates:PrivateKeyFile'
+     (F.ExpandPath⊃G.INI.Get'Certificates:PublicCertFile')G.INI.Put'Certificates:PublicCertFile'
+     (F.ExpandPath⊃G.INI.Get'Certificates:PrivateKeyFile')G.INI.Put'Certificates:PrivateKeyFile'
  :EndIf
  ⍝Done

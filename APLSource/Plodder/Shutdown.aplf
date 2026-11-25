@@ -1,24 +1,31 @@
- {r}←Shutdown INI;parms;event
-⍝ INI can be either ⍬ or an instance of the Plodder INI file. If it is the QuitEvent it is send to the root.
+ {r}←Shutdown INI;event;timeout
+⍝ Kills all threads except thread 0 and the current one, Rumba's included, closes all Conga connections,
+⍝ sends the quit event to the root, unties all files, and finally calls `OFF`.
+⍝ The threads are killed first so that none of them is still working with Conga when it is closed.
+⍝ `INI` is either ⍬ (or '') or an instance of the Plodder INI file. If it is an instance with an entry
+⍝ [EVENTS]QuitEvent, that event is sent to the root.
+⍝ Like `OFF` it does not quit in a development environment unless the command line carries OFF=1;
+⍝ it then just returns.
  r←⍬
  WindowsEventLog'Shutting down'
- {6::shy←⍬ ⋄ 1:shy←##.DRC.Close'.'}⍬
- ##.⎕EX'DRC'
- :If ~(⊂INI)∊''⍬
- :AndIf 9=⎕NC'INI'
-     :Trap 0
-         event←INI.Get'EVENTS:QuitEvent'
+ {}⎕TKILL ⎕TNUMS~0,⎕TID                     ⍝ Kill everything but thread 0 and this one
+ timeout←5000+3⊃⎕AI
+ :While 0<≢⎕TNUMS~0,⎕TID                    ⍝ A thread in a Conga call dies only when that call returns
+ :AndIf timeout>3⊃⎕AI
+     ⎕DL 0.1
+ :EndWhile
+ :If 9=##.⎕NC'RumbaLean.DRC'                ⍝ Rumba's `InitConga` establishes DRC in RumbaLean, not in Core
+     {}##.RumbaLean.DRC.Close'.'
+ :EndIf
+ {}##.⎕EX'RumbaLean.DRC'
+ :If 9=⎕NC'INI'
+ :AndIf INI.Exist'EVENTS:QuitEvent'
+     event←INI.Get'EVENTS:QuitEvent'
+     :Trap 11                               ⍝ An invalid event name in the INI file must not stop the shutdown
          r←⎕NQ'.'event
      :EndTrap
  :EndIf
- {}⎕TKILL ⎕TNUMS~⎕TID    ⍝ Kill everything but zero and itself
  ⎕FUNTIE ⎕FNUMS
  ⎕NUNTIE ⎕NNUMS
- :If A.IsDevelopment
- :AndIf '1'≠1↑2 ⎕NQ #'GetEnvironment' 'OFF'
-     ⎕←'***'
-     →
- :Else
-     ⎕OFF
- :EndIf
+ OFF
 ⍝Done

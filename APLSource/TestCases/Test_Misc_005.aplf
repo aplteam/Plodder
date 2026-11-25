@@ -1,0 +1,31 @@
+ R←Test_Misc_005(stopFlag batchFlag);⎕TRAP;ns
+⍝ Exercise `IsValidHandler`: a handler must return a result and take a right argument only
+ ⎕TRAP←(999 'C' '∘∘∘ ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ #.⎕SHADOW'TEMP' ⋄ 'TEMP'#.⎕NS''
+ ns←#.TEMP
+ {}ns.⎕FX'r←Niladic' 'r←1'
+ {}ns.⎕FX'r←Monadic y' 'r←y'
+ {}ns.⎕FX'r←x Dyadic y' 'r←y'
+ {}ns.⎕FX'r←{x}Ambivalent y' 'r←y'
+ {}ns.⎕FX'{r}←Shy y' 'r←y'
+ {}ns.⎕FX'NoResult y' '{}y'
+ {}ns.⎕FX'Dfn←{' '    ⍵' '}'
+ ns.Variable←1
+
+ →T.PassesIf ns ##.Plodder.IsValidHandler'Monadic'
+ →T.PassesIf ns ##.Plodder.IsValidHandler'Ambivalent'
+ →T.PassesIf ns ##.Plodder.IsValidHandler'Shy'
+ →T.PassesIf ns ##.Plodder.IsValidHandler'Dfn'
+ →T.PassesIf ns ##.Plodder.IsValidHandler'#.TEMP.Monadic'
+ →T.PassesIf ns ##.Plodder.IsValidHandler''                ⍝ All handlers but `OnRequest` are optional
+
+ →T.PassesIf~ns ##.Plodder.IsValidHandler'Niladic'
+ →T.PassesIf~ns ##.Plodder.IsValidHandler'Dyadic'
+ →T.PassesIf~ns ##.Plodder.IsValidHandler'NoResult'
+ →T.PassesIf~ns ##.Plodder.IsValidHandler'Variable'
+ →T.PassesIf~ns ##.Plodder.IsValidHandler'DoesNotExist'
+
+ R←T._OK
+⍝Done

@@ -1,0 +1,14 @@
+ parms←∆ValidServerParms dummy
+⍝ Returns server parameters that `CheckServerParms` accepts, as `CreateServerParms` would establish them.
+⍝ The handler `OnRequest` must exist in `#.TEMP`. Test cases change one value at a time.
+ parms←⎕NS''
+ parms.Context←'#.TEMP'
+ parms.OnRequest←'OnRequest'
+ parms.(OnCongaTimeout OnHeader OnStart)←⊂''
+ parms.CongaTimeout←1000
+ parms.IdleTimeout←60
+ parms.Secure←0
+ parms.Port←8080
+ parms.MaxNoOfThreads←10
+ parms.(LogConga LogRumba)←0
+⍝Done

@@ -1,10 +1,13 @@
- {congaFolder}←CopyConga(Rumba INI);currentAPL;success
+ {(congaFolder warning)}←CopyConga(Rumba INI);currentAPL;success
 ⍝ Tries to copy the "Conga" namespace from conga.dws of the current interpreter unless INI carries
 ⍝ an entry [CONFIG]CongaFolder that is not empty: then Conga is copied from conga.dws in that folder.
 ⍝ (The folder must also carry all Conga DLLs for all platforms Plodder is supposed to run on)
 ⍝ If neither works an error is thrown.
-⍝ Returns the path where the Conga DLLs can be found
+⍝ Returns the path where the Conga DLLs can be found, and a warning that is empty unless Conga was
+⍝ copied from conga.dws in the current directory: the DLLs are then still taken from the interpreter's
+⍝ folder, and they may not match that workspace.
  success←0
+ warning←''
  currentAPL←2 ⎕NQ #'GetEnvironment' 'DYALOG'
  :If ~(⊂INI)∊''⍬
  :AndIf INI.Exist'CONFIG:CongaFolder'
@@ -27,6 +30,7 @@
      :Trap 0
          'Conga'Rumba.⎕CY'./conga.dws'
          success←1
+         warning←'Conga was copied from ./conga.dws in the current directory, but the Conga DLLs are taken from ',congaFolder,': they may not match'
      :EndTrap
  :EndIf
  ('Could not copy the "Conga" namespace from either ',currentAPL,'/ws/conga.dws nor from a WS conga.dws in the current directory')Assert success

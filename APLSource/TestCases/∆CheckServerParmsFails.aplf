@@ -1,0 +1,10 @@
+ em←∆CheckServerParmsFails parms;qdmx
+⍝ Calls `CheckServerParms` and returns the message it signals, or '' when it accepts `parms`.
+ em←''
+ :Trap 11
+     {}##.Plodder.CheckServerParms parms
+ :Else
+     qdmx←⎕DMX
+     em←qdmx.EM
+ :EndTrap
+⍝Done

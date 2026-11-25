@@ -1,13 +1,17 @@
- parms←CheckServerParms parms;b
+ parms←CheckServerParms parms;b;handlers
+⍝ Checks the server parameters, most of which come from the INI file, and signals 11 for the first
+⍝ invalid one, so that a misconfigured server fails at start-up rather than with the first request.
  :If 0=≢parms.Context
  :OrIf 9≠⎕NC parms.Context
      'Invalid: "Context"'⎕SIGNAL 11
  :EndIf
+ 'Invalid: "OnRequest" is mandatory'⎕SIGNAL 11/⍨0=≢parms.OnRequest
  :If ∨/b←3≠(⍎parms.Context).{0=≢⍵:3 ⋄ ⊃⌊⎕NC ⍵}¨parms.(OnCongaTimeout OnHeader OnRequest OnStart)
      11 ⎕SIGNAL⍨'Unknown handler: ',⊃{⍺,', ',⍵}/b/parms.(OnCongaTimeout OnHeader OnRequest OnStart)
  :EndIf
- :If 1∊b←~(⍎parms.Context).{0=≢⍵:1 ⋄ v←⎕AT ⍵ ⋄ (1 ¯2⍷⍨|1 2⊃v)∧(1=|1 1⊃v)}¨parms.(OnCongaTimeout OnHeader OnRequest OnStart)
-     11 ⎕SIGNAL⍨'Invalid handler: ',⊃{⍺,', ',⍵}/b/parms.(OnCongaTimeout OnHeader OnRequest OnStart)
+ handlers←parms.(OnCongaTimeout OnHeader OnRequest OnStart)
+ :If 1∊b←~(⍎parms.Context)IsValidHandler¨handlers
+     11 ⎕SIGNAL⍨'Invalid handler (must return a result and take a right argument only): ',⊃{⍺,', ',⍵}/b/handlers
  :EndIf
  :If (' '=⊃0⍴∊parms.CongaTimeout)∨1≠≢,parms.CongaTimeout   ⍝ parms.CongaTimeout is the interval in ms by now
  :OrIf (parms.CongaTimeout≠⌊parms.CongaTimeout)∨1>parms.CongaTimeout
@@ -17,5 +21,17 @@
  :OrIf (parms.IdleTimeout≠⌊parms.IdleTimeout)∨1>parms.IdleTimeout
      'Invalid: value of "IdleConnectionTimeout" in INI file'⎕SIGNAL 11
  :EndIf
- 'Invalid: value of "LogHTTP" in INI file'⎕SIGNAL 11/⍨~(G.INI.Get'LOGGING:LogHTTP')∊0 1 2
+ 'Invalid: value of "LogHTTP" in INI file'⎕SIGNAL 11/⍨~(⊂G.INI.Get'LOGGING:LogHTTP')∊0 1 2
+ 'Invalid: value of "Log" in INI file'⎕SIGNAL 11/⍨~(⊂G.INI.Get'LOGGING:Log')∊0 1
+ 'Invalid: value of "LogConga" in INI file'⎕SIGNAL 11/⍨~(⊂parms.LogConga)∊0 1
+ 'Invalid: value of "LogRumba" in INI file'⎕SIGNAL 11/⍨~(⊂parms.LogRumba)∊0 1
+ 'Invalid: value of "Secure" in INI file'⎕SIGNAL 11/⍨~(⊂parms.Secure)∊0 1
+ :If (' '=⊃0⍴∊parms.Port)∨1≠≢,parms.Port
+ :OrIf (parms.Port≠⌊parms.Port)∨(1>parms.Port)∨65535<parms.Port   ⍝ 0 has been replaced by 80 or 443 by now
+     'Invalid: value of "Port" in INI file'⎕SIGNAL 11
+ :EndIf
+ :If (' '=⊃0⍴∊parms.MaxNoOfThreads)∨1≠≢,parms.MaxNoOfThreads
+ :OrIf (parms.MaxNoOfThreads≠⌊parms.MaxNoOfThreads)∨1>parms.MaxNoOfThreads
+     'Invalid: value of "MaxNoOfThreads" in INI file'⎕SIGNAL 11
+ :EndIf
 ⍝Done

@@ -1,3 +1,0 @@
- r
- 1 ⎕NDELETE'data/Rumba/Log/Log.txt'
- Plodder.Run 1

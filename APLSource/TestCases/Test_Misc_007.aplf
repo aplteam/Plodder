@@ -1,0 +1,27 @@
+ R←Test_Misc_007(stopFlag batchFlag);⎕TRAP;folder;g;logFolder
+⍝ Exercise `OpenAppLog`: the application log must end up in `[LOGGING]Folder`, with or without
+⍝ a trailing separator there, and must not be created at all with `[LOGGING]Log = 0`.
+ ⎕TRAP←(999 'C' '∘∘∘ ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ folder←∆GetTestFolder,'/Test_Misc_007'
+ ##.Plodder.⎕SHADOW'F'                              ⍝ A local of `Run` in a running server,
+ ##.Plodder.F←##.FilesAndDirs                       ⍝ so it must be established here
+
+ :For logFolder :In 'Logs1' 'Logs2/'
+     g←⎕NS''
+     g.INI←∆CreateIni'Test_Misc_007'('[LOGGING]' 'Log = 1'('Folder = ''',folder,'/',logFolder,''''))
+     'CREATE!'##.FilesAndDirs.CheckPath folder,'/',logFolder
+     g←##.Plodder.OpenAppLog g
+     →T.PassesIf 2=g.⎕NC'AppLogTie'
+     ⎕NUNTIE g.AppLogTie
+     →T.PassesIf ⎕NEXISTS folder,'/',(logFolder~'/'),'/app-log.txt'
+ :EndFor
+
+ g←⎕NS''
+ g.INI←∆CreateIni'Test_Misc_007'('[LOGGING]' 'Log = 0'('Folder = ''',folder,'/Logs'''))
+ g←##.Plodder.OpenAppLog g
+ →T.PassesIf 0=g.⎕NC'AppLogTie'
+
+ R←T._OK
+⍝Done

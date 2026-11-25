@@ -1,14 +1,17 @@
- r←{x}GetAppFolder filename;appName
+ r←{x}GetAppFolder filename;appName;home
 ⍝ Depending on the operating system, the folder where your application may write to is or is not different from
 ⍝ the folder it is installed in. The installation folder is where the workspace/EXE resides.
 ⍝ For log files and error snapshots (and possibly the INI file) we need a folder we are allowed to write to.
-⍝ Under Windows this means it has to be somewhere else. That somewhere else is returned by this function.
-⍝ * Under Windows it depends on the account:
-⍝   * For any ordinary user account it is `%LOCALAPPDATA%\{appName}\`
-⍝   * For the system account it is where the workspace was loaded from\\
-⍝     Note that Windows Services usually run under the system account
-⍝ * Under Linux it is `/etc/{appName}/`
-⍝ * Under MacOS it is /usr/local/{appName}/
+⍝ This function returns `filename` prefixed by such a folder. The folder is not created.
+⍝ * Under Windows it depends on how the application runs:
+⍝   * Ordinarily it is `%LOCALAPPDATA%\{appName}\`
+⍝   * When running as a Windows Service it is the folder of `⎕WSID`, which is where the workspace was
+⍝     loaded from, or the EXE in case of a bound EXE.\\
+⍝     Services usually run under the system account, which has no useful `%LOCALAPPDATA%`.
+⍝ * Under Linux it is `$XDG_DATA_HOME/{appName}/`, or `~/.local/share/{appName}/` when XDG_DATA_HOME is not set
+⍝ * Under macOS it is `~/Library/Application Support/{appName}/`
+⍝ `appName` is taken from [CONFIG]AppName.
+⍝ Pass `G` as left argument in a test case; in a running server `G` is a local of `Run`.
  :If 0<⎕NC'x'  ⍝ Special case: test cases!
      ⎕SHADOW'G'
      G←x
@@ -17,14 +20,19 @@
  :Select 1 ⎕C ##.APLTreeUtils2.GetOperatingSystem ⍬
  :Case 'WIN'
      :If IsRunningAsService
-         r←1⊃⎕NPARTS 2⊃GetCommandLineArgs_
+         r←(⊃1 ⎕NPARTS ⎕WSID),filename
      :Else
          r←((2 ⎕NQ #'GetEnvironment' 'LOCALAPPDATA'),'\',appName,'\'),filename
      :EndIf
  :Case 'LIN'
-     r←('/etc/',appName,'/'),filename
+     home←2 ⎕NQ #'GetEnvironment' 'XDG_DATA_HOME'
+     :If 0=≢home
+         home←(2 ⎕NQ #'GetEnvironment' 'HOME'),'/.local/share'
+     :EndIf
+     r←(home,'/',appName,'/'),filename
  :Case 'MAC'
-     r←('/usr/local/',appName,'/'),filename
+     r←((2 ⎕NQ #'GetEnvironment' 'HOME'),'/Library/Application Support/',appName,'/'),filename
  :Else
      11 ⎕SIGNAL⍨'Operating system not supported'
  :EndSelect
+⍝Done

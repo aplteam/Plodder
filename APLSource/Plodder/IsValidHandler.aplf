@@ -1,0 +1,12 @@
+ r←ref IsValidHandler name;hasResult;valence
+⍝ Returns 1 when `name`, as seen from the namespace `ref`, is a function that returns a result
+⍝ and can be called monadically: a monadic or an ambivalent function, a dfn for example.
+⍝ An empty name is valid, because all handlers except `OnRequest` are optional; the caller checks that one.
+⍝ Note that attribute 10 is ¯1 for a shy result.
+ :If 0=≢name
+     r←1
+ :Else
+     (hasResult valence)←10 11 ref.⎕ATX name
+     r←(0≠hasResult)∧valence∊1 ¯2
+ :EndIf
+⍝Done

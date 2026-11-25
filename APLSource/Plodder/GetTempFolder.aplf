@@ -1,0 +1,5 @@
+ r←GetTempFolder
+⍝ Returns the temp folder of the current OS, with forward slashes and without a trailing separator.
+⍝ Cover for the I-beam 739.
+ r←739⌶0
+⍝Done
