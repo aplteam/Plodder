@@ -1,0 +1,5 @@
+ {r}←EnableRide flag
+⍝ 1 allows a Ride to connect, 0 prevents it.
+⍝ Cover for the I-beam 3502.
+ r←3502⌶flag
+⍝Done

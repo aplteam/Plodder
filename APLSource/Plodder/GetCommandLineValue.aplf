@@ -1,0 +1,26 @@
+ r←default GetCommandLineValue name;cl;lower;bool
+⍝ Returns the value of "name" as provided on the command line or "default" if not present.
+⍝ Names are compared case-insensitively, but a value is returned exactly as it was given.
+⍝ Note that "r" is always text since we cannot know or guess the data type.
+⍝ This is true even when "default" is returned because "default" is always converted to simple text.
+⍝ * In case the command line carries `name=value` then `value` is returned.
+⍝ * In case it carries `name` without a `=` then `name` is returned (in lower case). This is meant for flags like `-foo` and `+foo`.
+⍝ Examples:
+⍝ '0'     ←→ 0 GetCommandLineValue 'foo'        ⍝ In case "foo" is not part of the command line at all
+⍝ '1'     ←→ 0 GetCommandLineValue 'foo'        ⍝ In case the command line carries "foo=1"
+⍝ '0'     ←→ 0 GetCommandLineValue '-flag'      ⍝ In case "-flag" is not part of the command line at all
+⍝ '-flag' ←→ 0 GetCommandLineValue '-flag'      ⍝ In case the command line carries "-flag"
+⍝ '123'   ←→ 0 GetCommandLineValue '-flag'      ⍝ In case the command line carries "-flag=123"
+⍝ '0'     ←→ 0 GetCommandLineValue '+flag'      ⍝ In case "+flag" is not part of the command line at all
+⍝ '+flag' ←→ 0 GetCommandLineValue '+flag'      ⍝ In case the command line carries "+flag"
+ cl←GetCommandLineArgs_
+ lower←⎕C cl
+ name←⎕C name
+ 'Invalid argument: must start with either an ASCII character or "+" or "-"'⎕SIGNAL 11/⍨~(1⍴name)∊'+-',⎕A,⎕C ⎕A
+ :If 0<+/bool←(name,'='){⍺∘≡¨(≢⍺)↑¨⍵}lower
+     r←(1+≢name)↓(⊃⍸bool)⊃cl
+ :ElseIf (⊂name)∊lower
+     r←name
+ :Else
+     r←⍕∊default
+ :EndIf

@@ -1,27 +1,27 @@
  {r}←{ini}CheckForRide G;INI;address;b;port;rc;wait;buff
-⍝ Checks for an ENV vars -ride` specifying a port but also the `IniFile` instance when "ini" is not empty but an instance of `IniFiles`.
+⍝ Checks the command line for `-ride=n`, `n` being a port number, and also the `IniFiles` instance `ini` when that is not empty.
 ⍝ If enabled a Ride is made possible, overwriting any RIDE_INIT specified as an ENV var.
 ⍝ Returns 1 in case a Ride is possible and 0 otherwise.
  ini←{0<⎕NC ⍵:⍎⍵ ⋄ ⍬}'ini'
  :If 'WIN'≢1 ⎕C ##.APLTreeUtils2.GetOperatingSystem ⍬
  :AndIf 0<≢buff←⊃⎕SH'echo $RIDE_INIT'   ⍝ Are we already prepared for a Ride?
  :AndIf '$RIDE_INIT'≢buff
-     {}3502⌶1                           ⍝ The we allow it
+     {}EnableRide 1                     ⍝ Then we allow it
      r←1
  :Else
-     port←##.APLTreeUtils2.ToNum 0 GetEnvVars'-port'
+     port←##.APLTreeUtils2.ToNum 0 GetCommandLineValue'-ride'
      :If 0=port
          port←{0::0 ⋄ ⍬≡⍵:0 ⋄ ⊃⍵.Get'RIDE:port'}ini
      :EndIf
      :If 0≠port
      :AndIf {0::1 ⋄ ⍬≡⍵:1 ⋄ ⊃⍵.Get'RIDE:active'}ini
          :If ~G.IsWin
-             107 SignalOrQuadOff('+s'≢''GetEnvVars'+s')/'RIDE requires APL to run full screen (+s flag)'
+             107 SignalOrQuadOff('+s'≢''GetCommandLineValue'+s')/'RIDE requires APL to run full screen (+s flag)'
          :EndIf
          address←{0::'*' ⋄ ⍬≡⍵:'*' ⋄ ⊃⍵.Get'RIDE:address'}ini
-         rc←3502⌶'Serve:',address,':',⍕port
+         rc←ConfigureRide'Serve:',address,':',⍕port
          :If rc∊0 ¯2 ¯1                 ⍝ 0=okay, ¯2=Ride is already active, ¯1=don't do anything
-             {}3502⌶1
+             {}EnableRide 1
              :If wait←{0::0 ⋄ ⍬≡⍵:0 ⋄ ⊃⍵.Get'RIDE:wait'}ini
                  {_←⎕DL 0.5 ⋄ ∇ ⍵}⍬     ⍝ Endless loop that allows a RIDEr to interrupt
              :EndIf
@@ -29,10 +29,10 @@
          :Else
              32 SignalOrQuadOff(rc=32)/'Conga DLLs missing, therefore no Ride'
              64 SignalOrQuadOff(rc=64)/'Ride INIT illformed'
-             106 SignalOrQuadOff(rc≠0)/'Ride error when resetting connection string to "',('Serve::',⍕port)'"; RC=',⍕rc
+             106 SignalOrQuadOff(rc≠0)/'Ride error when resetting connection string to "',('Serve:',address,':',⍕port)'"; RC=',⍕rc
          :EndIf
      :Else
-         {}3502⌶0                       ⍝ Disable it
+         {}EnableRide 0                 ⍝ Disable it
          r←0
      :EndIf
  :EndIf

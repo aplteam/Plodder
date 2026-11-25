@@ -1,0 +1,6 @@
+ rc←ConfigureRide connection
+⍝ Sets the Ride connection string, for example 'Serve:*:4502'.
+⍝ Returns 0 for success, ¯1 when nothing was done, ¯2 when Ride is already active, or an error code.
+⍝ Cover for the I-beam 3502.
+ rc←3502⌶connection
+⍝Done

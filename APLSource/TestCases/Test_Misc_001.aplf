@@ -1,31 +1,34 @@
  R←Test_Misc_001(stopFlag batchFlag);⎕TRAP;qdmx
-⍝ Exercise `GetEnvVars`
+⍝ Exercise `GetCommandLineValue`
  ⎕TRAP←(999 'C' '∘∘∘ ⍝ Deliberate error')(0 'N')
  R←T._Failed
 
  #.⎕SHADOW'TEMP' ⋄ 'TEMP'#.⎕NS''
- #.TEMP.⎕FX ⎕CR'##.Plodder.GetEnvVars'
+ #.TEMP.⎕FX ⎕CR'##.Plodder.GetCommandLineValue'
 
  #.TEMP.GetCommandLineArgs_←,⊂'dyalog.exe'
- →T.PassesIf''≡''#.TEMP.GetEnvVars'foo'
+ →T.PassesIf''≡''#.TEMP.GetCommandLineValue'foo'
 
  #.TEMP.GetCommandLineArgs_←'dyalog.exe' 'foo=123'
- →T.PassesIf'123'≡''#.TEMP.GetEnvVars'foo'
+ →T.PassesIf'123'≡''#.TEMP.GetCommandLineValue'foo'
 
  #.TEMP.GetCommandLineArgs_←'dyalog.exe' '-foo=123'
- →T.PassesIf'123'≡''#.TEMP.GetEnvVars'-foo'
+ →T.PassesIf'123'≡''#.TEMP.GetCommandLineValue'-foo'
 
  #.TEMP.GetCommandLineArgs_←'dyalog.exe' '+foo=123'
- →T.PassesIf'123'≡''#.TEMP.GetEnvVars'+foo'
+ →T.PassesIf'123'≡''#.TEMP.GetCommandLineValue'+foo'
 
  #.TEMP.GetCommandLineArgs_←'dyalog.exe' '-foo'
- →T.PassesIf'-foo'≡''#.TEMP.GetEnvVars'-foo'
+ →T.PassesIf'-foo'≡''#.TEMP.GetCommandLineValue'-foo'
 
  #.TEMP.GetCommandLineArgs_←'dyalog.exe' '+foo'
- →T.PassesIf'+foo'≡''#.TEMP.GetEnvVars'+foo'
+ →T.PassesIf'+foo'≡''#.TEMP.GetCommandLineValue'+foo'
+
+ #.TEMP.GetCommandLineArgs_←'dyalog.exe' 'FOO=C:/Some/Path'      ⍝ The name is case-insensitive, the value is not
+ →T.PassesIf'C:/Some/Path'≡''#.TEMP.GetCommandLineValue'foo'
 
  :Trap 11
-     {}''#.TEMP.GetEnvVars'=foo'
+     {}''#.TEMP.GetCommandLineValue'=foo'
      →T.FailsIf 1
  :Else
      qdmx←⎕DMX
