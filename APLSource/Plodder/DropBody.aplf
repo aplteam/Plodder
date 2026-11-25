@@ -1,0 +1,17 @@
+ r←DropBody block;CR;LF;a;b
+⍝ `block` is raw HTTP data as received. Returns its header part: everything up to and including
+⍝ the empty line that ends the header. When there is no such line, `block` is returned when its
+⍝ first line is a request line (the header was not complete yet), and '' otherwise: then `block`
+⍝ is part of a body, or the rest of a header whose start is gone, and cannot be told apart.
+ (CR LF)←⎕UCS 13 10
+ a←((CR,LF,CR,LF)⍷block)⍳1
+ b←((LF,LF)⍷block)⍳1
+ :If a<b
+     r←(a+3)↑block
+ :ElseIf b≤≢block
+     r←(b+1)↑block
+ :ElseIf ∨/' HTTP/'⍷block↑⍨¯1+⌊/block⍳CR LF
+     r←block
+ :Else
+     r←''
+ :EndIf

@@ -1,0 +1,23 @@
+ parms←∆StormGuardParms(name entries);folder
+⍝ Returns HandleError's parameters as Plodder's `SetErrorParms` establishes them from an INI file
+⍝ whose [TRAP] section holds `entries`, a vector of lines such as 'StormCeiling = 2'.
+⍝ The error folder is `<test folder>/<name>/Errors`, a fresh one for every test case, so the
+⍝ storm guard always starts without any history.
+⍝ The parameters are then made light-weight: no component file, no custom function, no log function
+⍝ (Plodder itself already does without an error WS). The HTML report remains: it tells which
+⍝ crashes got the full treatment.
+⍝ Instead of `⎕OFF`, `Process` signals 689, as it does in a server; `∆ProvokeCrash` catches that.
+ folder←∆GetTestFolder,'/',name
+ ##.Plodder.⎕SHADOW'G'                              ⍝ Both are locals of `Run` in a running server,
+ ##.Plodder.⎕SHADOW'F'                              ⍝ so they must be established here
+ ##.Plodder.G←⎕NS''
+ ##.Plodder.G.INI←∆CreateIni name((⊂'[TRAP]'),(⊂'Folder = ''',folder,'/Errors'''),entries)
+ ##.Plodder.F←##.FilesAndDirs
+ parms←##.Plodder.SetErrorParms ##.HandleError.CreateParms
+ parms.saveCrash←0
+ parms.saveVars←0
+ parms.customFns←''
+ parms.logFunction←''
+ parms.off←0
+ parms.signal←689
+⍝Done

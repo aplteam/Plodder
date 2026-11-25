@@ -1,0 +1,20 @@
+ r←secret MaskQueryString text;CR;LF;eol;q;e;query;pairs;b
+⍝ `text` is a request target such as '/path?a=1&b=2', a request line such as 'GET /path?a=1 HTTP/1.1',
+⍝ or raw HTTP data that starts with a request line.
+⍝ Returns `text` with the value of every query parameter whose name is in `secret` (upper case, see
+⍝ `SecretQueryParms`) replaced by "***". Only the first line is looked at: that is where the query is.
+⍝ Names are compared as they are, so an encoded name such as 'to%6Ben' is not recognized.
+ (CR LF)←⎕UCS 13 10
+ r←text
+ eol←⌊/text⍳CR LF                                    ⍝ End of the first line
+ q←text⍳'?'
+ :If q≥eol
+     :Return
+ :EndIf
+ e←q+¯1+⌊/(q↓text)⍳' ',CR,LF                        ⍝ The query ends with the first blank or the line
+ query←q↓e↑text
+ pairs←'&'{1↓¨(⍺=⍵)⊂⍵}'&',query
+ b←{'='∊⍵}¨pairs
+ b[⍸b]←(1 ⎕C{(¯1+⍵⍳'=')↑⍵}¨b/pairs)∊secret
+ pairs[⍸b]←{(⍵↑⍨⍵⍳'='),'***'}¨b/pairs
+ r←(q↑text),(1↓∊'&',¨pairs),e↓text

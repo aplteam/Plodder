@@ -1,0 +1,16 @@
+ R←Test_Misc_011(stopFlag batchFlag);⎕TRAP;pairs;expected
+⍝ Exercise `SplitNames` and `MaskIniValues`
+ ⎕TRAP←(999 'C' '∘∘∘ ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ →T.PassesIf(,⊂'X-MY-TOKEN')≡##.Plodder.SplitNames'x-my-token'
+ →T.PassesIf((,'A')'B-C')≡##.Plodder.SplitNames' a , b-c,'
+ →T.PassesIf 0=≢##.Plodder.SplitNames''
+
+ pairs←('Port' 8080)('DBPassword' 'geheim')('PrivateKeyFile' 'x.pem')('Api_Key' 'abc')
+ expected←('Port' 8080)('DBPassword' '***')('PrivateKeyFile' 'x.pem')('Api_Key' '***')
+ →T.PassesIf expected≡##.Plodder.SecretIniKeys ##.Plodder.MaskIniValues pairs
+ →T.PassesIf(0⍴⊂'')≡##.Plodder.SecretIniKeys ##.Plodder.MaskIniValues 0⍴⊂''
+
+ R←T._OK
+⍝Done

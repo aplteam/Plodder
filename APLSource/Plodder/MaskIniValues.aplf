@@ -1,0 +1,8 @@
+ r←secret MaskIniValues pairs;b
+⍝ `pairs` is a vector of (key value) pairs from an INI file. Returns them with the value replaced by
+⍝ "***" when the key contains any of `secret`, parts of key names in upper case (see `SecretIniKeys`).
+ r←pairs
+ :If 0<≢pairs
+     b←secret∘{∨/∨/¨⍺⍷¨⊂⍵}¨1 ⎕C⍕¨⊃¨pairs
+     r[⍸b]←{(⊃⍵)'***'}¨b/pairs
+ :EndIf

@@ -1,0 +1,5 @@
+ r←SplitNames text
+⍝ Splits a comma-separated list such as 'X-My-Token, x-other' into its names, without blanks and in
+⍝ upper case. Returns an empty vector for an empty list.
+ r←','{1↓¨(⍺=⍵)⊂⍵}',',text~' '
+ r←1 ⎕C(0<≢¨r)/r

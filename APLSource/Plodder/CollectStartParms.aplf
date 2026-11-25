@@ -1,5 +1,6 @@
- r←CollectStartParms dummy;ini;b;buff;buff2
+ r←CollectStartParms dummy;ini;b;buff;buff2;guard;ceiling;resetAfter;secret
 ⍝ Collects all pieces of information that might be of interest for debugging purposes.
+⍝ INI entries whose keys mark them as credentials are shown as "***": see `SecretIniKeys`.
  r←''
  r,←⊂(⎕PW-1)↑'--- Started at ',(A.FormatDateTime ⎕TS),⎕PW⍴'-'
  r,←⊂'*** Command line arguments:'
@@ -10,7 +11,8 @@
  b←(≢¨ini[;2 3])∨.≠0
  buff←(≢ini)⍴⊂''
  buff[⍸~b]←' ',¨(~b)/ini[;1]
- buff2←↓b⌿ini[;2 3]
+ secret←G{0<⍺.⎕NC ⍵:⍺⍎⍵ ⋄ SecretIniKeys}'SecretIniKeys'  ⍝ `EstablishSecrets` adds those of the INI file
+ buff2←secret MaskIniValues↓b⌿ini[;2 3]
  (1⊃¨buff2)←{(1+⌈/≢¨⍵)↑¨⍵}1⊃¨buff2
  buff[⍸b]←{'  ',(1⊃⍵),'= ',(A.DLB⍕2⊃⍵)}¨buff2
  r,←buff
@@ -25,6 +27,10 @@
  buff,←⊂'System Vars'(⊃{⍺,', ',⍵}/'IO' 'ML' 'WX' 'CT'{⍺,'<-',⍕⍵}¨⎕IO ⎕ML ⎕WX ⎕CT)
  buff,←⊂'[]WA'((⍕⌊⎕WA÷1024×1024),'MB')
  buff,←⊂'IP-Address'(⊣2 ⎕NQ #'TCPGetHostID')
+ :If 9=#.⎕NC'ErrorParms'                          ⍝ The values in force, whether from the INI file or defaults
+     (guard ceiling resetAfter)←#.ErrorParms.(stormGuard stormCeiling stormResetAfter)
+     buff,←⊂'Storm guard'((⍕guard),', ceiling ',(⍕ceiling),', reset after ',(⍕resetAfter),' h')
+ :EndIf
  (1⊃¨buff)←{(1+⌈/≢¨⍵)↑¨⍵}1⊃¨buff
  buff←{' ',(1⊃⍵),'= ',(A.DLB⍕2⊃⍵)}¨buff
  r,←buff

@@ -1,0 +1,23 @@
+ R←Test_StormGuard_001(stopFlag batchFlag);⎕TRAP;parms;counts;signatures;html;i
+⍝ The crash storm guard is on by default: the INI file does not mention `StormGuard`.
+⍝ The same error five times: only the 1st, 2nd and 4th occurrence get the full treatment.
+ ⎕TRAP←(999 'C' '∘∘∘ ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ parms←∆StormGuardParms'Test_StormGuard_001'⍬
+ →T.PassesIf 1≡parms.stormGuard
+
+ counts←signatures←html←⍬
+ :For i :In ⍳5
+     html,←parms ∆ProvokeCrash 501
+     counts,←parms.stormCount
+     signatures,←⊂parms.stormSignature
+ :EndFor
+
+ →T.PassesIf counts≡1 2 3 4 5
+ →T.PassesIf html≡1 2 2 3 3
+ →T.PassesIf 1=≢∪signatures
+ →T.PassesIf ⎕NEXISTS parms.errorFolder,'/StormGuard.txt'
+
+ R←T._OK
+⍝Done

@@ -1,0 +1,20 @@
+ R←Test_StormGuard_002(stopFlag batchFlag);⎕TRAP;parms;counts;html;en
+⍝ `[TRAP]StormCeiling`: with a ceiling of 2, only two crashes within an hour get the full
+⍝ treatment, even when every one of them is a first occurrence.
+ ⎕TRAP←(999 'C' '∘∘∘ ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ parms←∆StormGuardParms'Test_StormGuard_002'(,⊂'StormCeiling = 2')
+ →T.PassesIf 2≡parms.stormCeiling
+
+ counts←html←⍬
+ :For en :In 501 502 503
+     html,←parms ∆ProvokeCrash en
+     counts,←parms.stormCount
+ :EndFor
+
+ →T.PassesIf counts≡1 1 1                       ⍝ Three different signatures ...
+ →T.PassesIf html≡1 2 2                         ⍝ ... but the third one is held back
+
+ R←T._OK
+⍝Done

@@ -1,0 +1,10 @@
+ ini←∆CreateIni(name lines);folder;filename
+⍝ Writes `lines` into the INI file `<test folder>/<name>/test.ini` and returns an `IniFiles` instance on it.
+⍝ The folder is removed first, so every test case starts from scratch.
+ folder←∆GetTestFolder,'/',name
+ {}##.FilesAndDirs.RmDirByForce folder
+ 'CREATE!'##.FilesAndDirs.CheckPath folder
+ filename←folder,'/test.ini'
+ (⊂lines)⎕NPUT filename 1
+ ini←⎕NEW ##.IniFiles(,⊂filename)
+⍝Done

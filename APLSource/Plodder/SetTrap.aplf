@@ -1,9 +1,10 @@
  TRAP←{force}SetTrap G;folder;appName
 ⍝ General error trapping in case something goes horribly wrong.
-⍝ This does not establish error trapping by default in development, but this can be enforced by passing a 1 as ⍺
-⍝ In Runtime error trapping is always established.
+⍝ `force` is optional: 1 establishes error trapping, 0 does not, not even in a Runtime, and ¯1, the
+⍝ default, establishes it in a Runtime but not in development.
+⍝ With 0, HandleError is not asked at all: it would establish error trapping in a Runtime anyway.
 ⍝ Requires #.ErrorParms to exist!
- force←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'force'
+ force←{0<⎕NC ⍵:⍎⍵ ⋄ ¯1}'force'
  :If ¯1=force
      force←~A.IsDevelopment
  :EndIf
@@ -15,5 +16,9 @@
      #.ErrorParms.windowsEventSource←appName
  :EndIf
  #.ErrorParms.AppName←appName
- TRAP←force ##.HandleError.SetTrap'#.ErrorParms'
+ :If force
+     TRAP←1 ##.HandleError.SetTrap'#.ErrorParms'
+ :Else
+     TRAP←⊂(0 1000)'S'                              ⍝ What HandleError returns for "no error trapping"
+ :EndIf
 ⍝Done

@@ -1,0 +1,21 @@
+ R←Test_Misc_009(stopFlag batchFlag);⎕TRAP;s;CR;LF
+⍝ Exercise `MaskQueryString`
+ ⎕TRAP←(999 'C' '∘∘∘ ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ (CR LF)←⎕UCS 13 10
+ s←'TOKEN' 'API_KEY'
+ →T.PassesIf'/a'≡s ##.Plodder.MaskQueryString'/a'
+ →T.PassesIf'/a?'≡s ##.Plodder.MaskQueryString'/a?'
+ →T.PassesIf'/a?x=1'≡s ##.Plodder.MaskQueryString'/a?x=1'
+ →T.PassesIf'/a?token=***'≡s ##.Plodder.MaskQueryString'/a?token=4711'
+ →T.PassesIf'/a?x=1&Token=***&y=2'≡s ##.Plodder.MaskQueryString'/a?x=1&Token=4711&y=2'
+ →T.PassesIf'/a?token&api_key=***'≡s ##.Plodder.MaskQueryString'/a?token&api_key=4711'   ⍝ No value, nothing to mask
+ →T.PassesIf'/a?token=***&token=***'≡s ##.Plodder.MaskQueryString'/a?token=1&token=2'
+ →T.PassesIf'GET /a?token=*** HTTP/1.1'≡s ##.Plodder.MaskQueryString'GET /a?token=4711 HTTP/1.1'
+ →T.PassesIf('GET /a?token=*** HTTP/1.1',CR,LF,'Referer: /b?token=1',CR,LF)≡s ##.Plodder.MaskQueryString'GET /a?token=4711 HTTP/1.1',CR,LF,'Referer: /b?token=1',CR,LF
+ →T.PassesIf('GET /a HTTP/1.1',CR,LF,'Referer: /b?token=1')≡s ##.Plodder.MaskQueryString'GET /a HTTP/1.1',CR,LF,'Referer: /b?token=1'   ⍝ Only the first line
+ →T.PassesIf''≡s ##.Plodder.MaskQueryString''
+
+ R←T._OK
+⍝Done

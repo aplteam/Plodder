@@ -1,0 +1,25 @@
+ R←Test_StormGuard_003(stopFlag batchFlag);⎕TRAP;parms;counts;html;i
+⍝ `[TRAP]StormResetAfter`: an error that has not occurred for that many hours starts again at 1.
+⍝ 0.0014 hours is about 5 seconds: long enough for three crashes in a row even with code coverage,
+⍝ short enough for the test case not to wait for long.
+ ⎕TRAP←(999 'C' '∘∘∘ ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ parms←∆StormGuardParms'Test_StormGuard_003'(,⊂'StormResetAfter = 0.0014')
+ →T.PassesIf 0.0014=parms.stormResetAfter
+
+ counts←html←⍬
+ :For i :In ⍳3
+     html,←parms ∆ProvokeCrash 501
+     counts,←parms.stormCount
+ :EndFor
+ →T.PassesIf counts≡1 2 3
+ →T.PassesIf html≡1 2 2                         ⍝ The 3rd occurrence is held back
+
+ ⎕DL 6.5                                        ⍝ Longer than `StormResetAfter`
+ html←parms ∆ProvokeCrash 501
+ →T.PassesIf 1=parms.stormCount                 ⍝ Starts afresh ...
+ →T.PassesIf 3=html                             ⍝ ... and gets the full treatment again
+
+ R←T._OK
+⍝Done

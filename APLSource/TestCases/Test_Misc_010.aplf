@@ -1,0 +1,17 @@
+ R←Test_Misc_010(stopFlag batchFlag);⎕TRAP;CR;LF;header;body
+⍝ Exercise `DropBody`
+ ⎕TRAP←(999 'C' '∘∘∘ ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ (CR LF)←⎕UCS 13 10
+ header←'POST /a HTTP/1.1',CR,LF,'Content-Length: 4',CR,LF,CR,LF
+ body←'a=12'
+ →T.PassesIf header≡##.Plodder.DropBody header,body
+ →T.PassesIf header≡##.Plodder.DropBody header
+ →T.PassesIf('POST /a HTTP/1.1',LF,LF)≡##.Plodder.DropBody'POST /a HTTP/1.1',LF,LF,body
+ →T.PassesIf(¯4↓header)≡##.Plodder.DropBody ¯4↓header      ⍝ Header not complete yet
+ →T.PassesIf''≡##.Plodder.DropBody body                     ⍝ A block from the middle of a body
+ →T.PassesIf''≡##.Plodder.DropBody''
+
+ R←T._OK
+⍝Done

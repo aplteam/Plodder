@@ -1,0 +1,6 @@
+ r←GetNameList key;value
+⍝ Returns the names listed in the INI entry `key`, a comma-separated list (see `SplitNames`),
+⍝ or an empty vector when there is no such entry.
+ value←⊃''G.INI.Get key
+ ('Invalid: value of "',key,'" in INI file: must be text')⎕SIGNAL 11/⍨' '≠⊃0⍴value
+ r←SplitNames value

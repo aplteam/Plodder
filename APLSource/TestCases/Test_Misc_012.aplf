@@ -1,0 +1,38 @@
+ R←Test_Misc_012(stopFlag batchFlag);⎕TRAP;g;ini;qdmx
+⍝ Exercise `EstablishSecrets`: defaults, additions from the INI file, and an invalid `SaveRequestBody`
+ ⎕TRAP←(999 'C' '∘∘∘ ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ ##.Plodder.⎕SHADOW'G'                              ⍝ A local of `Run` in a running server,
+ ##.Plodder.G←⎕NS''                                 ⍝ so it must be established here
+ g←##.Plodder.G
+
+ g.INI←∆CreateIni'Test_Misc_012'('[TRAP]' '[LOGGING]')     ⍝ Both sections exist in any real INI file
+ {}##.Plodder.EstablishSecrets g
+ →T.PassesIf g.SecretHeaders≡##.Plodder.SecretHeaders
+ →T.PassesIf g.SecretQueryParms≡##.Plodder.SecretQueryParms
+ →T.PassesIf g.SecretIniKeys≡##.Plodder.SecretIniKeys
+ →T.PassesIf 0≡g.SaveRequestBody
+
+ ini←'[TRAP]' 'SaveRequestBody = 1' 'MaskHeaders = ''X-My-Token, cookie''' 'MaskQueryParms = ''session'''
+ ini,←'[LOGGING]' 'MaskIniKeys = ''dbpass'''
+ g.INI←∆CreateIni'Test_Misc_012'ini
+ {}##.Plodder.EstablishSecrets g
+ →T.PassesIf g.SecretHeaders≡##.Plodder.SecretHeaders,⊂'X-MY-TOKEN'   ⍝ "cookie" is there already
+ →T.PassesIf g.SecretQueryParms≡##.Plodder.SecretQueryParms,⊂'SESSION'
+ →T.PassesIf g.SecretIniKeys≡##.Plodder.SecretIniKeys,⊂'DBPASS'
+ →T.PassesIf 1≡g.SaveRequestBody
+
+ :For ini :In ('[TRAP]' 'SaveRequestBody = 2' '[LOGGING]')('[TRAP]' 'MaskHeaders = 1' '[LOGGING]')
+     g.INI←∆CreateIni'Test_Misc_012'ini
+     :Trap 11
+         {}##.Plodder.EstablishSecrets g
+         →T.FailsIf 1
+     :Else
+         qdmx←⎕DMX
+         →T.PassesIf∨/'Invalid: value of'⍷qdmx.EM
+     :EndTrap
+ :EndFor
+
+ R←T._OK
+⍝Done

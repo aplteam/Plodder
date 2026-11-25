@@ -1,6 +1,7 @@
  R←Test_Server_120(stopFlag batchFlag);⎕TRAP;c;q;r;noOf;before;new;report;html
 ⍝ Ask for the "crash" page.
-⍝ Besides HandleError's own files, the request must be saved next to them, without its credentials.
+⍝ Besides HandleError's own files, the request must be saved next to them, without its credentials:
+⍝ neither the header `Authorization` nor the query parameter `token` may show up.
  ⎕TRAP←(999 'C' '∘∘∘ ⍝ Deliberate error')(0 'N')
  R←T._Failed
 
@@ -14,13 +15,13 @@
 
  c←∆NewClient
  q←Rumba.NewRequest 0
- q.RequestTarget←'/crash'
+ q.RequestTarget←'/crash?token=Test_Server_120-query&x=1'
  q.Headers,←⊂'Authorization' 'Bearer Test_Server_120-secret'
  r←c Rumba.SendAndReceive q
 
  →T.PassesIf r.StatusCode=500
  →T.PassesIf∨/'<h1>500: Internal Server Error</h1>'⍷r.Content
- →T.PassesIf(noOf+3)=≢##.FilesAndDirs.ListFiles ∆GetCrashFolder
+ →T.PassesIf(noOf+4)=≢##.FilesAndDirs.ListFiles ∆GetCrashFolder
 
  new←(##.FilesAndDirs.ListFiles ∆GetCrashFolder,'/*.request.json')~before
  →T.PassesIf 1=≢new
@@ -29,8 +30,10 @@
  →T.PassesIf∨/'Full request in'⍷html            ⍝ `SaveCrashRequest` points at its file ...
  →T.PassesIf∨/'GET /crash'⍷html                 ⍝ ... and summarizes the request
  report←⎕JSON⊃⎕NGET⊃new
- →T.PassesIf'/crash'≡(⊃report.Messages).RequestTarget
+ →T.PassesIf'/crash?token=***&x=1'≡(⊃report.Messages).RequestTarget
  →T.PassesIf~∨/'Test_Server_120-secret'⍷⊃⎕NGET⊃new
+ →T.PassesIf~∨/'Test_Server_120-query'⍷⊃⎕NGET⊃new
+ →T.PassesIf~∨/'Test_Server_120-query'⍷html
  →T.PassesIf(⊂'authorization' '***')∊(⊃report.Messages).Headers
 
  R←T._OK

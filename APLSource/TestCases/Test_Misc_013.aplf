@@ -1,0 +1,64 @@
+ R←Test_Misc_013(stopFlag batchFlag);⎕TRAP;c;m;g;parms;filename;json;report;raw;body;flag;CR;LF
+⍝ Exercise `SaveCrashRequest` for a request with a body, a secret in the query string and a header
+⍝ that only the INI file declares secret: once with `SaveRequestBody` 0, once with 1.
+⍝ Like `Test_Misc_004` it needs neither a server nor a crash.
+ ⎕TRAP←(999 'C' '∘∘∘ ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ (CR LF)←⎕UCS 13 10
+ body←'password=Test_Misc_013-body'
+ raw←'POST /login?token=Test_Misc_013-query&x=1 HTTP/1.1',CR,LF,'Host: localhost',CR,LF
+ raw,←'X-My-Token: Test_Misc_013-header',CR,LF,'Content-Length: ',(⍕≢body),CR,LF,CR,LF,body
+
+ ##.Plodder.⎕SHADOW'G'                              ⍝ Both are locals of `Run` in a running server,
+ ##.Plodder.⎕SHADOW'R'                              ⍝ so they must be established here
+ ##.Plodder.R←Rumba
+ ##.Plodder.G←⎕NS''
+ g←##.Plodder.G
+ g.Server←⎕NS''
+ g.Server.Connections←⎕NS''
+ g.Server.Connections.C1←⎕NS''
+ c←g.Server.Connections.C1
+ c.Tid←⎕TID                                         ⍝ `GetConnectionOfThread` matches on this
+ c.PeerAddress←'127.0.0.1'
+ c.LastBlock←raw
+ m←⎕NS''
+ m.StartLine←'POST /login?token=Test_Misc_013-query&x=1 HTTP/1.1'
+ m.Method←'POST'
+ m.RequestTarget←'/login?token=Test_Misc_013-query&x=1'
+ m.Headers←('host' 'localhost')('x-my-token' 'Test_Misc_013-header')('content-length'(⍕≢body))
+ m.Content←body
+ m.(HeaderComplete ContentComplete)←1
+ c.Messages←,m
+
+ filename←∆GetTestFolder,'/Test_Misc_013'
+ 'CREATE!'##.FilesAndDirs.CheckPath ∆GetTestFolder
+ :For flag :In 0 1
+     g.INI←∆CreateIni'Test_Misc_013-ini'('[TRAP]'('SaveRequestBody = ',⍕flag)'MaskHeaders = ''X-My-Token''' '[LOGGING]')
+     {}##.Plodder.EstablishSecrets g
+     parms←⎕NS''
+     parms.crashFilename←filename
+     parms.addToMsg←''
+     ##.Plodder.SaveCrashRequest parms
+     json←⊃⎕NGET filename,'.request.json'
+     ⎕NDELETE filename,'.request.json'
+     report←⎕JSON json
+     →T.PassesIf~∨/'Test_Misc_013-query'⍷json
+     →T.PassesIf~∨/'Test_Misc_013-header'⍷json
+     →T.PassesIf~∨/'Test_Misc_013-query'⍷⊃,/parms.addToMsg
+     →T.PassesIf'/login?token=***&x=1'≡(⊃report.Messages).RequestTarget
+     →T.PassesIf(⊂'x-my-token' '***')∊(⊃report.Messages).Headers
+     →T.PassesIf(≢body)=(⊃report.Messages).ContentLength
+     →T.PassesIf report.LastBlockLength=≢raw
+     →T.PassesIf flag=report.BodiesSaved
+     :If flag
+         →T.PassesIf body≡(⊃report.Messages).Content
+         →T.PassesIf∨/body⍷report.LastBlock
+     :Else
+         →T.PassesIf~∨/'Test_Misc_013-body'⍷json
+         →T.PassesIf∨/'request bodies not saved'⍷⊃,/parms.addToMsg
+     :EndIf
+ :EndFor
+
+ R←T._OK
+⍝Done

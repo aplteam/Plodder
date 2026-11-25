@@ -1,0 +1,15 @@
+ {r}←parms ∆ProvokeCrash en
+⍝ Signals the error `en` and lets HandleError process it, as Plodder's general trap would.
+⍝ The error is light-weight: a plain `⎕SIGNAL`, with nothing to clean up afterwards.
+⍝ The error number and the line it is signalled on make up the storm guard's signature,
+⍝ so the same `en` always yields the same signature, and different numbers different ones.
+⍝ Returns the number of HTML reports in the error folder afterwards.
+ :Trap en
+     {⎕SIGNAL ⍵}en                                  ⍝ The dfn makes the error happen on this line, inside the :Trap
+ :Else
+     :Trap parms.signal                             ⍝ `Process` signals this when it is done
+         ##.HandleError.Process parms
+     :EndTrap
+ :EndTrap
+ r←≢##.FilesAndDirs.ListFiles parms.errorFolder,'/*.html'
+⍝Done

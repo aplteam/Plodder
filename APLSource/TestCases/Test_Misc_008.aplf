@@ -1,0 +1,25 @@
+ R←Test_Misc_008(stopFlag batchFlag);⎕TRAP;folder;g;default
+⍝ Exercise `SetTrap`: without a left argument it must behave as with ¯1, which means trapping
+⍝ in Runtime but not in development. 0 means no trapping at all, 1 trapping in any case.
+ ⎕TRAP←(999 'C' '∘∘∘ ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ folder←∆GetTestFolder,'/Test_Misc_008'
+ #.⎕SHADOW'ErrorParms' ⋄ 'ErrorParms'#.⎕NS''       ⍝ `SetTrap` requires it
+ ##.Plodder.⎕SHADOW'F'                              ⍝ A local of `Run` in a running server,
+ ##.Plodder.F←##.FilesAndDirs                       ⍝ so it must be established here
+ g←⎕NS''
+ g.AppName←'Test_Misc_008'
+ g.INI←∆CreateIni'Test_Misc_008'('[TRAP]'('Folder = ''',folder,'/Errors'''))
+
+ default←##.Plodder.SetTrap g
+ →T.PassesIf(⊂(0 1000)'S')≡0 ##.Plodder.SetTrap g      ⍝ Not even in a Runtime
+ →T.PassesIf∨/'.Process '⍷⍕1 ##.Plodder.SetTrap g
+ →T.PassesIf default≡¯1 ##.Plodder.SetTrap g
+ →T.PassesIf default≡(~##.APLTreeUtils2.IsDevelopment)##.Plodder.SetTrap g
+ :If ##.APLTreeUtils2.IsDevelopment
+     →T.PassesIf default≢1 ##.Plodder.SetTrap g     ⍝ Otherwise this test would prove nothing
+ :EndIf
+
+ R←T._OK
+⍝Done

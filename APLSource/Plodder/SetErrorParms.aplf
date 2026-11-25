@@ -1,12 +1,29 @@
  ref←SetErrorParms ref
 ⍝ `ref` is typically the result of ##.HandleError.CreateParms.
 ⍝ Adds Plodder-specific adjustments and returns the ref.
+⍝ The crash storm guard is configured in the INI file: `[TRAP]StormGuard` defaults to 1, while
+⍝ `[TRAP]StormCeiling` and `[TRAP]StormResetAfter` default to whatever HandleError suggests.
  ref.logFunctionParent←(⍕⎕THIS)
  ref.logFunction←'AppLogError'
- ref.customFns←(⍕⎕THIS),'.SaveCrashRequest'         ⍝ Saves the request the crashed thread was handling
- ref.killThreads←0                                  ⍝ We want to be able to continue!
+ ref.customFns←(⍕⎕THIS),'.SaveCrashRequest'         ⍝ Saves the request the crashed thread was handling.
+                                                    ⍝ An application that sets its own must call this one: see the ReadMe
+ ref.killThreads←0                                  ⍝ Other threads keep running until `Run` executes ⎕OFF 125,
+                                                    ⍝ or for inspection when a Ride is attached
  ref.saveVars←1
+ ref.saveErrorWS←0                                  ⍝ Plodder is multi-threaded by design: ⎕SAVE would fail
  :If 0<≢ref.errorFolder←⊃G.INI.Get'TRAP:Folder'
      'CREATE!'F.CheckPath ref.errorFolder
+ :EndIf
+ ref.stormGuard←1 G.INI.Get'TRAP:StormGuard'
+ 'Invalid: value of "StormGuard" in INI file'⎕SIGNAL 11/⍨~(⊂ref.stormGuard)∊0 1
+ ref.stormCeiling←ref.stormCeiling G.INI.Get'TRAP:StormCeiling'
+ :If (' '=⊃0⍴∊ref.stormCeiling)∨1≠≢,ref.stormCeiling
+ :OrIf (ref.stormCeiling≠⌊ref.stormCeiling)∨1>ref.stormCeiling
+     'Invalid: value of "StormCeiling" in INI file'⎕SIGNAL 11
+ :EndIf
+ ref.stormResetAfter←ref.stormResetAfter G.INI.Get'TRAP:StormResetAfter'
+ :If (' '=⊃0⍴∊ref.stormResetAfter)∨1≠≢,ref.stormResetAfter
+ :OrIf 0≥ref.stormResetAfter
+     'Invalid: value of "StormResetAfter" in INI file'⎕SIGNAL 11
  :EndIf
 ⍝Done
