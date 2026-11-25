@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-behavior:smooth" >
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meddy</title>
+<style media="screen">
+html{line-height:1.15;-webkit-text-size-adjust:100%;}body{margin:0;}main{display:block;}h1{font-size:2em;margin:0.67em 0;}hr{box-sizing:content-box;height:0;overflow:visible;}pre{font-family:monospace, monospace;font-size:1em;}a{background-color:transparent;}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted;}b,strong{font-weight:bolder;}code,kbd,samp{font-family:monospace, monospace;font-size:1em;}small{font-size:80%;}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline;}sub{bottom:-0.25em;}sup{top:-0.5em;}img{border-style:none;}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0;}button,input{overflow:visible;}button,select{text-transform:none;}button,[type="button"],[type="reset"],[type="submit"]{-webkit-appearance:button;}button::-moz-focus-inner,[type="button"]::-moz-focus-inner,[type="reset"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner{border-style:none;padding:0;}button:-moz-focusring,[type="button"]:-moz-focusring,[type="reset"]:-moz-focusring,[type="submit"]:-moz-focusring{outline:1px dotted ButtonText;}fieldset{padding:0.35em 0.75em 0.625em;}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal;}progress{vertical-align:baseline;}textarea{overflow:auto;}[type="checkbox"],[type="radio"]{box-sizing:border-box;padding:0;}[type="number"]::-webkit-inner-spin-button,[type="number"]::-webkit-outer-spin-button{height:auto;}[type="search"]{-webkit-appearance:textfield;outline-offset:-2px;}[type="search"]::-webkit-search-decoration{-webkit-appearance:none;}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit;}details{display:block;}summary{display:list-item;}template{display:none;}[hidden]{display:none;}body{margin:0;font-family:Georgia, "Palatino Linotype", "Book Antiqua", Palatino, Garamond, "Times New Roman", serif;background-color:#f8f4ea;background-image:linear-gradient(#f8f4ea, #f5f0e2);background-attachment:fixed;font-size:19px;line-height:1.55;max-width:900px;padding:1.5em 1.2em 3em 1.2em;color:#2e2a24;margin-left:auto;margin-right:auto;overflow-wrap:break-word;}h1,h2,h3,h4,h5,h6{color:#402a20;font-weight:700;padding-left:0;font-family:"Palatino Linotype", Palatino, "Book Antiqua", Georgia, "Times New Roman", serif;line-height:1.25;}h1,h2,h3,h4,p{margin-bottom:0.88em;}h1{font-size:2.1em;font-weight:700;text-align:center;margin:0.4em 0 0.9em 0;padding-bottom:0.35em;border-bottom:3px double #b08d57;}h1 > code,h2 > code,h3 > code,h4 > code,h5 > code,h6 > code{font-size:0.9em;background-color:inherit;font-variant:normal;}h2{font-size:1.5em;margin:1.1em 0 0.5em 0;padding-bottom:0.15em;border-bottom:1px solid #cdbb95;}h3{margin:0;margin-top:0.9em;font-size:1.28em;}nav h3{font-size:1.2em;margin:0 0 0.75em 0;}h4{font-size:1.1em;margin:0;margin-top:0.85em;}h5{font-size:1em;margin:0;margin-top:0.65em;padding:0;}h6{font-size:0.95em;color:#6a5a48;margin:0;margin-top:0.6em;padding:0;}a{color:#8b2635;text-decoration:underline;text-decoration-color:#c99aa0;text-underline-offset:2px;margin:0;padding:0;vertical-align:baseline;}a:hover{color:#a83544;text-decoration-color:#a83544;}a:visited{color:#5c4a6b;}a.autoheader_anchor{text-decoration:none;}img{margin-top:0.55em;margin-bottom:0.27em;max-width:100%;}ul{list-style-type:disc;}dd{padding-top:0.25em;}p.first_dd{padding-top:0.25em;}li > ul,li > ol{padding-bottom:0;}li{line-height:1.45;margin-left:1.38em;margin-bottom:0.3em;}ul > li{margin-left:1.5em;}ol > li{margin-left:1.5em;}li ul{margin-left:0.55em;}li ul{margin-left:0.27em;}li p{padding:1px 0 0 0;margin:0.55em 0 0.27em 0;line-height:1.45;}ul, ol{line-height:1.45;padding:0;margin:0.5em;}ul ul,ul ol,ol ol,ol ul{margin-top:0.25em;}p{line-height:1.55;padding:0.2em 0 0 0;margin:0;}pre{position:relative;overflow:auto;padding:0.25em 0.5em;margin:0.9em 0 0.9em 0 !important;background-color:#f2ead8;color:#3a352c;border:1px solid #d8caa8;border-left:4px solid #b08d57;box-shadow:inset 0 0 0.5em rgba(176, 141, 87, 0.12);display:block;line-height:1.25;font-family:APLFont, monospace;font-weight:normal;}pre > code{line-height:1.25;border:0;padding:0;margin:0;background-color:inherit;color:inherit;font-weight:inherit;white-space:pre-wrap;}td code{padding:0;}a code{padding:0;font-size:1em;}nav code{background-color:inherit;font-weight:400;color:inherit;}mark{background-color:yellow;color:black;}code{font-family:APLFont, monospace;font-weight:400;color:#8a2b1b;background-color:#efe7d3;line-height:1.1;font-size:88%;white-space:nowrap;margin:0;padding:0.12em 0.4em;border:1px solid #e0d4b6;border-radius:2px;}tbody tr:nth-child(even){background-color:#f3ecdb;}th{background-color:#e7dcbf;color:#402a20;}th, td{padding:0.28em 0.7em;vertical-align:top;}table td + td{border-left:1px solid #cdbb95;}table th + th{border-left:1px solid #cdbb95;}table{border-color:#b08d57;margin:1em 0;border-collapse:collapse;font-family:APLFont;font-size:0.9em;line-height:1.35;border:1px solid #b08d57;}thead{border-bottom:2px solid #b08d57;}li > table{margin:0.55em 0 0.55em 0;}tr{margin:1.11em;}th{font-weight:bold;}tfoot td{font-weight:bold;border-top:2px solid #b08d57;}blockquote{border-left:3px solid #b08d57;padding:0.1em 1em;margin:1em 0.25em 1em 0.5em;color:#4a4235;font-style:italic;}blockquote p{padding:0 0.25em;}blockquote code{font-style:normal;}blockquote ul li{padding-left:0;}blockquote ol li{padding-left:0;}li > blockquote{margin-left:0;}nav{background-color:#f2ead8;border:1px solid #cdbb95;padding:0.7em 1em;margin:0.5em 0.3em 2em 0.3em;margin-right:0;box-shadow:0.25em 0.25em 0.4em rgba(120, 100, 70, 0.25);overflow:hidden;}nav#main_nav{width:auto;}nav ul{list-style-type:None;margin:0 1em 0.11em 0;padding:0;}nav a{text-decoration:none;}nav a:hover{text-decoration:underline;}nav a:visited{color:#5c4a6b;}nav ul li{margin:0 0 0.16em 0;}nav li p{margin:0;padding:0;line-height:1;}nav li{line-height:1.5;padding:0;margin-top:0;margin-bottom:0;margin-left:2em;}nav p{font-weight:bold;font-size:1em;padding-top:0;margin-bottom:0.5em;}dl{margin-top:0.1em;margin-bottom:0.1em;}dt{margin-top:0.75em;margin-bottom:0.1em;font-weight:700;}.toc-container{height:auto;margin:0;padding:0;}nav h2{font-size:1.4em;margin:0.27em 1em 0.27em 1em;border-bottom:none;}div.toc-container ul{margin-right:1em;padding-left:1em;}[type="checkbox"]{position:absolute;left:-9999px;}label{display:block;width:100%;height:1.1em;cursor:pointer;top:0;padding-left:1em;}div#footnotes_div{margin-top:2em;padding-top:0.5em;font-size:0.92em;}div#footnotes_div p{line-height:1.2;padding-bottom:0;padding-top:0;}div#footnotes_div ol{padding-top:0;}@font-face{font-family:"APLFont";src:local("APL385 Unicode"), url("https://misc.aplteam.com/apl385.ttf") format("truetype");}.no_screen{display:none;}.hide{display:none;}.red{color:#8b2635;}.center{text-align:center;margin-left:auto;margin-right:auto;}.left{text-align:left;margin-right:0;}.right{text-align:right;margin-left:0;}.print_only{display:none;}div.leanpub{padding:0.83em 0.55em 1.11em 0;margin:0.55em 0 0 0.27em;overflow:auto;display:grid;grid-template-columns:auto 1fr;grid-gap:10px;align-items:center;}div.leanpub_A{border:1px solid #cdbb95;background-color:#f2ead8;padding:0.55em;margin:1.11em 0 0.83em 0;}div.leanpub h3,div.leanpub_A h3{font-size:1.2em;padding:0;margin:0;}div.leanpub h4,div.leanpub_A h4{font-size:1.1em;padding:0.27em 0 0 0;margin:0;}div.leanpub h5,div.leanpub h5{font-size:1.0em;padding:0.27em 0 0 0;margin:0;}div.leanpub_A h5,div.leanpub_A h5{font-size:1.0em;padding:0.27em 0 0 0;margin:0;}div.leanpub img{padding:0;margin:0 1.11em 0.27em 0;}div.leanpub_A > p:first-child{padding-top:0;margin-top:0;}div.leanpub img{float:left;padding:0;margin:0.55em 1.11em 0 0;clear:both;}div.leanpub tbody *{background-color:transparent;}div.leanpub p{padding:0.17em 0 0 0;margin:0;}span.leanpub_code{color:#8b2635;}div.leanpub p{display:block;padding:0.44em 0 0 0;}div.leanpub > div{margin-left:2.27em;}pre[class*="language-"]{position:relative;margin:5px 0;padding:1.75em 0 1.75em 1em;}details summary{cursor:pointer;}details summary > *{display:inline;}div.accordion{border:1px solid #cdbb95;padding:0;margin:0.5em 0;background-color:#f2ead8;}div.accordion > div{border:1px solid #cdbb95;padding:0.5em;margin:0 0;}div.accordion > div p,div.accordion > div ul,div.accordion > div ol,div.accordion > div img,div.accordion > div table{margin-block-end:0.1em;}div.collapsible{border:1px solid #cdbb95;padding:0.5em;margin:0.5em 0;background-color:#f2ead8;}div.collapsible p,div.collapsible ul,div.collapsible ol,div.collapsible img,div.collapsible table{margin-block-end:0.1em;}ul.checkboxes{list-style:none;margin-left:0;padding-left:0;}li{text-indent:0;padding-left:0;}ul.checkboxes > li::before{content:"☐";margin-right:0.5em;}ul.checkboxes > li.checked::before{content:"☒";margin-right:0.5em;}ul.checkboxes > li{margin-left:0;padding-left:1em;}pre > button{position:absolute;top:8px;right:10px;padding:0;line-height:0;color:#a2896a;background-color:transparent;border:none;cursor:pointer;opacity:0.6;transition:opacity 150ms, color 150ms;}pre button:hover{cursor:pointer;background-color:transparent;color:#8b2635;opacity:1;}#main_nav{position:relative;overflow:visible;}#main_nav h2{font-size:1.4em;margin:0;padding:0.5em;border-bottom:1px solid #b08d57;}#toc-toggle{position:absolute;top:1.5em;right:1em;}#toc-list{margin:1em 1em 0.25em 0;}#toc-list.floating{position:absolute;left:12.5%;width:75%;top:100%;z-index:100;max-height:80vh;overflow:auto;margin:0;padding:0.5em 1em;box-sizing:border-box;background-color:#f2ead8;border:1px solid #cdbb95;box-shadow:0.25em 0.25em 0.6em rgba(120, 100, 70, 0.35);}@media (max-width:600px){table{display:block;overflow-x:auto;max-width:100%;}pre{overflow-x:auto;}}
+</style>
+<style media="print">
+@page{margin:25mm 20mm 25mm 20mm;}body{font-family:Georgia, "Palatino Linotype", "Book Antiqua", Palatino, Garamond, "Times New Roman", serif;font-size:9pt;line-height:1.2;}h1{font-size:170%;}h2{font-size:110%;}h3{font-size:110%;}h4{font-size:105%;}h5{font-size:100%;}h6{font-size:95%;}h1{margin:0 0 20pt 0;}h2{margin:15pt 0 3pt 0;}h3{margin:10pt 0 0pt 0;}h4{margin:10pt 0 0pt 0;}h5{margin:9pt 0 0pt 0;}h6{margin:9pt 0 0pt 0;}h1,h2,h3,h4,h5,h6{color:black;font-family:"Palatino Linotype", Palatino, "Book Antiqua", Georgia, "Times New Roman", serif;page-break-after:avoid;}h1 > code,h2 > code,h3 > code,h4 > code,h5 > code,h6 > code{font-size:100%;}h2{border-bottom:1pt solid Silver;padding-bottom:2pt;}.h_tag{page-break-after:avoid;break-after:avoid;}abbr[title]{border-bottom:0;text-decoration:none;}a{color:black;margin:0;padding:0;vertical-align:baseline;text-decoration:none;font-style:italic;}a.autoheader_anchor{text-decoration:none;font-style:normal;page-break-after:avoid;break-after:avoid;}ul{list-style-type:square;}ul, ol{padding:0;margin:0;margin-top:10pt;}li > ul,li > ol{padding-bottom:0;padding-top:0;}li{line-height:1.3;margin:2pt 5pt 2pt 13pt;}ul > li{margin-left:15pt;}ol > li{margin-left:15pt;}li ul{margin-left:5pt;}li ul,li ol{margin:0 3pt 0 3pt;}li p{padding:1pt 0 0 0;margin:3pt 0 3pt 0;line-height:1.3;}p,ul,ol{line-height:1.3;padding:4pt 0 0 0;margin:0;color:black;}ul,ol{margin-top:0.5em;}pre{padding:3pt;margin:5pt 0;white-space:pre-wrap;background-color:#FAFAFA;border:1pt Silver solid;display:block;font-family:APLFont, monospace;page-break-inside:avoid;}pre code{background-color:#FAFAFA;color:Black;padding:0;margin:0 0 -6pt 0;line-height:1.1;border:0;white-space:pre-wrap;}mark{background-color:transparent;font-weight:bold;font-style:italic;}code{font-family:APLFont, monospace;line-height:1.2;font-size:9pt;color:black;border:1pt solid silver;padding:0 3pt;white-space:nowrap;}tbody th, tfoot tr{background-color:#e6e6e6;}tbody tr:nth-child(even){background-color:#fafafa;}th{background-color:#F0F0F0;}th, td{padding:1pt 5pt;border:1pt solid #cccccc;vertical-align:top;}table td + td{border-left:1pt solid gray;}table th + th{border-left:1pt solid gray;}table code{font-style:normal;padding-left:0;padding-right:0;}table{margin:0.75em 0;font-family:APLFont;font-size:9pt;padding:0;border:1pt solid #b3b3b3;border-collapse:collapse;}li > table{margin:10pt 0 10pt 0;}tr{margin:20pt;}th{font-weight:bold;}tfoot td{font-weight:bold;}blockquote{border-left:2pt solid #595959;padding-left:5pt;margin:8pt 3pt 8pt 8pt;}nav{background-color:#f8f8f8;border:1pt solid Gray;width:auto;padding:5pt 5pt 5pt 0;margin:5pt 0;overflow:hidden;}nav ul{list-style-type:none;margin:5pt 0 2pt 0;padding:0;}nav ul li{margin-top:2pt;margin-bottom:2pt;}nav li p{margin:0;padding:0;line-height:1;margin:0;padding:0;}nav li{line-height:1;padding:0;margin-top:0;margin-bottom:0;margin-left:8pt;}dl{margin-top:0;margin-bottom:10pt;}dt{margin-top:10pt;margin-bottom:0;font-weight:800;page-break-inside:avoid;}dd{margin-top:2pt;}label#hide_toc_label{font-size:65%;}.toc-container{background-color:inherit;}.toc-container h3{margin:0 0 2pt 7pt;}[type="checkbox"]{display:none;}label{display:block;width:100%;height:1.1em;top:0;padding-left:10pt;}a.external_link::before{content:" 🔗\FE0E\0020";}a.bookmark_link::before{content:" ➯ ";}a.mailto_link::before{content:" ✉ "}nav a.bookmark_link{font-style:normal;}nav p{margin-left:10pt;font-weight:bold;font-size:9pt;}nav a{font-style:normal;}nav a.bookmark_link::before{content:"";}div#footnotes_div a::before{content:"";}div#footnotes_div a{font-style:normal;}div#footnotes_div{page-break-inside:avoid;}@font-face{font-family:"APLFont";src:local("APL385 Unicode"), url("https://misc.aplteam.com/apl385.ttf") format("truetype");}.no_print{display:none;}.hide{display:none;}.red{color:red;}.center{text-align:center;margin:0 auto;}.left{text-align:left;margin-right:0;}.right{text-align:right;margin-left:0;}.avoid_page_break{page-break-inside:avoid;}.page_break_before{page-break-before:always;}div.leanpub{margin:10pt 0 10pt 8pt;page-break-inside:avoid;display:grid;grid-template-columns:auto 1fr;grid-gap:10px;align-items:center;}div.leanpub_A{border:1pt solid black;background-color:#f9f9f9;padding:5pt;margin:10pt 0 10pt 0;page-break-inside:avoid;}div.leanpub h3,div.leanpub_A h3{font-size:1.2em;padding:3pt 0 0 0;margin:0;}div.leanpub h4,div.leanpub_A h4{font-size:1.1em;padding:3pt 0 0 0;margin:0;}div.leanpub h5,div.leanpub h5{font-size:1.0em;padding:3pt 0 0 0;margin:0;}div.leanpub_A h5,div.leanpub_A h5{font-size:1.0em;padding:3pt 0 0 0;margin:0;}div.leanpub img{padding:0;margin:0 10pt 2pt 0;}div.leanpub_A > p:first-child{padding-top:0;margin-top:0;}div.leanpub > div > h1:first-child{padding-top:5pt;}div.leanpub img{float:left;padding:0;margin:5pt 10pt 0 0;clear:both;}div.leanpub p{padding:3pt 0 0 0;margin:0;}span.leanpub_code{font-weight:bold;}div.leanpub p{display:block;padding:8pt 0 0 0;}div.leanpub > div{margin-left:35pt;}sup{font-size:0.75em;line-height:0;position:relative;vertical-align:baseline;top:-0.4em;}pre[class*="language-"]{position:relative;margin:5pt 0;padding:1.75rem 0 1.75rem 1rem;}pre[class*="language-"] button{position:absolute;top:5pt;right:5pt;}div.accordion{padding:0;margin:0.5em 0;}div.accordion > div{border:1pt solid silver;padding:0.5em;margin:0 0;}div.accordion > div p,div.accordion > div ul,div.accordion > div ol,div.accordion > div img,div.accordion > div table{margin-block-end:0.1em;}summary{display:block;}summary::before{content:"\25BE ";}div.collapsible{border:1pt solid silver;padding:0.5em;margin:0.5em 0;}div.collapsible p,div.collapsible ul,div.collapsible ol,div.collapsible img,div.collapsible table{margin-block-end:0.1em;}ul.checkboxes{list-style:none;margin-left:-2rem;padding-left:1rem;}li{padding-left:0.25rem;text-indent:0;}ul.checkboxes > li::before{content:"☐ ";}ul.checkboxes > li.checked::before{content:"☒ ";}pre > button{display:none;}#toc-toggle{display:none;}#toc-list{display:block !important;}#toc-list,#toc-list li,#toc-list a{font-size:9pt;font-weight:normal;}#toc-list ul{margin-left:12pt;}#main_nav h2{margin:0;padding:0.5em 1em;border-bottom:1pt solid silver;}
+</style>
+<meta name="author" content="kai">
+</head>
+<body>
+<div class="h_tag">
+<a href="#review-of-plodder-2026-11-24" id="review-of-plodder-2026-11-24" class="autoheader_anchor">
+<h1 data-id="Review-of-Plodder-2026-11-24">Review of Plodder, 2026-11-24</h1>
+</a>
+</div>
+<p>This review covers the working tree on <code>dev</code> as of today, including the uncommitted 2.0.0 changes: everything in <code>APLSource/Plodder</code> (with <code>SampleApp</code> and <code>Admin</code>), <code>ReadMe.md</code>, <code>server.ini.remove-me</code> and <code>Tests/test.ini</code>. It does not cover the test cases themselves, Rumba, or the packages.</p>
+<p>Line numbers follow the APL convention: the header is line 0.</p>
+<p>Findings marked “checked” were confirmed in a throwaway Dyalog 20.0 interpreter. The others come from reading the code; for those I give the reasoning so that you can judge it.</p>
+<div class="h_tag">
+<a href="#summary" id="summary" class="autoheader_anchor">
+<h2 data-id="Summary">Summary</h2>
+</a>
+</div>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"> # </th>
+<th style="text-align: left;"> Area </th>
+<th style="text-align: left;"> Finding </th>
+<th style="text-align: left;"> Weight </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>CheckForRide</code>, ReadMe</td>
+<td><code>-ride=n</code> on the command line has no effect: the code reads <code>-port</code></td>
+<td>High</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>Run</code>, INI</td>
+<td><code>Run</code> fails unless a test flag is passed or the INI file has <code>[CONFIG]TestFlag</code></td>
+<td>High</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Logging defaults, crash storms</td>
+<td>With the shipped INI file, crashes skipped by the storm guard leave no trace</td>
+<td>High</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>OpenAppLog</code></td>
+<td><code>app-log.txt</code> gets the wrong name when <code>[LOGGING]Folder</code> has no trailing slash, as in the shipped INI</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>CheckServerParms</code></td>
+<td>The check for invalid handlers never fires</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>CheckServerParms</code></td>
+<td>An empty <code>OnRequest</code> is accepted</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>Run</code></td>
+<td>An invalid <code>Context</code> fails before it is checked, with an unhelpful message</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>ServerLog</code></td>
+<td>The fallback path itself fails with a DOMAIN ERROR</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>SaveCrashRequest</code>, <code>CollectStartParms</code></td>
+<td>Credentials can still end up in crash files and in <code>log.txt</code></td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>10</td>
+<td><code>PolishInifilePath</code></td>
+<td>The fallback that looks next to the executable can never run, and would build a wrong path</td>
+<td>Low</td>
+</tr>
+<tr>
+<td>11</td>
+<td><code>GetEnvVars</code></td>
+<td>Returns values in lower case</td>
+<td>Low</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Windows Event Log default</td>
+<td>Code, INI comment and ReadMe disagree</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Sample application</td>
+<td>Uses an undefined <code>H</code></td>
+<td>Low</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Dead code</td>
+<td><code>Shutdown</code>, <code>GetAppFolder</code> and <code>r</code> are unused, and each is broken</td>
+<td>Low</td>
+</tr>
+<tr>
+<td>15+</td>
+<td>Documentation</td>
+<td>Missing and unclear parts, see below</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="h_tag">
+<a href="#bugs" id="bugs" class="autoheader_anchor">
+<h2 data-id="Bugs">Bugs</h2>
+</a>
+</div>
+<div class="h_tag">
+<a href="#1--riden-does-nothing" id="1--riden-does-nothing" class="autoheader_anchor">
+<h3 data-id="1--riden-does-nothing">1. <code>-ride=n</code> does nothing (checked by reading both ends)</h3>
+</a>
+</div>
+<p>The ReadMe (feature 5) and <code>Admin.PrintInstallAsServiceCommand</code> both use <code>-ride=n</code>. <code>CheckForRide[11]</code> asks for <code>0 GetEnvVars'-port'</code>, so it looks for <code>-port=n</code>. A service installed with the command that Plodder prints therefore gets no early Ride. Either the code or the two documents need to change. <code>-ride</code> is the better name, because <code>-port</code> could easily be read as the HTTP port.</p>
+<p>The error message in <code>CheckForRide[31]</code> also reports <code>'Serve::',⍕port</code>, while the call on <code>CheckForRide[21]</code> used <code>'Serve:',address,':',⍕port</code>.</p>
+<div class="h_tag">
+<a href="#2-run-needs-a-test-flag-that-the-ini-file-does-not-have" id="2-run-needs-a-test-flag-that-the-ini-file-does-not-have" class="autoheader_anchor">
+<h3 data-id="2-Run-needs-a-test-flag-that-the-INI-file-does-not-have">2. <code>Run</code> needs a test flag that the INI file does not have (checked)</h3>
+</a>
+</div>
+<p><code>Run[25]</code> reads <code>G.INI.Get'CONFIG:TestFlag'</code> without a default when <code>y</code> does not supply a test flag. IniFiles signals “No default defined!” for a missing key; I confirmed this with IniFiles 6.1.0. Neither <code>server.ini.remove-me</code> nor <code>Tests/test.ini</code> has a <code>TestFlag</code> entry. So <code>Plodder.Run ⍬</code>, or any production start that passes no flags, fails at this line.</p>
+<p>The ReadMe only shows <code>({1}Plodder.Run)0 1</code>, which passes both flags and therefore works. Suggestion: <code>0 G.INI.Get'CONFIG:TestFlag'</code>, plus a commented entry in the shipped INI file.</p>
+<div class="h_tag">
+<a href="#3-skipped-crashes-leave-no-trace-with-the-shipped-defaults" id="3-skipped-crashes-leave-no-trace-with-the-shipped-defaults" class="autoheader_anchor">
+<h3 data-id="3-Skipped-crashes-leave-no-trace-with-the-shipped-defaults">3. Skipped crashes leave no trace with the shipped defaults</h3>
+</a>
+</div>
+<p>This one is about the new storm guard. When a crash does not get the full treatment, HandleError writes only the log entry (through <code>logFunction</code>, which is <code>AppLogError</code>) and the Windows event. The shipped INI file has <code>[LOGGING]Log = 0</code>, so there is no <code>app-log.txt</code>, and <code>AppLog</code> fails silently. The Windows Event Log is off by default except for a service (see 12). The result is that a server installed with the defaults records nothing at all about skipped crashes, apart from the counter in <code>StormGuard.txt</code>.</p>
+<p>The “Crash storms” section of the ReadMe says those occurrences are recorded in <code>app-log.txt</code>. That is true only with <code>Log = 1</code>. Either ship <code>Log = 1</code>, or say in the ReadMe and in the INI comment that the guard needs the application log to be on to leave a record.</p>
+<div class="h_tag">
+<a href="#4-wrong-file-name-for-app-logtxt" id="4-wrong-file-name-for-app-logtxt" class="autoheader_anchor">
+<h3 data-id="4-Wrong-file-name-for-app-logtxt">4. Wrong file name for <code>app-log.txt</code> (checked)</h3>
+</a>
+</div>
+<p><code>OpenAppLog[2]</code> builds the file name as <code>(⊃G.INI.Get'Logging:Folder'),'app-log.txt'</code>, without a separator. <code>FilesAndDirs.ExpandPath</code> keeps a trailing separator when there is one and does not add one otherwise (checked: <code>C:/Temp/Plodder-Logs</code> stays <code>C:\Temp\Plodder-Logs</code>). The shipped INI file has <code>Folder = '&lt;TEMP&gt;/Plodder-Logs'</code>, with no trailing slash, so switching on <code>Log = 1</code> creates <code>…\Temp\Plodder-Logsapp-log.txt</code>. <code>Tests/test.ini</code> has a trailing slash, which is why the tests do not notice.</p>
+<p>I did not check whether Rumba builds the path of <code>log.txt</code> the same way. <code>[TRAP]Folder</code> has the same shape and is passed on to HandleError.</p>
+<div class="h_tag">
+<a href="#5-the-handler-check-in-checkserverparms-never-fires" id="5-the-handler-check-in-checkserverparms-never-fires" class="autoheader_anchor">
+<h3 data-id="5-The-handler-check-in-CheckServerParms-never-fires">5. The handler check in <code>CheckServerParms</code> never fires (checked)</h3>
+</a>
+</div>
+<p><code>CheckServerParms[8]</code> is meant to reject handlers that are not monadic or ambivalent or that have no result. For a single name <code>⎕AT</code> returns a nested 4-item vector, so <code>(1 ¯2⍷⍨|1 2⊃v)∧…</code> gives a two-item vector for every handler, and <code>b</code> becomes nested. <code>1∊b</code> then looks for a scalar 1 among two-item vectors and is always 0. I confirmed this with a niladic handler: <code>b</code> is <code>(1 1)(0 1) 0</code> and <code>1∊b</code> is 0. A niladic, dyadic or result-less handler passes the check and fails at the first request.</p>
+<p>Even when unnested, the expression would be wrong: <code>|</code> turns an ambivalent ¯2 into 2, which then does not match the ¯2 in <code>1 ¯2</code>.</p>
+<div class="h_tag">
+<a href="#6-an-empty-onrequest-passes-the-checks" id="6-an-empty-onrequest-passes-the-checks" class="autoheader_anchor">
+<h3 data-id="6-An-empty-OnRequest-passes-the-checks">6. An empty <code>OnRequest</code> passes the checks</h3>
+</a>
+</div>
+<p><code>CheckServerParms[5]</code> treats an empty handler name as valid (<code>0=≢⍵:3</code>), which is right for the three optional handlers. <code>OnRequest</code> is mandatory, as the INI comment says, but <code>OnRequest = ''</code> is accepted and the server only fails when the first request comes in.</p>
+<div class="h_tag">
+<a href="#7-an-invalid-context-fails-before-it-is-checked" id="7-an-invalid-context-fails-before-it-is-checked" class="autoheader_anchor">
+<h3 data-id="7-An-invalid-Context-fails-before-it-is-checked">7. An invalid <code>Context</code> fails before it is checked</h3>
+</a>
+</div>
+<p><code>Run[32]</code> executes <code>⍎(⊃G.INI.Get_'App:Context'),'.G←G'</code> before <code>Run[34]</code> calls <code>CheckServerParms</code>, which checks <code>Context</code>. An empty <code>Context</code> gives a SYNTAX ERROR there, and a namespace that does not exist a VALUE ERROR, instead of the clear message “Invalid: Context”. Moving the line after <code>CheckServerParms</code> fixes this. (<code>Get_</code> here instead of <code>Get</code> is harmless but looks accidental.)</p>
+<div class="h_tag">
+<a href="#8-serverlogs-fallback-fails-itself" id="8-serverlogs-fallback-fails-itself" class="autoheader_anchor">
+<h3 data-id="8-ServerLogs-fallback-fails-itself">8. <code>ServerLog</code>'s fallback fails itself (checked)</h3>
+</a>
+</div>
+<p>When building the message fails, <code>ServerLog[12]</code> writes <code>'Trying to set msg_ in "',(⊃⎕XSI),'" crashed with ',qdmx.DM</code>. <code>qdmx.DM</code> is a vector of three character vectors, so <code>msg_</code> is nested, and the untrapped <code>⎕NAPPEND</code> on <code>ServerLog[15]</code> then signals DOMAIN ERROR (checked). The fallback also drops the original message and the line ending.</p>
+<p>A smaller inconsistency: the branch for a nested message checks <code>0&gt;serverInstance.LogFileTie</code> before writing, and the branch for a simple message does not.</p>
+<div class="h_tag">
+<a href="#9-credentials-in-crash-files-and-in-logtxt" id="9-credentials-in-crash-files-and-in-logtxt" class="autoheader_anchor">
+<h3 data-id="9-Credentials-in-crash-files-and-in-logtxt">9. Credentials in crash files and in <code>log.txt</code></h3>
+</a>
+</div>
+<p><code>SaveCrashRequest</code> masks the headers listed in <code>SecretHeaders</code>. These can still reach the disk in clear text:</p>
+<ul>
+<li>the request body, up to 64 KB (<code>SaveCrashRequest[51]</code>), for example a login form with a password;</li>
+<li>tokens in the query string, which are part of <code>RequestTarget</code>;</li>
+<li>common headers that are not in the list, such as <code>X-API-Key</code> and <code>X-Auth-Token</code>;</li>
+<li>the raw <code>LastBlock</code> (<code>SaveCrashRequest[33]</code>) is masked line by line, but a body in it is not.</li>
+</ul>
+<p>Separately, <code>CollectStartParms[8]</code> writes every INI entry into the start-up report in <code>log.txt</code>. The INI file is shared with the application, so whatever an application keeps there (database passwords, API keys) ends up in the log.</p>
+<p>The ReadMe claims only that header values are masked, which is accurate. It would still help to say plainly that bodies and URLs are saved as they are.</p>
+<div class="h_tag">
+<a href="#10-polishinifilepath-cannot-find-an-ini-file-next-to-the-executable" id="10-polishinifilepath-cannot-find-an-ini-file-next-to-the-executable" class="autoheader_anchor">
+<h3 data-id="10-PolishInifilePath-cannot-find-an-INI-file-next-to-the-executable">10. <code>PolishInifilePath</code> cannot find an INI file next to the executable</h3>
+</a>
+</div>
+<p>On Windows, <code>PolishInifilePath[4]</code> enters the inner block only when <code>F.IsFile filename</code> is false. <code>F.IsFile F.PWD,'/',filename</code> on the next line tests the same file, because a relative name is resolved against the current directory. So the inner block can never run. If it did, <code>PolishInifilePath[8]</code> would put the executable's folder in front of a path that is already absolute.</p>
+<p>The leading comment says the name is passed on to <code>GetAppFolder</code>, which does not happen.</p>
+<div class="h_tag">
+<a href="#11-getenvvars-returns-values-in-lower-case" id="11-getenvvars-returns-values-in-lower-case" class="autoheader_anchor">
+<h3 data-id="11-GetEnvVars-returns-values-in-lower-case">11. <code>GetEnvVars</code> returns values in lower case</h3>
+</a>
+</div>
+<p><code>GetEnvVars[15]</code> applies <code>⎕C</code> to the whole command line, so the values come back in lower case as well as the names. That does not matter for <code>-port</code> or <code>OFF</code>, but a path or a password passed this way would arrive changed. <code>GetEnvVars[22]</code> is unreachable, because the first branch already handles <code>name=value</code>. The name is also misleading: the function reads the command line, not environment variables. The examples in the comments mix <code>-flag</code> and <code>-foo</code>, and <code>GetEnvVars[4]</code> has the typo “∪alues”.</p>
+<div class="h_tag">
+<a href="#12-windows-event-log-three-different-descriptions" id="12-windows-event-log-three-different-descriptions" class="autoheader_anchor">
+<h3 data-id="12-Windows-Event-Log-three-different-descriptions">12. Windows Event Log: three different descriptions</h3>
+</a>
+</div>
+<ul>
+<li>ReadMe, feature 2: the Windows Event Log is written “when running under a Dyalog Runtime instance”.</li>
+<li>INI comment for <code>WindowsEventLog = ¯1</code>: “Write Start/Stop/Error events to Windows Event Log in Runtime”.</li>
+<li>Code, <code>CreateServerParms[30]</code>: ¯1 means <code>IsRunningAsService</code>, which tests for <code>RunAsService=1</code> on the command line.</li>
+</ul>
+<p>Nothing in Plodder adds <code>RunAsService=1</code>; <code>PrintInstallAsServiceCommand</code> does not print it. Unless Windows or Dyalog adds it when it starts the service, the default never switches the Event Log on. I could not verify this without installing a service. Either way, the requirement should be documented.</p>
+<div class="h_tag">
+<a href="#13-the-sample-application-uses-an-undefined-h" id="13-the-sample-application-uses-an-undefined-h" class="autoheader_anchor">
+<h3 data-id="13-The-sample-application-uses-an-undefined-H">13. The sample application uses an undefined <code>H</code></h3>
+</a>
+</div>
+<p><code>SampleApp.OnRequest[9]</code> and <code>[13]</code> call <code>H.ErrorPage</code>. <code>SampleApp.Init</code> sets <code>A F G M R</code>, but nothing defines <code>H</code>, so a POST or an unknown method causes a VALUE ERROR and a 500 instead of the intended 501 or 400. The 400 message (“unknown type; must be undefined or json…”) also does not fit an unknown method.</p>
+<p>Smaller points in the sample application:</p>
+<ul>
+<li><code>CreateShutdownPage[4]</code> builds a link with the INI port, which is <code>http://localhost:0/</code> with the shipped INI file, and is always <code>http</code>.</li>
+<li><code>DeliverFile</code> sends random text as <code>application/zip</code>.</li>
+<li><code>Markdown2HTML</code> builds <code>meta</code> and never uses it, and <code>&lt;title="…"&gt;</code> would not be valid HTML anyway.</li>
+<li>The function name <code>CompileHomepPage</code> has a typo.</li>
+</ul>
+<div class="h_tag">
+<a href="#14-dead-code-all-of-it-broken" id="14-dead-code-all-of-it-broken" class="autoheader_anchor">
+<h3 data-id="14-Dead-code-all-of-it-broken">14. Dead code, all of it broken</h3>
+</a>
+</div>
+<ul>
+<li><code>Shutdown</code> is called from nowhere. <code>Shutdown[4]</code> closes <code>##.DRC</code>, but Conga lives in <code>R.##</code>, so the <code>6::</code> guard swallows a VALUE ERROR and Conga is never closed.</li>
+<li><code>GetAppFolder</code> is called from nowhere. Its service branch (<code>GetAppFolder[19]</code>) returns the folder without <code>filename</code>, while the other branches append it. The folders it suggests for Linux and macOS (<code>/etc/…</code>, <code>/usr/local/…</code>) are not writable for an ordinary user, which contradicts its own leading comment.</li>
+<li><code>#.r</code> calls <code>Plodder.Run 1</code>, but <code>Run</code> is an operator, so the line cannot work.</li>
+</ul>
+<p>I suggest deleting all three rather than fixing them.</p>
+<div class="h_tag">
+<a href="#smaller-code-points" id="smaller-code-points" class="autoheader_anchor">
+<h3 data-id="Smaller-code-points">Smaller code points</h3>
+</a>
+</div>
+<ul>
+<li><code>CopyRumba</code> takes its flag as the optional left argument <code>enforce</code> and ignores the right argument. History 1.12.0 says that the right argument is the flag.</li>
+<li><code>SetTrap[5]</code> defaults <code>force</code> to 0, so an omitted left argument means no trap even in a runtime. The leading comment says that trapping is always established in a runtime. <code>Run</code> always passes the flag, so this only affects other callers.</li>
+<li><code>Run[30]</code> assigns <code>trapFlag</code> from the INI file and never uses it again.</li>
+<li><code>Run[4]</code> and <code>Run[5]</code> set <code>⎕IO</code> and <code>⎕ML</code> without localising them, which changes them for the whole <code>Plodder</code> namespace. <code>quadVars</code> sets the same values, so there is no effect today.</li>
+<li><code>Run[58]</code> passes <code>'TATIN_SRV'</code> to <code>R.Start</code>. That looks like a leftover from the Tatin server.</li>
+<li><code>CreateServerParms[22]</code> hard-codes <code>TLSFlag←32</code> with no comment and no INI entry.</li>
+<li><code>CheckServerParms[19]</code> breaks with a DOMAIN ERROR rather than the intended message when <code>LogHTTP</code> is not a scalar. <code>Port</code>, <code>Secure</code>, <code>MaxNoOfThreads</code>, <code>Log</code>, <code>LogConga</code> and <code>LogRumba</code> are not validated at all.</li>
+<li><code>AppLog[1]</code> still refers to <code>Log</code>, renamed to <code>ServerLog</code> in 1.12.0.</li>
+<li><code>CopyConga</code> copies <code>conga.dws</code> from the current directory when the copy from the interpreter fails, but still returns the interpreter's folder for the DLLs. The two can then belong to different versions of Conga.</li>
+</ul>
+<div class="h_tag">
+<a href="#conventions-from-your-claudemd" id="conventions-from-your-claudemd" class="autoheader_anchor">
+<h3 data-id="Conventions-from-your-CLAUDEmd">Conventions from your CLAUDE.md</h3>
+</a>
+</div>
+<ul>
+<li>Inline I-beams: <code>3502⌶</code> four times in <code>CheckForRide</code>, and <code>739⌶0</code> in <code>ProcessIniFile[25]</code> and <code>SampleApp.DeliverFile[1]</code>. <code>IsConnectedToRide</code>, <code>EnableCONTINUE_workspaces</code> and <code>ExposeRootNameProperties</code> show the pattern to follow.</li>
+<li><code>Assert</code> has three diamonds on one dfn line.</li>
+<li>The dfns in <code>ProcessIniFile[33]</code> to <code>[38]</code> read <code>G</code> and <code>F</code> from the function around them, and <code>[33]</code> assigns to <code>G.HTDOCS</code> from inside a dfn.</li>
+<li><code>ProcessIniFile[26]</code> computes <code>home</code> in the <code>&lt;TEMP&gt;</code> block and never uses it (copied from the block above).</li>
+</ul>
+<div class="h_tag">
+<a href="#documentation" id="documentation" class="autoheader_anchor">
+<h2 data-id="Documentation">Documentation</h2>
+</a>
+</div>
+<div class="h_tag">
+<a href="#missing" id="missing" class="autoheader_anchor">
+<h3 data-id="Missing">Missing</h3>
+</a>
+</div>
+<ul>
+<li>How to start Plodder in production. The release workspace has an empty <code>⎕LX</code>, because <code>SaveProjectWorkpace</code> sets <code>⎕LX←''</code>. Step 5 of the installation (“Execute <code>⎕LX</code>”) therefore does nothing. The ReadMe should say what <code>⎕LX</code> an application should set, including for a Windows Service.</li>
+<li>The arguments of <code>Run</code>. The optional left argument (INI file name), the operand <code>fns</code> (what it gets, what it must return) and the right argument <code>testFlag trapFlag</code> with ¯1 meaning “take it from the INI file” are documented only in the leading comment of <code>Run</code>.</li>
+<li>The handler interface. What <code>OnStart</code>, <code>OnHeader</code>, <code>OnRequest</code> and <code>OnCongaTimeout</code> get as argument and must return. Today a reader has to work it out from the sample application.</li>
+<li>INI entries that the code reads but the shipped INI file does not show: <code>[CONFIG]TestFlag</code> (see 2), <code>[CONFIG]CongaName</code>, <code>[CERTIFICATES]CA_Folder</code>.</li>
+<li><code>LogHTTP = 2</code>. <code>CheckServerParms</code> accepts 2, but nothing says what it does.</li>
+<li>What <code>[LOGGING]Log</code> controls. The ReadMe says it switches the application log on and off, but <code>CreateServerParms</code> also passes it to Rumba as <code>parms.Log</code>.</li>
+<li>What happens after a crash. <code>∆Crashed</code> ends with <code>⎕OFF 125</code> so that the service manager restarts the server. The ReadMe does not mention the exit code or that a restart has to be configured. The comment “We want to be able to continue!” on <code>killThreads←0</code> in <code>SetErrorParms</code> suggests the opposite.</li>
+<li><code>G</code> in the application's namespace. <code>Run</code> assigns <code>G</code> into the <code>Context</code> namespace. The ReadMe says that <code>G</code> is accessible, but not under which name, and not that an existing <code>G</code> there is overwritten.</li>
+</ul>
+<div class="h_tag">
+<a href="#wrong-or-unclear" id="wrong-or-unclear" class="autoheader_anchor">
+<h3 data-id="Wrong-or-unclear">Wrong or unclear</h3>
+</a>
+</div>
+<ul>
+<li>“By default, only HTTP events are logged” (feature 1). The shipped INI file has <code>LogConga = 1</code> and <code>LogRumba = 1</code>.</li>
+<li>Feature 4 shows <code>PrintInstallAsServiceCommand 0</code> twice with different output. The second call should be <code>4501</code>. <code>PrintUninstallServiceCommand</code> is shown without its argument and with a different prefix (<code>Admin.</code> instead of <code>Plodder.Admin.</code>).</li>
+<li>Conga section: “If you don't want neither of this” should be “If you want neither”; “all platform” should be “all platforms”. It says that <code>conga.dws</code> must contain “the class <code>Conga</code>”, while the code copies the namespace <code>Conga</code>.</li>
+<li>“Access to Server Configuration”: <code>(for "Globals),",</code> is garbled, and “an applications” should be “an application”.</li>
+<li>The INI file's first comment says <code>&lt;INIFILE&gt;</code> refers to “the folder this log files lives in”; it means the INI file.</li>
+<li>Feature 2 and the INI comment on <code>WindowsEventLog</code>: see 12.</li>
+</ul>
+<div class="h_tag">
+<a href="#form" id="form" class="autoheader_anchor">
+<h3 data-id="Form">Form</h3>
+</a>
+</div>
+<p>The items of the “Features” list and the paragraph under “I don't want that” contain hard line breaks (trailing double spaces and wrapped lines). According to your writing rules, each paragraph and list item should be one line.</p>
+<div class="h_tag">
+<a href="#release-readiness-for-200" id="release-readiness-for-200" class="autoheader_anchor">
+<h2 data-id="Release-readiness-for-200">Release readiness for 2.0.0</h2>
+</a>
+</div>
+<ul>
+<li><code>packages/apl-buildlist.json</code> still points HandleError at <code>http://localhost:444/</code>. The folder name now says <code>5.2.0</code> without a beta suffix; the URL needs to become <code>https://tatin.dev/</code> once 5.2.0 is published there.</li>
+<li><code>Version</code> returns <code>2.0.0-beta-1+271</code> dated 2026-11-24, while History and the release notes say 2.0.0 from 2026-11-23. The beta suffix has to go during Make, and the dates should agree.</li>
+<li><code>ReleaseNotes.html</code> is copied into the distribution by <code>Make</code>. It already contains the 2.0.0 section, so it seems to have been regenerated; check that it matches the final <code>ReleaseNotes.md</code>.</li>
+<li>I have not run the test suite, because it needs the test server.</li>
+<li>Findings 1, 2 and 3 affect how a freshly installed 2.0.0 behaves. Fixing them before the release would be worthwhile, 3 in particular, because it concerns the new feature.</li>
+</ul>
+<div class="h_tag">
+<a href="#how-the-checks-were-done" id="how-the-checks-were-done" class="autoheader_anchor">
+<h2 data-id="How-the-checks-were-done">How the checks were done</h2>
+</a>
+</div>
+<p>The checks ran in Dyalog 20.0 started with <code>DYALOG_NOPOPUPS=1</code>, with the project's packages loaded through <code>⎕SE.Tatin.LoadDependencies</code>, in a folder in the scratchpad. Two runs stopped on an error in my own input and saved a <code>CONTINUE.dws</code> there, which I deleted. No interpreter crashed.</p>
+<p>One suspicion turned out to be unfounded: the <code>&lt;TEMP&gt;</code> replacement in <code>ProcessIniFile</code> does not break on Windows backslashes, because <code>739⌶0</code> returns forward slashes.</p>
+<div class="h_tag">
+<a href="#status-at-the-end-of-the-day" id="status-at-the-end-of-the-day" class="autoheader_anchor">
+<h2 data-id="Status-at-the-end-of-the-day">Status at the end of the day</h2>
+</a>
+</div>
+<p>All changes are in the working tree and not committed. The full test suite has not been run yet.</p>
+<p>Fixed:</p>
+<ul>
+<li>Findings 1 to 13, and the <code>#.r</code> part of 14.</li>
+<li>3: the shipped INI file sets <code>[LOGGING]Log = 1</code>, and the “Crash storms” section explains why.</li>
+<li>9: request bodies are left out of crash reports unless <code>[TRAP]SaveRequestBody</code> is 1. Query parameters are masked like headers, and the start-up report masks INI entries whose keys mark them as credentials. <code>[TRAP]MaskHeaders</code>, <code>[TRAP]MaskQueryParms</code> and <code>[LOGGING]MaskIniKeys</code> add names to the built-in lists. A new ReadMe section describes what is masked and what is not.</li>
+<li>10: a relative INI file name is always resolved against the current directory; the executable's folder is no longer used.</li>
+<li>11: <code>GetEnvVars</code> was also renamed to <code>GetCommandLineValue</code>.</li>
+<li>12: <code>WindowsEventLog = ¯1</code> now means “in a Runtime”, as the INI comment and the ReadMe say.</li>
+<li>All smaller code points. <code>CopyRumba</code>'s callers now pass the flag on the left. <code>0 SetTrap</code>, <code>[TRAP]Policy = 0</code> and a trap flag of 0 now mean no error trapping, in a Runtime as well. <code>CopyConga</code> reports its fallback to <code>./conga.dws</code> in <code>app-log.txt</code>, and <code>ServerLog</code> does nothing when there is no <code>log.txt</code>.</li>
+<li>All convention points, and the documentation points except those listed below.</li>
+<li>The sample application now routes on <code>request.Path</code>, so a query string no longer leads to a 404.</li>
+<li>The side note to 4 was checked: Rumba builds the path of <code>log.txt</code> correctly with or without a trailing separator, and HandleError copes with an error folder without one.</li>
+</ul>
+<p>New tests: <code>Test_Misc_005</code> to <code>Test_Misc_013</code>. <code>Test_Misc_001</code>, <code>Test_Misc_003</code> and <code>Test_Server_120</code> were extended.</p>
+<p>Still open:</p>
+<ul>
+<li>14: <code>Shutdown</code> and <code>GetAppFolder</code> are kept, but both are still broken as described.</li>
+<li><code>CheckServerParms</code> does not validate <code>LogConga</code> and <code>LogRumba</code>.</li>
+<li>Documentation: the handler interface, what <code>LogHTTP = 2</code> does, and what Rumba does with <code>[LOGGING]Log</code>. Rumba's <code>OpenLogFile</code> does not use it: <code>log.txt</code> depends only on <code>LogHTTP</code>, <code>LogConga</code> and <code>LogRumba</code>.</li>
+<li>Release items: <code>apl-buildlist.json</code> still points HandleError at <code>http://localhost:444/</code>, <code>Version</code> and History disagree about the version and the date, <code>ReleaseNotes.html</code> must be regenerated, and the test suite must be run.</li>
+</ul>
+</body>
+</html>
