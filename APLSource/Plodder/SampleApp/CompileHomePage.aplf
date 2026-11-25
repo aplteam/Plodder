@@ -1,4 +1,4 @@
- html←CompileHomepPage dummy;md;parms;ns
+ html←CompileHomePage dummy;md;parms;ns
  md←''
  md,←⊂'[parm]:title = Plodder'
  md,←⊂'# Plodder server home page (Sample Application)'

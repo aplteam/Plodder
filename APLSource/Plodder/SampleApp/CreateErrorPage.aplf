@@ -1,0 +1,7 @@
+ content←CreateErrorPage msg;md
+⍝ Returns the HTML of a page that shows `msg` as its heading.
+ md←''
+ md,←⊂'[parm]:title = Plodder'
+ md,←⊂'# ',msg
+ content←⊃,/(Markdown2HTML md),¨⊂⎕UCS 13 10
+⍝Done

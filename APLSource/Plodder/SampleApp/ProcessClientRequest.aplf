@@ -1,10 +1,10 @@
  response←response ProcessClientRequest request;html;md
 ⍝ This function processes all requests that come from a Browser (always GET)
  response.StatusCode←200
- :Select ⎕C request.RequestTarget
+ :Select ⎕C request.Path                          ⍝ Not `RequestTarget`: that includes the query string
  :Case ,'/'
      ⎕←'Client asked for the home page'
-     response.Content←⊃,/(CompileHomepPage ⍬),¨⊂⎕UCS 13 10
+     response.Content←⊃,/(CompileHomePage ⍬),¨⊂⎕UCS 13 10
  :Case '/packages'
      ⎕←'Client asked for a list of packages'
      response(ProcessServiceRequest)←'Packages'

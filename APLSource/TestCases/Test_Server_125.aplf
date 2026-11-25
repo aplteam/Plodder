@@ -1,0 +1,30 @@
+ R←Test_Server_125(stopFlag batchFlag);⎕TRAP;c;q;r;noOf
+⍝ Provoke an error in the application's `OnHeader` handler.
+⍝ The client must get a 500, HandleError must save a crash report, and the server must carry on:
+⍝ up to RumbaLean 3.5.2 such an error stopped the server with ⎕OFF 125.
+ ⎕TRAP←(999 'C' '∘∘∘ ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ :If ##.FilesAndDirs.IsDir ∆GetCrashFolder
+     noOf←≢##.FilesAndDirs.ListFiles ∆GetCrashFolder,'/*.html'
+ :Else
+     noOf←0
+ :EndIf
+
+ c←∆NewClient
+ q←Rumba.NewRequest 0
+ q.RequestTarget←'/crash-in-header'
+ r←c Rumba.SendAndReceive q
+
+ →T.PassesIf r.StatusCode=500
+ →T.PassesIf∨/'<h1>500: Internal Server Error</h1>'⍷r.Content
+ →T.PassesIf(noOf+1)=≢##.FilesAndDirs.ListFiles ∆GetCrashFolder,'/*.html'
+
+ c←∆NewClient                                       ⍝ The server closed the connection after the 500
+ q←Rumba.NewRequest 0
+ q.RequestTarget←'/groups'                          ⍝ Not '/packages': Test_Server_999 counts those
+ r←c Rumba.SendAndReceive q
+ →T.PassesIf r.StatusCode=200                       ⍝ The server is still running
+
+ R←T._OK
+⍝Done

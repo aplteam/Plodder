@@ -7,10 +7,10 @@
  :Case 'GET'
      response(ProcessClientRequest)←request
  :CaseList 'POST' 'PUT' 'PATCH' 'DELETE' 'HEAD'
-     response.Content←H.ErrorPage'Error 501: ',request.Method,' is not implemented yet'
+     response.Content←CreateErrorPage'Error 501: ',request.Method,' is not implemented yet'
      response.StatusCode←501
  :Else
-     response.StatusCode←400
-     response.Content←H.ErrorPage'Error 400: unknown type; must be undefined or "json" or "html" (default)'
+     response.Content←CreateErrorPage'Error 501: the method ',request.Method,' is not supported'
+     response.StatusCode←501
  :EndSelect
 ⍝Done

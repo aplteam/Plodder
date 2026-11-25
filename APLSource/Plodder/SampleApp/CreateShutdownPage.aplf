@@ -2,7 +2,7 @@
  md←''
  md,←⊂'Plodder is shutting down'
  md,←⊂''
- md,←⊂'Go to [Plodder''s homepage](http://localhost:',(⍕G.INI.Get'Config:Port'),'/)'
+ md,←⊂'Go to [Plodder''s homepage](/)'
  md←(⊂'[parm]:title = Plodder'),md
  html←Markdown2HTML md
  response.Content←⊃,/html,¨⊂⎕UCS 13 10

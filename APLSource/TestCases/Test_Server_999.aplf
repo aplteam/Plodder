@@ -24,7 +24,9 @@
  →T.PassesIf 1=+/'Server started'⍷log
  →T.PassesIf 1=+/'"GET /This_Does_Not_Exist_For_Sure HTTP/1.1" 404'⍷log
  →T.PassesIf 1=+/'"GET /packages HTTP/1.1" 200'⍷log
- →T.PassesIf 1=+/'Application Error:'⍷log
+ →T.PassesIf 0=+/'GET /crash-in-header'⍷log              ⍝ Answered by HandleHeader: must not reach OnRequest (Test_Server_125)
+ →T.PassesIf 2=+/'Application Error:'⍷log                ⍝ Test_Server_120 (OnRequest) and Test_Server_125 (OnHeader)
+ →T.PassesIf 1=+/'= 1, ceiling 10, reset after 24 h'⍷log   ⍝ test.ini has no storm guard entries: the defaults apply
  log←(⎕UCS 10)APLTreeUtils2.Split log
  expected←'*** Command line arguments:' '*** INI file:' '*** Misc:'
  →T.PassesIf∧/expected∊log
